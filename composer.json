@@ -1,0 +1,23 @@
+{
+  "name":"jma/mini-framwork",
+  "Description": "Mini FrameWork MVC",
+  "License": "MIT",
+  "Type":"project",
+  "authors":[
+    {
+    "name": "Jorge M. Abdalla", "email": "jorge_miguelcga@hotmail.com"
+    }
+  ],
+
+  "autoload":{
+    "psr-4":{
+      "App\\": "app/",
+      "Core\\": "core/"
+    }
+  },
+
+  "require":{
+    "php": ">=5.4"
+  }
+
+}
