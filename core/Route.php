@@ -25,6 +25,21 @@ class Route
 
     }
 
+    private function getRequest(){
+
+        $obj = new \stdClass();
+
+        foreach ($_GET as $key => $value){
+            @$obj->get->$key = $value;
+        }
+
+        foreach ($_POST as $key => $value){
+            @$obj->post->$key = $value;
+        }
+
+        return $obj;
+    }
+
     private function getUrl(){
         return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
@@ -57,12 +72,31 @@ class Route
                 break;
             }
             else {
-
+                $found = false;
             }
         }
 
         if ($found){
+            $controller = Containers::newController($controller);
 
+            switch (count($param)){
+                case 1:
+                    $controller->$action($param[0], $this->getRequest());
+                    break;
+                case 2:
+                    $controller->$action($param[0], $param[1], $this->getRequest());
+                    break;
+                case 3:
+                    $controller->$action($param[0], $param[1], $param[2], $this->getRequest());
+                    break;
+                default:
+                    $controller->$action($this->getRequest());
+            }
+
+
+        }
+        else {
+            echo "Pagina não econtrada";
         }
     }
 }
