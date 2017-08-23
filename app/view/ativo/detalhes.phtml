@@ -1,0 +1,38 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <p>
+            <h1><?php $this->getPageTitle(); ?></h1>
+            </p>
+        </div>
+
+        <div class="col-md-12">
+
+            <?php
+
+                $ativo = $this->view->ativo;
+
+                echo "<p> ID: {$ativo->ativo_id} </p>";
+                echo "<p> Nome: {$ativo->nome} </p>";
+                echo "<p> Descrição: {$ativo->descricao} </p>";
+                echo "<p> Nr Patrimonio: {$ativo->nrpatrimonio} </p>";
+                echo "<p> Data de Compra: {$ativo->datacompra} </p>";
+
+            ?>
+
+        </div>
+
+        <div class="col">
+            <button onclick="history.go(-1)" class="btn btn-outline-primary">
+                <i class="material-icons">
+                    arrow_back
+                </i>
+                Voltar
+            </button>
+        </div>
+
+    </div>
+
+</div>

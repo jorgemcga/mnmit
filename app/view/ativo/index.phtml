@@ -1,0 +1,53 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-10">
+            <p>
+                <h1><?php $this->getPageTitle(); ?></h1>
+            </p>
+        </div>
+
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-primary" onclick="location='ativo/adicionar'">
+                <i class="material-icons">add_to_queue</i>
+                Novo Ativo
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <table class="table table-striped">
+
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Numero de Patromonio</th>
+                        <th>Data de Compra</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($this->view->ativos as $ativo){ ?>
+                        <tr class="cellink" onclick="location='ativo/visualizar/<?php echo $ativo->ativo_id; ?>'">
+                        <th scope='row'><?php echo $ativo->ativo_id; ?></th>
+                        <td><?php echo $ativo->nome; ?></td>
+                        <td><?php echo $ativo->descricao; ?></td>
+                        <td><?php echo $ativo->nrpatrimonio; ?></td>
+                        <td><?php echo $ativo->datacompra; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

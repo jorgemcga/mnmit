@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
-class HomeController{
+use Core\Controller;
+
+class HomeController extends Controller {
 
     public function index(){
-        echo "index";
+
+        $this->view->nome = "Dashboard";
+
+        $this->setPageTitle("Dashboard");
+        $this->setView("home/index", "layout/index");
     }
 
 }

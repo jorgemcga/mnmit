@@ -52,6 +52,7 @@ class Route
         foreach ($this->routes as $route){
 
             $routeArray = explode("/", $route[0]);
+            $param = array();
 
             for($i=0; $i<count($routeArray); $i++){
 
@@ -77,6 +78,7 @@ class Route
         }
 
         if ($found){
+
             $controller = Containers::newController($controller);
 
             switch (count($param)){
@@ -96,7 +98,7 @@ class Route
 
         }
         else {
-            echo "Pagina não econtrada";
+            Containers::pageNotFound();
         }
     }
 }

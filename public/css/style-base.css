@@ -1,0 +1,55 @@
+/*@import "/../bootstrap/css/bootstrap.min.css";*/
+@import "/../bootstrap4/css/bootstrap.min.css";
+
+/* BASE CSS */
+.row-bottom-20{
+    margin-top: 20px;
+}
+
+.content {
+    min-height: calc(100vh - 40px);
+}
+
+.footer {
+    /*height: 50px;*/
+    color:#007bff;
+}
+
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+
+/* fallback */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/../googleicons/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+
+    vertical-align: -4px;
+}
+
+.cellink{
+    cursor: pointer;
+}
+
+.btn{
+    cursor: pointer;
+}
