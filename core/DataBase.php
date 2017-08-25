@@ -26,6 +26,7 @@ class DataBase
             }
             catch (PDOException $e){
                 echo $e->getMessage();
+                die();
             }
         }
         else if ($conf['driver'] == "mysql"){
@@ -47,7 +48,9 @@ class DataBase
 
             }
             catch (PDOException $e){
-                echo $e->getMessage();
+                //echo $e->getMessage();
+                include_once '../app/view/notfound/maintenance.phtml';
+                die();
             }
         }
         else {

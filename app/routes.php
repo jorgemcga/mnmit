@@ -8,8 +8,8 @@
     $route[] = ['/gerenciamento/ativo/visualizar/{id}', 'AtivoController@visualizar'];
     $route[] = ['/gerenciamento/ativo/adicionar', 'AtivoController@adicionar'];
     $route[] = ['/gerenciamento/ativo/salvar', 'AtivoController@salvar'];
-
     $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar'];
+    $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar'];
 
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
 

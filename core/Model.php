@@ -52,9 +52,9 @@ abstract class Model
 
         $stmt = $this->pdo->prepare($query);
 
-        for ($i=0; $i < count($data['bind']); $i++){
+        for ($i=0; $i < count($data['binds']); $i++){
 
-            $stmt->bindValue("{$data['bind'][$i]}", $data['values'][$i]);
+            $stmt->bindValue("{$data['binds'][$i]}", $data['values'][$i]);
 
         }
 
@@ -90,5 +90,63 @@ abstract class Model
         ];
     }
 
+    public function update($id, array $data){
+
+        $data = $this->prepareDataUpdate($data);
+
+        $query = "UPDATE {$this->table} SET {$data['strKeysBinds']} WHERE {$this->table}_id=:id";
+
+        $stmt = $this->pdo->prepare($query);
+
+        for ($i=0; $i < count($data['binds']); $i++){
+
+            $stmt->bindValue("{$data['binds'][$i]}", $data['values'][$i]);
+
+        }
+
+        $stmt->bindValue(":id", $id);
+
+        $result = $stmt->execute();
+
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
+    private function prepareDataUpdate(array $data){
+
+        $strKeysBinds = "";
+        $binds = [];
+        $values = [];
+
+        foreach ($data as $key => $value){
+            $strKeysBinds = "{$strKeysBinds},{$key}=:{$key}";
+            $binds[] = ":{$key}";
+            $values[] = $value;
+        }
+
+        $strKeysBinds = substr($strKeysBinds, 1);
+
+        return [
+            'strKeysBinds' => $strKeysBinds,
+            'binds' => $binds,
+            'values' => $values,
+        ];
+    }
+
+    public function delete($id){
+
+        $query = "DELETE FROM {$this->table} WHERE {$this->table}_id=:id";
+
+        $stmt = $this->pdo->prepare($query);
+
+        $stmt->bindValue(":id", $id);
+
+        $result = $stmt->execute();
+
+        $stmt->closeCursor();
+
+        return $result;
+    }
 
 }

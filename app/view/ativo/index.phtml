@@ -4,14 +4,17 @@
 
         <div class="col-md-10">
             <p>
-                <h1><?php $this->getPageTitle(); ?></h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">devices</i>
+                    <?php $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
 
         <div class="col-md-2 text-right mt-3">
-            <button type="button" class="btn btn-primary" onclick="location='ativo/adicionar'">
-                <i class="material-icons">add_to_queue</i>
-                Novo Ativo
+            <button type="button" class="btn btn-outline-primary" onclick="location='ativo/adicionar'">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+                Novo
             </button>
         </div>
 
@@ -25,22 +28,39 @@
 
                 <thead class="thead-inverse">
                     <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
+                        <th>Nº Patromonio</th>
+                        <th>Nome de Identificação</th>
                         <th>Descrição</th>
-                        <th>Numero de Patromonio</th>
                         <th>Data de Compra</th>
+                        <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php foreach ($this->view->ativos as $ativo){ ?>
-                        <tr class="cellink" onclick="location='ativo/visualizar/<?php echo $ativo->ativo_id; ?>'">
-                        <th scope='row'><?php echo $ativo->ativo_id; ?></th>
-                        <td><?php echo $ativo->nome; ?></td>
-                        <td><?php echo $ativo->descricao; ?></td>
-                        <td><?php echo $ativo->nrpatrimonio; ?></td>
-                        <td><?php echo $ativo->datacompra; ?></td>
+                        <tr>
+                        <!--<th scope='row'>--><?php //echo $ativo->ativo_id; ?><!--</th>-->
+                            <td><?php echo $ativo->nrpatrimonio; ?></td>
+                            <td><?php echo $ativo->nome; ?></td>
+                            <td><?php echo $ativo->descricao; ?></td>
+                            <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
+                            <td class="text-right">
+
+                                <a title="Clique para visualizar" href="ativo/visualizar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
+                                    <i class="material-icons" style="font-size: 18px;">description</i>
+                                    Detalhar
+                                </a>
+
+                                <a href="ativo/editar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                                    <i class="material-icons" style="font-size: 18px;">edit</i>
+                                    Editar
+                                </a>
+
+                                <span onclick="global.confirmar('ativo/apagar/<?php echo $ativo->ativo_id; ?>', 'Apagar este ativo?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                    <i class="material-icons" style="font-size: 18px;">delete</i>
+                                    Apagar
+                                </span>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

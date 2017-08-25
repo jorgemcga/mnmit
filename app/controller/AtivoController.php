@@ -40,11 +40,30 @@ class AtivoController extends Controller
     }
 
     public function adicionar(){
+
+        $this->view->ativo = new \stdClass();
+
+        $this->view->ativo->ativo_id = "";
+        $this->view->ativo->nrpatrimonio = "";
+        $this->view->ativo->nome = "";
+        $this->view->ativo->tag = "";
+        $this->view->ativo->descricao = "";
+        $this->view->ativo->datacompra = "";
+        $this->view->ativo->monitorar = "checked";
+        $this->view->ativo->categoria_ativo_id = "";
+        $this->view->ativo->so_id = "";
+        $this->view->ativo->modelo_id = "";
+        $this->view->ativo->usuario_id = "";
+
+        $this->view->action = "salvar";
+
         $this->setPageTitle("Adicionar Ativo");
-        $this->setView("ativo/adicionar", "layout/index");
+        $this->setView("ativo/form", "layout/index");
     }
 
     public function salvar($request){
+
+        $monitorar = isset($request->post->monitorar)? 1 : 0;
 
         $data = [
             'nrpatrimonio' => $request->post->nrpatrimonio,
@@ -52,26 +71,52 @@ class AtivoController extends Controller
             'tag' => $request->post->tag,
             'descricao' => $request->post->descricao,
             'datacompra' => $request->post->datacompra,
-            'monitorar' => $request->post->monitorar,
+            'monitorar' => $monitorar,
             'categoria_ativo_id' => $request->post->categoria_ativo_id,
             'so_id' => $request->post->so_id,
             'modelo_id'=> $request->post->modelo_id,
-            'usuario_id' => $request->post->usuario_i
+            'usuario_id' => $request->post->usuario_id
         ];
 
-        $result = $this->modelAtivo->insert($data);
+        $result = $request->post->action=="salvar" ? $this->modelAtivo->insert($data) :  $this->modelAtivo->update($request->post->ativo_id, $data);
 
-        if (!$request){
-            Redirect::route("gerenciamento/ativo");
+        if ($result){
+            Redirect::route("/gerenciamento/ativo");
         }
         else {
-            echo "<scrpit> alert('Erro ao salvar!'); </scrpit>";
+            echo '<script language="javascript">';
+            echo 'alert("Erro ao realizar operação! Verifique os dados!");';
+            echo 'history.go(-1);';
+            echo '</script>';
         }
 
     }
 
-    public function editar($id, $request){
-        echo "Editando ativo id: " . $id . " Com os dados: " . $request->get->nome . " e " . $request->get->obs;
+    public function editar($id){
+
+        $this->view->action = "editar";
+
+        $this->view->ativo = $this->modelAtivo->find($id);
+
+        $this->setPageTitle("Editar Ativo");
+        $this->setView('ativo/form', 'layout/index');
+
+    }
+
+    public function apagar($id){
+
+        if($result = $this->modelAtivo->delete($id)){
+            Redirect::route("/gerenciamento/ativo");
+        }
+        else {
+            echo '<script language="javascript">';
+            echo 'alert("Erro ao Deletar! Verifique se não há pendencias para deletar esse item!");';
+            echo 'history.go(-1);';
+            echo '</script>';
+        }
+
+
+
     }
 
 }
