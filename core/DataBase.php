@@ -9,10 +9,9 @@ class DataBase
 {
     public static function getDataBase(){
 
-        $conf = include_once __DIR__ . '/../app/database.php';
+        $conf = include __DIR__ . '/../app/database.php';
 
         if ($conf['driver'] == "sqlite"){
-
 
             $sqlite = __DIR__ . "/../storage/database/" . $conf['sqlite']['host'];
             $sqlite = "sqlite: " . $sqlite;
@@ -48,12 +47,13 @@ class DataBase
 
             }
             catch (PDOException $e){
-                //echo $e->getMessage();
+                echo $e->getMessage();
                 include_once '../app/view/notfound/maintenance.phtml';
                 die();
             }
         }
         else {
+//            include_once '../app/view/notfound/maintenance.phtml';
             echo "Drive de conexão não configurado!";
         }
     }

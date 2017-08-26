@@ -9,11 +9,13 @@ use Core\Redirect;
 class AtivoController extends Controller
 {
     private $modelAtivo;
+    private $modelCategoriaAtivo;
 
     public function __construct()
     {
         parent::__construct();
         $this->modelAtivo = Containers::getModel('AtivoModel');
+        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivoModel');
     }
 
 
@@ -41,20 +43,8 @@ class AtivoController extends Controller
 
     public function adicionar(){
 
-        $this->view->ativo = new \stdClass();
-
-        $this->view->ativo->ativo_id = "";
-        $this->view->ativo->nrpatrimonio = "";
-        $this->view->ativo->nome = "";
-        $this->view->ativo->tag = "";
-        $this->view->ativo->descricao = "";
-        $this->view->ativo->datacompra = "";
-        $this->view->ativo->monitorar = "checked";
-        $this->view->ativo->categoria_ativo_id = "";
-        $this->view->ativo->so_id = "";
-        $this->view->ativo->modelo_id = "";
-        $this->view->ativo->usuario_id = "";
-
+        $this->view->ativo = $this->modelAtivo;
+        $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
         $this->view->action = "salvar";
 
         $this->setPageTitle("Adicionar Ativo");
@@ -97,6 +87,7 @@ class AtivoController extends Controller
         $this->view->action = "editar";
 
         $this->view->ativo = $this->modelAtivo->find($id);
+        $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
 
         $this->setPageTitle("Editar Ativo");
         $this->setView('ativo/form', 'layout/index');

@@ -73,9 +73,26 @@
 
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select  multiple class="form-control" name="categoria_ativo_id" value="<?php echo $this->view->ativo->categoria_ativo_id ?>">
-                        <option selected>1</option>
-                        <option>2</option>
+                    <select  multiple class="form-control" name="categoria_ativo_id">
+
+                        <?php
+
+                        $selected = "";
+
+                        foreach ($this->view->categoria_ativo as $categoria) {
+                            if (isset($this->view->ativo->categoria_ativo_id) && ($categoria->categoria_ativo_id == $this->view->ativo->categoria_ativo_id)) {
+                                $selected = "selected";
+                            }
+                            else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $categoria->categoria_ativo_id?>">
+                                <?php echo $categoria->nome ?>
+                            </option>
+
+                        <?php } ?>
+
                     </select>
                 </div>
 

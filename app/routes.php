@@ -11,6 +11,11 @@
     $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar'];
     $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar'];
 
+    $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar'];
+    $route[] = ['/gerenciamento/categoriaativo/salvar', 'CategoriaAtivoController@salvar'];
+    $route[] = ['/gerenciamento/categoriaativo/editar/{id}', 'CategoriaAtivoController@editar'];
+    $route[] = ['/gerenciamento/categoriaativo/apagar/{id}', 'CategoriaAtivoController@apagar'];
+
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
 
     return $route;
