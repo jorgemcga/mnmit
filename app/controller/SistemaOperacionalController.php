@@ -14,7 +14,7 @@ class SistemaOperacionalController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->modelSO = Containers::getModel('SistemaOperacionalModel');
+        $this->modelSO = Containers::getModel('SistemaOperacional');
     }
 
     public function index()

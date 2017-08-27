@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Core\Model;
 
-class SistemaOperacionalModel extends Model
+class SistemaOperacional extends Model
 {
     protected $table = "so";
 

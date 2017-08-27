@@ -40,14 +40,14 @@
         <div class="col-md-4">
             <p>
             <h1>
-                <i class="material-icons" style="font-size: 38px">settings_applications</i>
+                <i class="material-icons" style="font-size: 38px">developer_board</i>
                 <?php $this->getPageTitle(); ?>
             </h1>
             </p>
         </div>
 
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='sistemaoperacional/adicionar'">
+            <button type="button" class="btn btn-outline-primary" onclick="location='fabricante/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
                 Criar Novo
             </button>
@@ -63,28 +63,26 @@
 
                 <thead class="thead-inverse">
                 <tr>
-                    <th>Sistema</th>
-                    <th>Versão</th>
+                    <th>Nome de Identificação</th>
                     <th></th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <?php foreach ($this->view->so as $so){ ?>
+                <?php foreach ($this->view->fabricantes as $fabricante){ ?>
                     <tr>
-                        <td><?php echo $so->nome; ?></td>
-                        <td><?php echo $so->versao; ?></td>
+                        <td><?php echo $fabricante->nome; ?></td>
                         <td class="text-right">
 
-                            <a href="sistemaoperacional/editar/<?php echo $so->so_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="fabricante/editar/<?php echo $fabricante->fabricante_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                                 Editar
                             </a>
 
-                            <span onclick="global.confirmar('sistemaoperacional/apagar/<?php echo $so->so_id; ?>', 'Apagar este Sistema Operacional?')" class="btn btn-outline-danger" title="Clique para Apagar">
-                                    <i class="material-icons" style="font-size: 18px;">delete</i>
-                                    Apagar
-                                </span>
+                            <span onclick="global.confirmar('fabricante/apagar/<?php echo $fabricante->fabricante_id; ?>', 'Apagar este Fabricante?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                <i class="material-icons" style="font-size: 18px;">delete</i>
+                                Apagar
+                            </span>
                         </td>
                     </tr>
                 <?php } ?>

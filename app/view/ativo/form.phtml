@@ -122,8 +122,32 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Serial do Sistema Operacional</label>
+                    <input class="form-control" name="serial" value="<?php echo $this->view->ativo->serial ?>">
+                </div>
+
+                <div class="form-group">
                     <label>Modelo</label>
-                    <select  multiple class="form-control" name="modelo_id" value="<?php echo $this->view->ativo->modelo_id ?>"s>
+                    <select  multiple class="form-control" name="modelo_id" value="<?php echo $this->view->ativo->modelo_id ?>">
+
+                        <?php
+
+                        $selected = "";
+
+                        foreach ($this->view->modelo as $modelo) {
+                            if (isset($this->view->modelo->modelo_id) && ($modelo->modelo_id == $this->view->fabricante->modelo_id)) {
+                                $selected = "selected";
+                            }
+                            else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $modelo->modelo_id?>">
+                                <?php echo $modelo->nome?>
+                            </option>
+
+                        <?php } ?>
+
                     </select>
                 </div>
 

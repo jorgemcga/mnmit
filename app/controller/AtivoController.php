@@ -11,13 +11,15 @@ class AtivoController extends Controller
     private $modelAtivo;
     private $modelCategoriaAtivo;
     private $modelSO;
+    private $modelModelo;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = Containers::getModel('AtivoModel');
-        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivoModel');
-        $this->modelSO = Containers::getModel('SistemaOperacionalModel');
+        $this->modelAtivo = Containers::getModel('Ativo');
+        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivo');
+        $this->modelSO = Containers::getModel('SistemaOperacional');
+        $this->modelModelo = Containers::getModel('ModeloModel');
     }
 
 
@@ -48,6 +50,8 @@ class AtivoController extends Controller
         $this->view->ativo = $this->modelAtivo;
         $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
         $this->view->so = $this->modelSO->all();
+        $this->view->modelo = $this->modelModelo->all();
+
         $this->view->action = "salvar";
 
         $this->setPageTitle("Adicionar Ativo");
@@ -68,6 +72,7 @@ class AtivoController extends Controller
             'categoria_ativo_id' => $request->post->categoria_ativo_id,
             'so_id' => $request->post->so_id,
             'modelo_id'=> $request->post->modelo_id,
+            'serial' => $request->post->serial,
             'usuario_id' => $request->post->usuario_id
         ];
 
@@ -97,6 +102,7 @@ class AtivoController extends Controller
 
         $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
         $this->view->so = $this->modelSO->all();
+        $this->view->modelo = $this->modelModelo->all();
 
         $this->setPageTitle("Editar Ativo");
         $this->setView('ativo/form', 'layout/index');
@@ -110,7 +116,7 @@ class AtivoController extends Controller
         }
         else {
             echo '<script language="javascript">';
-            echo 'alert("Erro ao Deletar! Verifique se há pendencias para deletar esse item!");';
+            echo 'alert("Erro ao deletar Ativo! Verifique se há pendencias antes de deletar esse item!");';
             echo 'history.go(-1);';
             echo '</script>';
         }

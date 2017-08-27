@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Core\Model;
 
-class CategoriaAtivoModel extends Model
+class CategoriaAtivo extends Model
 {
     protected $table = "categoria_ativo";
 

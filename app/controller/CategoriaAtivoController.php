@@ -13,7 +13,7 @@ class CategoriaAtivoController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivoModel');
+        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivo');
     }
 
     public function index()
