@@ -1,0 +1,90 @@
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/ativo">
+                <i class="material-icons">devices</i>
+                Ativos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/categoriaativo">
+                <i class="material-icons">devices_other</i>
+                Categorias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
+                <i class="material-icons">settings_applications</i>
+                Sistemas Operacionais
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/modelo">
+                <i class="material-icons">cast</i>
+                Modelos
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">devices_other</i>
+                <?php $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick="location='categoriaativo/adicionar'">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+                Criar Nova
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <table class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Nome de Identificação</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->categoria_ativos as $categoria_ativo){ ?>
+                    <tr>
+                        <td><?php echo $categoria_ativo->nome; ?></td>
+                        <td class="text-right">
+
+                            <a href="categoriaativo/editar/<?php echo $categoria_ativo->categoria_ativo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                                <i class="material-icons" style="font-size: 18px;">edit</i>
+                                Editar
+                            </a>
+
+                            <span onclick="global.confirmar('categoriaativo/apagar/<?php echo $categoria_ativo->categoria_ativo_id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                <i class="material-icons" style="font-size: 18px;">delete</i>
+                                Apagar
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

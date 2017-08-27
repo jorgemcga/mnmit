@@ -99,6 +99,25 @@
                 <div class="form-group">
                     <label>Sistema Operacional</label>
                     <select  multiple class="form-control" name="so_id" value="<?php echo $this->view->ativo->so_id ?>">
+
+                        <?php
+
+                        $selected = "";
+
+                        foreach ($this->view->so as $so) {
+                            if (isset($this->view->ativo->so_id) && ($so->so_id == $this->view->ativo->so_id)) {
+                                $selected = "selected";
+                            }
+                            else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $so->so_id?>">
+                                <?php echo $so->nome . " | Versão: " . $so->versao?>
+                            </option>
+
+                        <?php } ?>
+
                     </select>
                 </div>
 

@@ -1,3 +1,32 @@
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/ativo">
+                <i class="material-icons">devices</i>
+                Ativos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/categoriaativo">
+                <i class="material-icons">devices_other</i>
+                Categorias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
+                <i class="material-icons">settings_applications</i>
+                Sistemas Operacionais
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/modelo">
+                <i class="material-icons">cast</i>
+                Modelos
+            </a>
+        </li>
+    </ul>
+</div>
+
 <div class="container-fluid">
 
     <div class="row">
@@ -14,11 +43,7 @@
         <div class="col-md-8 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" onclick="location='ativo/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
-                Novo Ativo
-            </button>
-            <button type="button" class="btn btn-outline-primary" onclick="location='categoriaativo/adicionar'">
-                <i class="material-icons" style="font-size: 18px;">add_to_queue</i>
-                Nova Categoria
+                Criar Novo
             </button>
         </div>
 
@@ -43,7 +68,6 @@
                 <tbody>
                     <?php foreach ($this->view->ativos as $ativo){ ?>
                         <tr>
-                        <!--<th scope='row'>--><?php //echo $ativo->ativo_id; ?><!--</th>-->
                             <td><?php echo $ativo->nrpatrimonio; ?></td>
                             <td><?php echo $ativo->nome; ?></td>
                             <td><?php echo $ativo->descricao; ?></td>

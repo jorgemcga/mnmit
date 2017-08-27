@@ -10,12 +10,14 @@ class AtivoController extends Controller
 {
     private $modelAtivo;
     private $modelCategoriaAtivo;
+    private $modelSO;
 
     public function __construct()
     {
         parent::__construct();
         $this->modelAtivo = Containers::getModel('AtivoModel');
         $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivoModel');
+        $this->modelSO = Containers::getModel('SistemaOperacionalModel');
     }
 
 
@@ -45,6 +47,7 @@ class AtivoController extends Controller
 
         $this->view->ativo = $this->modelAtivo;
         $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
+        $this->view->so = $this->modelSO->all();
         $this->view->action = "salvar";
 
         $this->setPageTitle("Adicionar Ativo");
@@ -53,7 +56,7 @@ class AtivoController extends Controller
 
     public function salvar($request){
 
-        $monitorar = isset($request->post->monitorar)? 1 : 0;
+        $monitorar = isset($request->post->monitorar) ? 1 : 0;
 
         $data = [
             'nrpatrimonio' => $request->post->nrpatrimonio,
@@ -87,7 +90,13 @@ class AtivoController extends Controller
         $this->view->action = "editar";
 
         $this->view->ativo = $this->modelAtivo->find($id);
+
+        if ($this->view->ativo->monitorar == 1){
+            $this->view->ativo->monitorar = "checked";
+        }
+
         $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
+        $this->view->so = $this->modelSO->all();
 
         $this->setPageTitle("Editar Ativo");
         $this->setView('ativo/form', 'layout/index');
@@ -101,13 +110,10 @@ class AtivoController extends Controller
         }
         else {
             echo '<script language="javascript">';
-            echo 'alert("Erro ao Deletar! Verifique se não há pendencias para deletar esse item!");';
+            echo 'alert("Erro ao Deletar! Verifique se há pendencias para deletar esse item!");';
             echo 'history.go(-1);';
             echo '</script>';
         }
-
-
-
     }
 
 }
