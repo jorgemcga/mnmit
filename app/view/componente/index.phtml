@@ -59,9 +59,8 @@
                 <tr>
                     <th>Nome de Identificação</th>
                     <th>Valor</th>
-<!--                    <th>Unidade</th>-->
-<!--                    <th>Categoria</th>-->
-<!--                    <th>Ativo</th>-->
+                    <th>Categoria</th>
+                    <th>Ativo</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -70,8 +69,9 @@
                 <?php foreach ($this->view->componentes as $componente){ ?>
                     <tr>
                         <td><?php echo $componente->nome; ?></td>
-                        <td><?php echo $componente->valor; ?></td>
-
+                        <td><?php echo $componente->valor; ?> + Sigla</td>
+                        <td>Categoria</td>
+                        <td>Ativo</td>
                         <td class="text-right">
 
                             <a href="componente/editar/<?php echo $componente->componente_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">

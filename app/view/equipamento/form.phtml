@@ -1,0 +1,114 @@
+<div class="container-fluid mt-1">
+
+    <form class="form-horizontal" action="/gerenciamento/equipamento/salvar" method="post" accept-charset="utf-8">
+        <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
+        <input name="equipamento_id" type="hidden" value="<?php echo $this->view->equipamento->equipamento_id ?>">
+
+        <div class="card card-inverse">
+
+            <div class="card-header">
+
+                <div class="row">
+                    <h3 class="col-md-10">
+                        <i class="material-icons" style="font-size: 28px">keyboard</i>
+                        <?php echo $this->getPageTitle(); ?>
+                    </h3>
+
+                    <div class="col-md-2 text-right">
+                        <button type="submit" class="btn btn-success">
+                            <i class="material-icons" style="font-size: 18px;">done</i>
+                            Gravar
+                        </button>
+
+                        <button type="button" class="btn btn-danger" onclick="history.go(-1)">
+                            <i class="material-icons" style="font-size: 18px;">clear</i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label>Número de Patrimônio</label>
+                    <input name="nrpatrimonio" type="text" class="form-control" placeholder="Identificador"
+                           value="<?php echo $this->view->equipamento->nrpatrimonio ?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input name="nome" type="text" class="form-control" placeholder="Nome visível do equipamento"
+                           value="<?php echo $this->view->equipamento->nome?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Data de Compra</label>
+                    <input name="datacompra" type="date" class="form-control"
+                           value="<?php echo $this->view->equipamento->datacompra ?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select  multiple class="form-control" name="categoria_equipamento_id">
+
+                        <?php
+
+                        $selected = "";
+
+                        foreach ($this->view->categoria_equipamento as $categoria) {
+                            if (isset($this->view->equipamento->categoria_equipamento_id) && ($categoria->categoria_equipamento_id == $this->view->equipamento->categoria_equipamento_id)) {
+                                $selected = "selected";
+                            }
+                            else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $categoria->categoria_equipamento_id?>">
+                                <?php echo $categoria->nome ?>
+                            </option>
+
+                        <?php } ?>
+
+                    </select>
+                </div>
+
+<!---->
+<!--                <div class="form-group">-->
+<!--                    <label>Modelo</label>-->
+<!--                    <select  multiple class="form-control" name="modelo_id" value="--><?php //echo $this->view->equipamento->modelo_id ?><!--">-->
+<!---->
+<!--                        --><?php
+//
+//                        $selected = "";
+//
+//                        foreach ($this->view->modelo as $modelo) {
+//                            if (isset($this->view->modelo->modelo_id) && ($modelo->modelo_id == $this->view->fabricante->modelo_id)) {
+//                                $selected = "selected";
+//                            }
+//                            else{
+//                                $selected = "";
+//                            }
+//                            ?>
+<!--                            <option --><?php //echo $selected ?><!-- value="--><?php //echo $modelo->modelo_id?><!--">-->
+<!--                                --><?php //echo $modelo->nome?>
+<!--                            </option>-->
+<!---->
+<!--                        --><?php //} ?>
+<!---->
+<!--                    </select>-->
+<!--                </div>-->
+
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <select  multiple class="form-control" name="usuario_id" value="<?php echo $this->view->equipamento->usuario_id ?>">
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

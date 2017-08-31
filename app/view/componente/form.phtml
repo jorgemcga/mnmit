@@ -67,13 +67,14 @@
 
                 <div class="form-group">
                     <label>Aplicar ao Ativo</label>
-                    <select multiple name="ativo_id" class="form-control">
+                    <select name="ativo_id" class="form-control">
+                        <option selected> Nenhum </option>
                         <?php
 
                         $selected = "";
 
                         foreach ($this->view->ativo as $ativo) {
-                            if (isset($this->view->ativo->ativo_id) && ($ativo->ativo_id == $this->view->componente->ativo_id)) {
+                            if (isset($this->view->componente->ativo_id) && ($ativo->ativo_id == $this->view->componente->ativo_id)) {
                                 $selected = "selected";
                             }
                             else{

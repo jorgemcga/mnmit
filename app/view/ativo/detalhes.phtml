@@ -14,11 +14,17 @@
 
                 $ativo = $this->view->ativo;
 
-                echo "<p> ID: {$ativo->ativo_id} </p>";
-                echo "<p> Nome: {$ativo->nome} </p>";
+
+                echo "<p> Número de Patrimonio: {$ativo->nrpatrimonio} </p>";
+                echo "<p> Tag: {$ativo->tag} </p>";
                 echo "<p> Descrição: {$ativo->descricao} </p>";
-                echo "<p> Nr Patrimonio: {$ativo->nrpatrimonio} </p>";
                 echo "<p> Data de Compra: {$ativo->datacompra} </p>";
+                echo $ativo->monitorar == 1 ? "<p> Status: Monitorado </p>" : "<p> Status: Não Monitorado </p>";
+                echo "<p> Categoria: {$ativo->categoria_ativo_id} </p>";
+                echo "<p> Sistema Operacional: {$ativo->so_id} </p>";
+                echo "<p> Serial SO: {$ativo->serial} </p>";
+                echo "<p> Modelo: {$ativo->modelo_id} </p>";
+                echo "<p> Utilizador: {$ativo->usuario_id} </p>";
 
             ?>
 

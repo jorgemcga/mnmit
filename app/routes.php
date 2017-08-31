@@ -10,6 +10,8 @@
     $route[] = ['/gerenciamento/ativo/salvar', 'AtivoController@salvar'];
     $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar'];
     $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar'];
+    $route[] = ['/gerenciamento/ativo/interfaces/{id}', 'AtivoController@apagar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/{id}', 'AtivoController@apagar'];
 
     $route[] = ['/gerenciamento/categoriaativo', 'CategoriaAtivoController@index'];
     $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar'];
@@ -46,6 +48,18 @@
     $route[] = ['/gerenciamento/categoriacomponente/salvar', 'CategoriaComponenteController@salvar'];
     $route[] = ['/gerenciamento/categoriacomponente/editar/{id}', 'CategoriaComponenteController@editar'];
     $route[] = ['/gerenciamento/categoriacomponente/apagar/{id}', 'CategoriaComponenteController@apagar'];
+
+    $route[] = ['/gerenciamento/equipamento', 'EquipamentoController@index'];
+    $route[] = ['/gerenciamento/equipamento/adicionar', 'EquipamentoController@adicionar'];
+    $route[] = ['/gerenciamento/equipamento/salvar', 'EquipamentoController@salvar'];
+    $route[] = ['/gerenciamento/equipamento/editar/{id}', 'EquipamentoController@editar'];
+    $route[] = ['/gerenciamento/equipamento/apagar/{id}', 'EquipamentoController@apagar'];
+
+    $route[] = ['/gerenciamento/categoriaequipamento', 'CategoriaEquipamentoController@index'];
+    $route[] = ['/gerenciamento/categoriaequipamento/adicionar', 'CategoriaEquipamentoController@adicionar'];
+    $route[] = ['/gerenciamento/categoriaequipamento/salvar', 'CategoriaEquipamentoController@salvar'];
+    $route[] = ['/gerenciamento/categoriaequipamento/editar/{id}', 'CategoriaEquipamentoController@editar'];
+    $route[] = ['/gerenciamento/categoriaequipamento/apagar/{id}', 'CategoriaEquipamentoController@apagar'];
 
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
 

@@ -25,9 +25,7 @@ class AtivoController extends Controller
 
     public function index(){
 
-        $ativos = $this->modelAtivo->all();
-
-        $this->view->ativos = $ativos;
+        $this->view->ativos = $this->modelAtivo->all();
 
         $this->setPageTitle("Ativos");
         $this->setView("ativo/index", "layout/index");
@@ -36,11 +34,9 @@ class AtivoController extends Controller
 
     public function visualizar($id){
 
-        $ativo = $this->modelAtivo->find($id);
+        $this->view->ativo = $this->modelAtivo->find($id);
 
-        $this->view->ativo = $ativo;
-
-        $this->setPageTitle("Visualizar Ativo");
+        $this->setPageTitle($this->view->ativo->nome);
         $this->setView("ativo/detalhes", "layout/index");
 
     }
