@@ -27,6 +27,7 @@ class ManutencaoController extends Controller
         $this->view->manutencoes = $this->modelManutencao->allWhere($cond);
 
         $this->view->action = "salvar";
+        $this->view->show = "";
         $this->view->manutencao = $this->modelManutencao;
 
 
@@ -41,7 +42,7 @@ class ManutencaoController extends Controller
             'descricao' => $request->post->descricao,
             'datainicio' => $request->post->datainicio,
             'datafim' => $request->post->datafim,
-            'status' => "1",
+            'status' => $request->post->status,
             'ativo_id' => $request->post->ativo_id
         ];
 
@@ -62,33 +63,30 @@ class ManutencaoController extends Controller
     public function editar($id){
 
         $this->view->action = "editar";
+        $this->view->show = "show";
 
-        $this->view->ativo = $this->modelAtivo->find($id);
+        $this->view->manutencao = $this->modelManutencao->find($id);
+        $this->view->ativo = $this->modelAtivo->find($this->view->manutencao->ativo_id);
 
-        if ($this->view->ativo->monitorar == 1){
-            $this->view->ativo->monitorar = "checked";
-        }
+        $cond = "ativo_id = {$this->view->ativo->ativo_id}";
+        $this->view->manutencoes = $this->modelManutencao->allWhere($cond);
 
-        $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
-        $this->view->so = $this->modelSO->all();
-        $this->view->modelo = $this->modelModelo->all();
-
-        $this->setPageTitle("Editar Ativo");
-        $this->setView('ativo/form', 'layout/index');
+        $this->setPageTitle("Editar Manutenção  #{$this->view->manutencao->manutencao_id}");
+        $this->setView("manutencao/index", "layout/index");
 
     }
 
-    public function apagar($id){
-
-        if($result = $this->modelAtivo->delete($id)){
-            Redirect::route("/gerenciamento/ativo");
-        }
-        else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Ativo! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
-        }
-    }
+//    public function apagar($id){
+//
+//        if($result = $this->modelManutencao->delete($id)){
+//            Redirect::route("/gerenciamento/ativo");
+//        }
+//        else {
+//            echo '<script language="javascript">';
+//            echo 'alert("Erro ao deletar Ativo! Verifique se há pendencias antes de deletar esse item!");';
+//            echo 'history.go(-1);';
+//            echo '</script>';
+//        }
+//    }
 
 }
