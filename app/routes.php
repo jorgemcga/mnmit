@@ -10,8 +10,18 @@
     $route[] = ['/gerenciamento/ativo/salvar', 'AtivoController@salvar'];
     $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar'];
     $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar'];
-    $route[] = ['/gerenciamento/ativo/interfaces/{id}', 'AtivoController@apagar'];
-    $route[] = ['/gerenciamento/ativo/manutencao/{id}', 'AtivoController@apagar'];
+
+    $route[] = ['/gerenciamento/ativo/interface/todas/{id}', 'InterfaceRedeController@index'];
+    $route[] = ['/gerenciamento/ativo/interface/adicionar/{id}', 'InterfaceRedeController@adicionar'];
+    $route[] = ['/gerenciamento/ativo/interface/salvar', 'InterfaceRedeController@salvar'];
+    $route[] = ['/gerenciamento/ativo/interface/editar/{id}', 'InterfaceRedeController@editar'];
+    $route[] = ['/gerenciamento/ativo/interface/apagar/{id}/{id}', 'InterfaceRedeController@apagar'];
+
+    $route[] = ['/gerenciamento/ativo/manutencao/todas/{id}', 'ManutencaoController@index'];
+    $route[] = ['/gerenciamento/ativo/manutencao/adicionar/{id}', 'ManutencaoController@adicionar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/salvar', 'ManutencaoController@salvar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/editar/{id}', 'ManutencaoController@editar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/apagar/{id}/{id}', 'ManutencaoController@apagar'];
 
     $route[] = ['/gerenciamento/categoriaativo', 'CategoriaAtivoController@index'];
     $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar'];

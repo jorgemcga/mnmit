@@ -1,0 +1,114 @@
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/ativo">
+                <i class="material-icons">devices</i>
+                Ativos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/categoriaativo">
+                <i class="material-icons">devices_other</i>
+                Categorias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
+                <i class="material-icons">settings_applications</i>
+                Sistemas Operacionais
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/modelo">
+                <i class="material-icons">cast</i>
+                Modelos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/fabricante">
+                <i class="material-icons">developer_board</i>
+                Fabricantes
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">language</i>
+                <?php $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-6 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'">
+                <i class="material-icons" style="font-size: 18px;">arrow_back</i>
+                Voltar
+            </button>
+
+            <button type="button" class="btn btn-outline-primary"  onclick="location='../adicionar/<?php echo $this->view->ativo->ativo_id ?>'">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+                Criar Nova
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <table class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>Mascara</th>
+                    <th>GateWay</th>
+                    <th>DNS 1</th>
+                    <th>DNS 2</th>
+                    <th>Mac Address</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->interfaces as $interface){ ?>
+                    <tr>
+                        <td><?php echo $interface->hostname; ?></td>
+                        <td><?php echo $interface->ip; ?></td>
+                        <td><?php echo $interface->mascara; ?></td>
+                        <td><?php echo $interface->gateway; ?></td>
+                        <td><?php echo $interface->dns1; ?></td>
+                        <td><?php echo $interface->dns2; ?></td>
+                        <td><?php echo $interface->macaddress; ?></td>
+                        <td class="text-right">
+
+                            <a href="../editar/<?php echo $interface->interface_rede_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                                <i class="material-icons" style="font-size: 18px;">edit</i>
+                                Editar
+                            </a>
+
+                            <span onclick="global.confirmar('../apagar/<?php echo $this->view->ativo->ativo_id?>/<?php echo $interface->interface_rede_id ?>', 'Apagar esta Interface?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                <i class="material-icons" style="font-size: 18px;">delete</i>
+                                Apagar
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

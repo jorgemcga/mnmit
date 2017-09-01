@@ -12,6 +12,7 @@ class AtivoController extends Controller
     private $modelCategoriaAtivo;
     private $modelSO;
     private $modelModelo;
+    private $modelInterface;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class AtivoController extends Controller
         $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivo');
         $this->modelSO = Containers::getModel('SistemaOperacional');
         $this->modelModelo = Containers::getModel('ModeloModel');
+        $this->modelInterface = Containers::getModel('InterfaceRede');
     }
 
 

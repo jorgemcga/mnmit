@@ -29,6 +29,20 @@ abstract class Model
         return $result;
     }
 
+    public function allWhere($cond){
+
+        $query = "SELECT * FROM {$this->table} WHERE {$cond}";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+
+        return $result;
+    }
+
     public function find($id){
 
         $query = "SELECT * FROM {$this->table} WHERE {$this->table}_id = :id";

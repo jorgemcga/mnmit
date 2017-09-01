@@ -1,0 +1,156 @@
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/ativo">
+                <i class="material-icons">devices</i>
+                Ativos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/categoriaativo">
+                <i class="material-icons">devices_other</i>
+                Categorias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
+                <i class="material-icons">settings_applications</i>
+                Sistemas Operacionais
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/modelo">
+                <i class="material-icons">cast</i>
+                Modelos
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/gerenciamento/fabricante">
+                <i class="material-icons">developer_board</i>
+                Fabricantes
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <p>
+            <h2>
+                <i class="material-icons" style="font-size: 34px">build</i>
+                <?php $this->getPageTitle(); ?>
+            </h2>
+            </p>
+        </div>
+
+        <div class="col-md-6 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'">
+                <i class="material-icons" style="font-size: 18px;">arrow_back</i>
+                Voltar
+            </button>
+
+            <button data-toggle="collapse" data-target="#novaManutencao" class="btn btn-outline-primary">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+                Registrar Nova
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <form id="novaManutencao" class="form-horizontal collapse" action="/gerenciamento/ativo/manutencao/salvar" method="post" accept-charset="utf-8">
+                <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
+                <input name="manutencao_id" type="hidden" value="<?php echo $this->view->manutencao->manutencao_id ?>">
+                <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->ativo_id ?>">
+
+                <div class="form-group">
+                    <label>Data Inicial</label>
+                    <input name="datainicio" type="datetime-local" class="form-control"
+                           value="<?php echo $this->view->manutencao->datainicio ?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input name="datafim" type="datetime-local" class="form-control"
+                           value="<?php echo $this->view->manutencao->datafim?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea name="descricao" class="form-control"><?php echo $this->view->manutencao->descricao ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="material-icons" style="font-size: 18px;">add</i>
+                        Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <p>
+            <h2>
+                <i class="material-icons" style="font-size: 34px">history</i>
+                Histórico
+            </h2>
+            </p>
+        </div>
+
+    </div>
+
+    <?php foreach($this->view->manutencoes as $manutencao){?>
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header bg-primary text-white clicavel" data-toggle="collapse" href="#manutencao<?php echo $manutencao->manutencao_id?>">
+                    Código #<?php echo $manutencao->manutencao_id?>
+                    <i class="material-icons" style="font-size: 18px;">keyboard_arrow_down</i>
+                </div>
+
+                <div id="manutencao<?php echo $manutencao->manutencao_id?>" class="card-body collapse">
+
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <div class="label-default"> Data Inicio: <?php echo $manutencao->datainicio ?></div>
+
+                            <div class="label-default"> Data Fim: <?php echo $manutencao->datafim ?></div>
+
+                            <div class="label-default"> Descrição: <?php echo $manutencao->descricao ?></div>
+
+                            <div class="label-default"> Status: <?php echo $manutencao->status ?></div>
+                        </div>
+
+                        <div class="col-md-4 text-right">
+                            <button class="btn btn-outline-warning" onclick="location='/gerenciamento/ativo/manutencao/editar/<?php $manutencao->manutencao_id?>'">
+                                <i class="material-icons" style ="font-size: 18px;">edit</i>
+                                Editar
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <?php }?>
+
+</div>

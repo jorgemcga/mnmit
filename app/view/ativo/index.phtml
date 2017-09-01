@@ -80,14 +80,19 @@
                             <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
                             <td class="text-right">
 
-                                <a title="Clique para visualizar" href="ativo/visualizar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
-                                    <i class="material-icons" style="font-size: 18px;">description</i>
-                                    Detalhar
+<!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->ativo_id; ?><!--" class="btn btn-outline-info">-->
+<!--                                    <i class="material-icons" style="font-size: 18px;">description</i>-->
+<!--                                    Detalhar-->
+<!--                                </a>-->
+
+                                <a title="CLique para ver Interfaces de Rede" href="ativo/interface/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-secondary">
+                                    <i class="material-icons" style="font-size: 18px;">language</i>
+                                    Interfaces
                                 </a>
 
-                                <a title="Clique para visualizar" href="ativo/manutencao/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
-                                    <i class="material-icons" style="font-size: 18px;">description</i>
-                                    Detalhar
+                                <a title="Clique para ver Manutenções" href="ativo/manutencao/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
+                                    <i class="material-icons" style="font-size: 18px;">build</i>
+                                    Manutenção
                                 </a>
 
                                 <a href="ativo/editar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
