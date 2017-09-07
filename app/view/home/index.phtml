@@ -1,13 +1,91 @@
 <div class="container-fluid">
 
-    <div class="row">
+    <div class="row m-4">
 
         <div class="col-md-12">
-            <h1> Dashboard</h1>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">donut_large</i>
+                <?php echo $this->view->nome; ?>
+            </h1>
         </div>
 
+    </div>
+
+    <div class="row m-4">
+
         <div class="col-md-12">
-            <p>Nome: <?php echo $this->view->nome; ?></p>
+            <h2>
+                <i class="material-icons" style="font-size: 34px">view_quilt</i>
+                Contadores
+            </h2>
+        </div>
+
+    </div>
+
+    <div class="row m-4">
+
+        <div class="col-md-3">
+
+            <div class="card bg-primary text-white clicavel">
+
+                <div class="card-header" onclick="location='gerenciamento/ativo'">
+                    <h2>
+                        <i class="material-icons" style="font-size: 28px;">devices</i>
+                        Ativos
+                        <span class="badge badge-pill badge-light text-primary"><?php echo $this->view->contador->ativos->qtd ?></span>
+                    </h2>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card bg-info text-white clicavel">
+
+                <div class="card-header" onclick="location='gerenciamento/componente'">
+                    <h2>
+                        <i class="material-icons" style="font-size: 28px;">memory</i>
+                        Componentes
+                        <span class="badge badge-pill badge-light text-info"><?php echo $this->view->contador->componentes->qtd ?></span>
+                    </h2>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card bg-success text-white clicavel">
+
+                <div class="card-header" onclick="location='gerenciamento/equipamento'">
+                    <h2>
+                        <i class="material-icons" style="font-size: 28px;">keyboard</i>
+                        Equipamentos
+                        <span class="badge badge-pill badge-light text-success"><?php echo $this->view->contador->equipamentos->qtd ?></span>
+                    </h2>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card bg-danger text-white clicavel">
+
+                <div class="card-header" onclick="location='gerenciamento/licenca'">
+                    <h2>
+                        <i class="material-icons" style="font-size: 28px;">copyright</i>
+                        Licenças
+                        <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas->qtd ?></span>
+                    </h2>
+                </div>
+
+            </div>
+
         </div>
 
     </div>

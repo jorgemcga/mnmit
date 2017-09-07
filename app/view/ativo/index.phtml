@@ -65,8 +65,8 @@
                     <tr>
                         <th>Nº Patromonio</th>
                         <th>Nome de Identificação</th>
-                        <th>Descrição</th>
                         <th>Data de Compra</th>
+                        <th>Categoria</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -76,8 +76,8 @@
                         <tr>
                             <td><?php echo $ativo->nrpatrimonio; ?></td>
                             <td><?php echo $ativo->nome; ?></td>
-                            <td><?php echo $ativo->descricao; ?></td>
                             <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
+                            <td><?php echo $ativo->categoria; ?></td>
                             <td class="text-right">
 
 <!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->ativo_id; ?><!--" class="btn btn-outline-info">-->

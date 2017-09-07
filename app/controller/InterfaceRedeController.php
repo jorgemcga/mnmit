@@ -22,9 +22,9 @@ class InterfaceRedeController extends Controller
 
         $this->view->ativo = $this->modelAtivo->find($idAtivo);
 
-        $cond = "ativo_id = {$idAtivo}";
+        $where = "ativo_id = {$idAtivo}";
 
-        $this->view->interfaces = $this->modelInterface->allWhere($cond);
+        $this->view->interfaces = $this->modelInterface->all($where);
 
         $this->setPageTitle("Interfaces de Rede em " . $this->view->ativo->nome);
         $this->setView('interface/index', 'layout/index');

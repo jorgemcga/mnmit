@@ -27,7 +27,32 @@ class AtivoController extends Controller
 
     public function index(){
 
-        $this->view->ativos = $this->modelAtivo->all();
+        $fields =
+            "ativo_id,
+            nrpatrimonio,
+            a.nome,
+            tag,
+            descricao,
+            datacompra,
+            monitorar,
+            a.categoria_ativo_id,
+            so_id,
+            serial,
+            modelo_id,
+            usuario_id,
+            b.nome as categoria";
+
+
+        $join = array(
+            [
+                "table" => "categoria_ativo as b",
+                "field1" => "a.categoria_ativo_id",
+                "op" => "=",
+                "field2" => "b.categoria_ativo_id"
+            ]
+        );
+
+        $this->view->ativos = $this->modelAtivo->join($fields, $join, null);
 
         $this->setPageTitle("Ativos");
         $this->setView("ativo/index", "layout/index");

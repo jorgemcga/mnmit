@@ -23,8 +23,8 @@ class ManutencaoController extends Controller
 
         $this->view->ativo = $this->modelAtivo->find($idAtivo);
 
-        $cond = "ativo_id = {$idAtivo}";
-        $this->view->manutencoes = $this->modelManutencao->allWhere($cond);
+        $where = "ativo_id = {$idAtivo}";
+        $this->view->manutencoes = $this->modelManutencao->all($where);
 
         $this->view->action = "salvar";
         $this->view->show = "";
@@ -68,8 +68,8 @@ class ManutencaoController extends Controller
         $this->view->manutencao = $this->modelManutencao->find($id);
         $this->view->ativo = $this->modelAtivo->find($this->view->manutencao->ativo_id);
 
-        $cond = "ativo_id = {$this->view->ativo->ativo_id}";
-        $this->view->manutencoes = $this->modelManutencao->allWhere($cond);
+        $where = "ativo_id = {$this->view->ativo->ativo_id}";
+        $this->view->manutencoes = $this->modelManutencao->all($where);
 
         $this->setPageTitle("Editar Manutenção  #{$this->view->manutencao->manutencao_id}");
         $this->setView("manutencao/index", "layout/index");

@@ -15,9 +15,10 @@ abstract class Model
 
     }
 
-    public function all(){
+    public function all($where = null, $joins = null){
 
-        $query = "SELECT * FROM {$this->table}";
+        $query = "SELECT * FROM {$this->table} as a";
+        $query .= isset($where) ? " WHERE {$where}" : "";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
@@ -29,10 +30,16 @@ abstract class Model
         return $result;
     }
 
-    public function allWhere($cond){
+    public function join($fields = null, $joins, $where = null) {
 
-        $query = "SELECT * FROM {$this->table} WHERE {$cond}";
+        $query = isset($fields) ? "SELECT {$fields} FROM {$this->table} as a" : "SELECT * FROM {$this->table} as a" ;
 
+        foreach ($joins as $join) {
+            $query .= " JOIN {$join['table']} ON  {$join['field1']} {$join['op']} {$join['field2']}";
+        }
+
+        $query .= isset($where) ? " WHERE {$where}" : "";
+        
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
 
@@ -41,6 +48,7 @@ abstract class Model
         $stmt->closeCursor();
 
         return $result;
+
     }
 
     public function find($id){
@@ -56,6 +64,22 @@ abstract class Model
         $stmt->closeCursor();
 
         return $result;
+    }
+
+    public function count($where = null){
+
+        $query = "SELECT count(*) as qtd FROM {$this->table}";
+
+        $query .= isset($where) ? " WHERE {$where}" : "";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+
+        return $result[0];
     }
 
     public function insert(array $data){
