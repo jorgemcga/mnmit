@@ -36,19 +36,42 @@ class AtivoController extends Controller
             datacompra,
             monitorar,
             a.categoria_ativo_id,
-            so_id,
             serial,
-            modelo_id,
             usuario_id,
-            b.nome as categoria";
+            b.nome as categoria,
+            c.nome as so,
+            d.nome as modelo,
+            e.nome as fabricante";
 
 
         $join = array(
             [
+                "type" => "JOIN",
                 "table" => "categoria_ativo as b",
                 "field1" => "a.categoria_ativo_id",
                 "op" => "=",
                 "field2" => "b.categoria_ativo_id"
+            ],
+            [
+                "type" => "JOIN",
+                "table" => "so as c",
+                "field1" => "a.so_id",
+                "op" => "=",
+                "field2" => "c.so_id"
+            ],
+            [
+                "type" => "JOIN",
+                "table" => "modelo as d",
+                "field1" => "a.modelo_id",
+                "op" => "=",
+                "field2" => "d.modelo_id"
+            ],
+            [
+                "type" => "JOIN",
+                "table" => "fabricante as e",
+                "field1" => "d.fabricante_id",
+                "op" => "=",
+                "field2" => "e.fabricante_id"
             ]
         );
 

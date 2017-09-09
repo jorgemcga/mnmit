@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
@@ -41,9 +43,8 @@
         </div>
 
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='componente/adicionar'">
+            <button type="button" class="btn btn-outline-primary" onclick="location='componente/adicionar'" title="Adicionar">
                 <i class="material-icons" style="font-size: 18px;">add</i>
-                Criar Novo
             </button>
         </div>
 
@@ -53,7 +54,7 @@
 
         <div class="col-md-12">
 
-            <table class="table table-striped">
+            <table id="table" class="table table-striped">
 
                 <thead class="thead-inverse">
                 <tr>
@@ -69,19 +70,17 @@
                 <?php foreach ($this->view->componentes as $componente){ ?>
                     <tr>
                         <td><?php echo $componente->nome; ?></td>
-                        <td><?php echo $componente->valor; ?> + Sigla</td>
-                        <td>Categoria</td>
-                        <td>Ativo</td>
+                        <td><?php echo $componente->valor . $componente->sigla_valor; ?></td>
+                        <td><?php echo $componente->categoria; ?></td>
+                        <td><?php echo isset($componente->ativo) ? $componente->ativo : "Não atribuído" ?></td>
                         <td class="text-right">
 
                             <a href="componente/editar/<?php echo $componente->componente_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
-                                Editar
                             </a>
 
                             <span onclick="global.confirmar('componente/apagar/<?php echo $componente->componente_id; ?>', 'Apagar este Componente?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
-                                Apagar
                             </span>
                         </td>
                     </tr>

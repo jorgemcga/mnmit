@@ -24,7 +24,34 @@ class ComponenteController extends Controller
 
     public function index(){
 
-        $this->view->componentes = $this->modelComponente->all();
+        $fields =
+            "componente_id,
+            a.nome,
+            valor,
+            b.nome as categoria,
+            c.nome as ativo,
+            tipo_valor,
+            sigla_valor";
+
+
+        $join = array(
+            [
+                "type" => "JOIN",
+                "table" => "categoria_componente as b",
+                "field1" => "a.categoria_componente_id",
+                "op" => "=",
+                "field2" => "b.categoria_componente_id"
+            ],
+            [
+                "type" => "LEFT JOIN",
+                "table" => "ativo as c",
+                "field1" => "a.ativo_id",
+                "op" => "=",
+                "field2" => "c.ativo_id"
+            ]
+        );
+
+        $this->view->componentes = $this->modelComponente->join($fields, $join, null);
 
         $this->setPageTitle("Componentes");
         $this->setView("componente/index", "layout/index");

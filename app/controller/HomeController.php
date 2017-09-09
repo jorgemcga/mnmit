@@ -18,7 +18,7 @@ class HomeController extends Controller {
         $this->modelAtivo = Containers::getModel('Ativo');
         $this->modelComponente = Containers::getModel('Componente');
         $this->modelEquipamento = Containers::getModel('Equipamento');
-        $this->modelLicenca = Containers::getModel('SistemaOperacional');
+        $this->modelLicenca = Containers::getModel('Licenca');
     }
 
     public function index(){

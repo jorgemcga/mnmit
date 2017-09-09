@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
@@ -59,14 +61,18 @@
 
         <div class="col-md-12">
 
-            <table class="table table-striped">
+            <table id="table" class="table table-striped">
 
                 <thead class="thead-inverse">
                     <tr>
                         <th>Nº Patromonio</th>
                         <th>Nome de Identificação</th>
                         <th>Data de Compra</th>
+                        <th>Modelo</th>
+                        <th>Sistema Operacional</th>
+                        <th>Fabricante</th>
                         <th>Categoria</th>
+                        <th>Monitorado</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -77,7 +83,17 @@
                             <td><?php echo $ativo->nrpatrimonio; ?></td>
                             <td><?php echo $ativo->nome; ?></td>
                             <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
+                            <td><?php echo $ativo->modelo; ?></td>
+                            <td><?php echo $ativo->so; ?></td>
+                            <td><?php echo $ativo->fabricante; ?></td>
                             <td><?php echo $ativo->categoria; ?></td>
+                            <td class="text-center">
+                                <?php
+                                    echo "<i class='material-icons";
+                                    echo $ativo->monitorar == 1 ? " text-success' title='Sim'>check" : " text-danger' title='Não'>clear";
+                                    echo "</i>";
+                                ?>
+                            </td>
                             <td class="text-right">
 
 <!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->ativo_id; ?><!--" class="btn btn-outline-info">-->
@@ -87,22 +103,22 @@
 
                                 <a title="CLique para ver Interfaces de Rede" href="ativo/interface/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-secondary">
                                     <i class="material-icons" style="font-size: 18px;">language</i>
-                                    Interfaces
+
                                 </a>
 
                                 <a title="Clique para ver Manutenções" href="ativo/manutencao/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
                                     <i class="material-icons" style="font-size: 18px;">build</i>
-                                    Manutenção
+
                                 </a>
 
                                 <a href="ativo/editar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                     <i class="material-icons" style="font-size: 18px;">edit</i>
-                                    Editar
+
                                 </a>
 
                                 <span onclick="global.confirmar('ativo/apagar/<?php echo $ativo->ativo_id; ?>', 'Apagar este ativo?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                     <i class="material-icons" style="font-size: 18px;">delete</i>
-                                    Apagar
+
                                 </span>
                             </td>
                         </tr>

@@ -71,6 +71,18 @@
     $route[] = ['/gerenciamento/categoriaequipamento/editar/{id}', 'CategoriaEquipamentoController@editar'];
     $route[] = ['/gerenciamento/categoriaequipamento/apagar/{id}', 'CategoriaEquipamentoController@apagar'];
 
+    $route[] = ['/gerenciamento/licenca', 'LicencaController@index'];
+    $route[] = ['/gerenciamento/licenca/adicionar', 'LicencaController@adicionar'];
+    $route[] = ['/gerenciamento/licenca/salvar', 'LicencaController@salvar'];
+    $route[] = ['/gerenciamento/licenca/editar/{id}', 'LicencaController@editar'];
+    $route[] = ['/gerenciamento/licenca/apagar/{id}', 'LicencaController@apagar'];
+
+    $route[] = ['/gerenciamento/categorialicenca', 'CategoriaLicencaController@index'];
+    $route[] = ['/gerenciamento/categorialicenca/adicionar', 'CategoriaLicencaController@adicionar'];
+    $route[] = ['/gerenciamento/categorialicenca/salvar', 'CategoriaLicencaController@salvar'];
+    $route[] = ['/gerenciamento/categorialicenca/editar/{id}', 'CategoriaLicencaController@editar'];
+    $route[] = ['/gerenciamento/categorialicenca/apagar/{id}', 'CategoriaLicencaController@apagar'];
+
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
 
     return $route;

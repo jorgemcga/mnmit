@@ -20,8 +20,27 @@ class EquipamentoController extends Controller
 
 
     public function index(){
+        $fields =
+            "equipamento_id,
+            nrpatrimonio,
+            a.nome,
+            datacompra,
+            a.categoria_equipamento_id,
+            usuario_id,
+            b.nome as categoria";
 
-        $this->view->equipamentos = $this->modelEquipamento->all();
+
+        $join = array(
+            [
+                "type" => "JOIN",
+                "table" => "categoria_equipamento as b",
+                "field1" => "a.categoria_equipamento_id",
+                "op" => "=",
+                "field2" => "b.categoria_equipamento_id"
+            ]
+        );
+
+        $this->view->equipamentos = $this->modelEquipamento->join($fields, $join, null);
 
         $this->setPageTitle("Equipamentos");
         $this->setView("equipamento/index", "layout/index");

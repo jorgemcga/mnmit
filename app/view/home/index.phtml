@@ -1,6 +1,8 @@
 <div class="container-fluid">
 
-    <div class="row m-4">
+    <br>
+
+    <div class="row">
 
         <div class="col-md-12">
             <h1>
@@ -11,7 +13,9 @@
 
     </div>
 
-    <div class="row m-4">
+    <br>
+
+    <div class="row">
 
         <div class="col-md-12">
             <h2>
@@ -22,18 +26,31 @@
 
     </div>
 
-    <div class="row m-4">
+    <br>
+
+    <div class="row">
 
         <div class="col-md-3">
 
-            <div class="card bg-primary text-white clicavel">
+            <div class="card bg-primary text-white">
 
-                <div class="card-header" onclick="location='gerenciamento/ativo'">
-                    <h2>
+                <div class="card-header">
+                    <h4>
                         <i class="material-icons" style="font-size: 28px;">devices</i>
                         Ativos
                         <span class="badge badge-pill badge-light text-primary"><?php echo $this->view->contador->ativos->qtd ?></span>
-                    </h2>
+                        <span class="badge badge-pill badge-light text-primary clicavel" title="Ir para Ativos" onclick="location='gerenciamento/ativo'">
+                            <i class="material-icons" style="font-size: 18px">reply</i>
+                        </span>
+                        <span class="badge badge-pill badge-light text-primary clicavel" data-toggle="collapse" href="#body-ativo">
+                            <i class="material-icons" style="font-size: 18px">keyboard_arrow_down</i>
+                        </span>
+
+                    </h4>
+                </div>
+
+                <div id="body-ativo" class="card-body collapse bg-white">
+
                 </div>
 
             </div>
@@ -44,12 +61,23 @@
 
             <div class="card bg-info text-white clicavel">
 
-                <div class="card-header" onclick="location='gerenciamento/componente'">
-                    <h2>
+                <div class="card-header">
+                    <h4>
                         <i class="material-icons" style="font-size: 28px;">memory</i>
                         Componentes
                         <span class="badge badge-pill badge-light text-info"><?php echo $this->view->contador->componentes->qtd ?></span>
-                    </h2>
+
+                        <span class="badge badge-pill badge-light text-info clicavel" title="Ir para Componentes" onclick="location='gerenciamento/componente'">
+                            <i class="material-icons" style="font-size: 18px">reply</i>
+                        </span>
+                        <span class="badge badge-pill badge-light text-info clicavel" data-toggle="collapse" href="#body-componente">
+                            <i class="material-icons" style="font-size: 18px">keyboard_arrow_down</i>
+                        </span>
+                    </h4>
+                </div>
+
+                <div id="body-componente" class="card-body collapse bg-white">
+
                 </div>
 
             </div>
@@ -60,12 +88,22 @@
 
             <div class="card bg-success text-white clicavel">
 
-                <div class="card-header" onclick="location='gerenciamento/equipamento'">
-                    <h2>
+                <div class="card-header">
+                    <h4>
                         <i class="material-icons" style="font-size: 28px;">keyboard</i>
                         Equipamentos
                         <span class="badge badge-pill badge-light text-success"><?php echo $this->view->contador->equipamentos->qtd ?></span>
-                    </h2>
+                        <span class="badge badge-pill badge-light text-success clicavel" title="Ir para Equipamentos" onclick="location='gerenciamento/equipamento'">
+                            <i class="material-icons" style="font-size: 18px">reply</i>
+                        </span>
+                        <span class="badge badge-pill badge-light text-success clicavel" data-toggle="collapse" href="#body-equipamento">
+                            <i class="material-icons" style="font-size: 18px">keyboard_arrow_down</i>
+                        </span>
+                    </h4>
+                </div>
+
+                <div id="body-equipamento" class="card-body collapse bg-white">
+
                 </div>
 
             </div>
@@ -76,12 +114,22 @@
 
             <div class="card bg-danger text-white clicavel">
 
-                <div class="card-header" onclick="location='gerenciamento/licenca'">
-                    <h2>
+                <div class="card-header">
+                    <h4>
                         <i class="material-icons" style="font-size: 28px;">copyright</i>
                         Licenças
                         <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas->qtd ?></span>
-                    </h2>
+                        <span class="badge badge-pill badge-light text-danger clicavel" title="Ir para Licenças" onclick="location='gerenciamento/licenca'">
+                            <i class="material-icons" style="font-size: 18px">reply</i>
+                        </span>
+                        <span class="badge badge-pill badge-light text-danger clicavel" data-toggle="collapse" href="#body-licenca">
+                            <i class="material-icons" style="font-size: 18px">keyboard_arrow_down</i>
+                        </span>
+                    </h4>
+                </div>
+
+                <div id="body-licenca" class="card-body collapse bg-white">
+
                 </div>
 
             </div>

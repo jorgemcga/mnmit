@@ -35,11 +35,11 @@ abstract class Model
         $query = isset($fields) ? "SELECT {$fields} FROM {$this->table} as a" : "SELECT * FROM {$this->table} as a" ;
 
         foreach ($joins as $join) {
-            $query .= " JOIN {$join['table']} ON  {$join['field1']} {$join['op']} {$join['field2']}";
+            $query .= " {$join['type']} {$join['table']} ON  {$join['field1']} {$join['op']} {$join['field2']}";
         }
 
         $query .= isset($where) ? " WHERE {$where}" : "";
-        
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
 

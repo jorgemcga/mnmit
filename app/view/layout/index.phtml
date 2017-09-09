@@ -15,11 +15,29 @@
         <!-- Bootstrap + Base-CSS -->
         <link href="/css/style-base.css" rel="stylesheet">
 
+        <!-- DataTables -->
+        <link href="/css/jquery.dataTables.css" rel="stylesheet">
+
     </head>
 
     <body>
 
-        <div class="content">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+
+    <script src="/js/popper.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/bootstrap4/js/bootstrap.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="/js/jquery.dataTables.js"></script>
+
+    <!--Global Option-->
+    <script src="/js/global.js" type="text/javascript"></script>
+
+
+    <div class="content">
             <?php require_once __DIR__  . '/menu.phtml'; ?>
 
             <div class="container-fluid">
@@ -27,15 +45,6 @@
             </div>
 
         </div>
-
-        <script src="/js/popper.min.js"></script>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="/js/jquery-3.2.1.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="/bootstrap4/js/bootstrap.min.js"></script>
-
-        <!--Global Option-->
-        <script src="/js/global.js" type="text/javascript"></script>
 
         <footer class="footer">
             <div class="navbar navbar-dark bg-dark">

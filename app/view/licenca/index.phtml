@@ -1,0 +1,99 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/licenca">
+                <i class="material-icons">copyright</i>
+                Licenças
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/categorialicenca">
+                <i class="material-icons">class</i>
+                Categorias
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">copyright</i>
+                <?php $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='licenca/adicionar'">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <table id="table" class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Nome de Identificação</th>
+                    <th>Serial</th>
+                    <th>Utilizador</th>
+                    <th>Data de Aquisição</th>
+                    <th>Data de Expiração</th>
+                    <th>Categoria</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->licencas as $licenca){ ?>
+                    <tr>
+                        <td><?php echo $licenca->nome; ?></td>
+                        <td><?php echo $licenca->serial; ?></td>
+                        <td>
+                            <?php
+
+                                if (isset($licenca->ativo)){
+                                    echo $licenca->ativo;
+                                }
+                                else if (isset($licenca->usuario)){
+                                    echo $licenca->usuario;
+                                }
+                                else echo "Nenhum Utilizador";
+
+                            ?>
+                        </td>
+                        <td><?php echo date('d/m/Y',strtotime($licenca->datacompra)); ?></td>
+                        <td><?php echo date('d/m/Y',strtotime($licenca->datavence)); ?></td>
+                        <td><?php echo $licenca->categoria; ?></td>
+                        <td class="text-right">
+
+                            <a href="licenca/editar/<?php echo $licenca->licenca_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                                <i class="material-icons" style="font-size: 18px;">edit</i>
+                            </a>
+
+                            <span onclick="global.confirmar('licenca/apagar/<?php echo $licenca->licenca_id; ?>', 'Apagar esta Licença?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                <i class="material-icons" style="font-size: 18px;">delete</i>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
