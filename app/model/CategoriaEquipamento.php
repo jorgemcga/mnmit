@@ -12,4 +12,14 @@ class CategoriaEquipamento extends Model
     public $categoria_equipamento_id = "";
     public $nome = "";
 
+    public function data($request){
+        return [
+            'nome' => $request->nome
+        ];
+    }
+
+    public function rules(){
+        return ['nome' => 'requerid|min:4'];
+    }
+
 }

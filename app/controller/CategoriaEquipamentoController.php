@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jorge
- * Date: 31/08/2017
- * Time: 09:43
- */
 
 namespace App\Controller;
 
 use Core\Containers;
 use Core\Controller;
 use Core\Redirect;
+use Core\Session;
+use Core\Validator;
 
 class CategoriaEquipamentoController extends Controller
 {
@@ -28,7 +24,8 @@ class CategoriaEquipamentoController extends Controller
         $this->view->categorias = $this->modelCategoria->all();
 
         $this->setPageTitle("Categorias de Equipamentos");
-        $this->setView("categoria_equipamento/index", "layout/index");
+
+        return $this->setView("categoria_equipamento/index", "layout/index");
 
     }
 
@@ -39,23 +36,31 @@ class CategoriaEquipamentoController extends Controller
         $this->view->action = "salvar";
 
         $this->setPageTitle("Adicionar Categoria");
-        $this->setView("categoria_equipamento/form", "layout/index");
+
+        return $this->setView("categoria_equipamento/form", "layout/index");
     }
 
     public function salvar($request){
 
-        $data = ['nome' => $request->post->nome];
+        $data = $this->modelCategoria->data($request->post);
+
+        $url = $request->post->action=="salvar" ? "/gerenciamento/categoriaequipamento/adicionar" :  "/gerenciamento/categoriaequipamento/editar/{$request->post->categoria_equipamento_id}";
+        
+        if (Validator::make($data, $this->modelCategoria->rules())){
+            return Redirect::route("{$url}");
+        }
 
         $result = $request->post->action=="salvar" ? $this->modelCategoria->insert($data) :  $this->modelCategoria->update($request->post->categoria_equipamento_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/categoriaequipamento");
+            return Redirect::route("/gerenciamento/categoriaequipamento", [
+                "success" => ["Categoria Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Categoria! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categoriaequipamento", [
+                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+            ]);
         }
 
     }
@@ -67,20 +72,22 @@ class CategoriaEquipamentoController extends Controller
         $this->view->categoria = $this->modelCategoria->find($id);
 
         $this->setPageTitle("Editar Categoria");
-        $this->setView('categoria_equipamento/form', 'layout/index');
+
+        return $this->setView('categoria_equipamento/form', 'layout/index');
 
     }
 
     public function apagar($id){
 
         if($result = $this->modelCategoria->delete($id)){
-            Redirect::route("/gerenciamento/categoriaequipamento");
+            return Redirect::route("/gerenciamento/categoriaequipamento", [
+                "success" => ["Item excluído!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Categoria! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categoriaequipamento", [
+                "error" => ["Erro ao deletar Categoria!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
 

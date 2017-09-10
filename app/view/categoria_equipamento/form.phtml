@@ -20,7 +20,7 @@
                             Gravar
                         </button>
 
-                        <button type="button" class="btn btn-danger" onclick="history.go(-1)">
+                        <button type="button" class="btn btn-danger" onclick="location='/gerenciamento/categoriaequipamento'">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
                         </button>
@@ -33,7 +33,19 @@
                 <div class="form-group">
                     <label>Nome</label>
                     <input name="nome" type="text" class="form-control" placeholder="Nome Visível"
-                           value="<?php echo $this->view->categoria->nome?>">
+                           value="<?php
+                                    echo isset($this->inputs['nome']) ? $this->inputs['nome'] : $this->view->categoria->nome
+                                ?>">
+                    <?php if (isset($this->errors['nome'])) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <?php echo $this->errors['nome'];?>
+                        </div>
+                    <?php } ?>
+
+
                 </div>
 
             </div>

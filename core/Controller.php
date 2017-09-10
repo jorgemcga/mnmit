@@ -5,12 +5,31 @@ namespace Core;
 abstract class Controller
 {
     protected $view;
+    protected $success;
+    protected $errors;
+    protected $inputs;
     private $viewPath;
     private  $layoutPath;
     private $pageTitle = null;
 
     public function __construct(){
+
         $this->view = new \stdClass();
+
+        if (Session::get('success')){
+            $this->success = Session::get('success');
+            Session::destroy('success');
+        }
+
+        if (Session::get('error')){
+            $this->errors = Session::get('error');
+            Session::destroy(['error']);
+        }
+
+        if (Session::get('inputs')){
+            $this->inputs = Session::get('inputs');
+            Session::destroy(['inputs']);
+        }
     }
 
     protected function setView($viewPath, $layoutPath = null)
@@ -19,29 +38,29 @@ abstract class Controller
         $this->layoutPath = __DIR__ . "/../app/view/{$layoutPath}.phtml";
 
         if ($layoutPath){
-            $this->setLayout();
+            return $this->setLayout();
         }
         else{
-            $this->content();
+            return $this->content();
         }
 
     }
 
     protected function content(){
         if (file_exists($this->viewPath)){
-            require_once $this->viewPath;
+            return require_once $this->viewPath;
         }
         else {
-            require_once __DIR__ . "/../app/view/notfound/index.phtml";
+            return require_once __DIR__ . "/../app/view/notfound/index.phtml";
         }
     }
 
     protected function setLayout(){
         if (file_exists($this->layoutPath)){
-            require_once $this->layoutPath;
+            return require_once $this->layoutPath;
         }
         else {
-            require_once __DIR__ . "/../app/view/notfound/index.phtml";
+            return require_once __DIR__ . "/../app/view/notfound/index.phtml";
         }
     }
 
@@ -51,10 +70,10 @@ abstract class Controller
 
     protected function getPageTitle($separator = null){
         if ($separator){
-            echo $this->pageTitle ." ". $separator . " ";
+            return $this->pageTitle ." ". $separator . " ";
         }
         else{
-            echo $this->pageTitle . " " ;
+            return $this->pageTitle . " " ;
         }
     }
 
