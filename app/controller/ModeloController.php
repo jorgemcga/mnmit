@@ -41,23 +41,26 @@ class ModeloController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'fabricante_id' => $request->post->fabricante_id
-        ];
+        $data = $this->modelModelo->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
+
+        if (Validator::make($data, $this->CategoriaComponente->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelModelo->insert($data) :  $this->modelModelo->update($request->post->modelo_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/modelo");
+            return Redirect::route("/gerenciamento/modelo", [
+                "success" => ["Modelo Salvo com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Modelo! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/modelo", [
+                "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -75,14 +78,14 @@ class ModeloController extends Controller
     public function apagar($id){
 
         if($result = $this->modelModelo->delete($id)){
-            Redirect::route("/gerenciamento/modelo");
+            return Redirect::route("/gerenciamento/modelo", [
+                "success" => ["Modelo excluído!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Modelo! Verifique se há pendencias antes de deletar!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/modelo", [
+                "error" => ["Erro ao deletar Modelo!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

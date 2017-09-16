@@ -13,4 +13,17 @@ class CategoriaLicenca extends Model
     public $nome = "";
     public $sigla = "";
 
+    public function data($request){
+        return [
+            'nome' => $request->nome,
+            'sigla' => $request->sigla
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

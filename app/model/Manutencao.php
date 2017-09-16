@@ -23,4 +23,20 @@ class Manutencao extends Model
         $this->datafim = date('Y-m-d\TH:i:s');
         $this->datainicio = date('Y-m-d\TH:i:s');
     }
+
+    public function data($request){
+        return [
+            'descricao' => $request->descricao,
+            'datainicio' => $request->datainicio,
+            'datafim' => $request->datafim,
+            'status' => $request->status,
+            'ativo_id' => $request->ativo_id
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
 }

@@ -45,7 +45,7 @@ class CategoriaEquipamentoController extends Controller
         $data = $this->modelCategoria->data($request->post);
 
         $url = $request->post->action=="salvar" ? "/gerenciamento/categoriaequipamento/adicionar" :  "/gerenciamento/categoriaequipamento/editar/{$request->post->categoria_equipamento_id}";
-        
+
         if (Validator::make($data, $this->modelCategoria->rules())){
             return Redirect::route("{$url}");
         }

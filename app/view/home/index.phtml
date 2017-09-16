@@ -32,9 +32,9 @@
 
         <div class="col-md-3">
 
-            <div class="card bg-primary text-white">
+            <div class="card bg-primary">
 
-                <div class="card-header">
+                <div class="card-header text-white">
                     <h4>
                         <i class="material-icons" style="font-size: 28px;">devices</i>
                         Ativos
@@ -50,7 +50,15 @@
                 </div>
 
                 <div id="body-ativo" class="card-body collapse bg-white">
-
+                    <h5>
+                        Monitorados:
+                        <?php echo $this->view->contador->ativos->monitorados->qtd; ?>
+                    </h5>
+                    <br>
+                    <h5>
+                        Não Monitorados:
+                        <?php echo $this->view->contador->ativos->naoMonitorados->qtd; ?>
+                    </h5>
                 </div>
 
             </div>

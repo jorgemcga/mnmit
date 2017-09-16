@@ -11,4 +11,16 @@ class Fabricante extends Model
     public $fabricante_id = "";
     public $nome = "";
 
+    public function data($request){
+        return [
+            'nome' => $request->nome
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

@@ -12,4 +12,11 @@ class ModeloModel extends Model
     public $nome = "";
     public $fabricante_id = "";
 
+    public function data($request){
+        return [
+            'nome' => $request->nome,
+            'fabricante_id' => $request->fabricante_id
+        ];
+    }
+
 }

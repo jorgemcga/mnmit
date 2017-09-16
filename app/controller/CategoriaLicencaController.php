@@ -38,23 +38,26 @@ class CategoriaLicencaController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'sigla' => $request->post->sigla
-        ];
+        $data = $this->modelCategoriaLicenca->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categorialicenca/adicionar" :  "/gerenciamento/categorialicenca/editar/{$request->post->categoria_licenca_id}";
+
+        if (Validator::make($data, $this->CategoriaLicenca->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelCategoriaLicenca->insert($data) :  $this->modelCategoriaLicenca->update($request->post->categoria_licenca_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/categorialicenca");
+            return Redirect::route("/gerenciamento/categorialicenca", [
+                "success" => ["Categoria Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Categoria! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categorialicenca", [
+                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -71,13 +74,14 @@ class CategoriaLicencaController extends Controller
     public function apagar($id){
 
         if($result = $this->modelCategoriaLicenca->delete($id)){
-            Redirect::route("/gerenciamento/categorialicenca");
+            return Redirect::route("/gerenciamento/categorialicenca", [
+                "success" => ["Categoria excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Categoria! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categorialicenca", [
+                "error" => ["Erro ao deletar Categoria!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
 

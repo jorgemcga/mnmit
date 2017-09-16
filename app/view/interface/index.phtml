@@ -94,12 +94,10 @@
 
                             <a href="../editar/<?php echo $interface->interface_rede_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
-                                Editar
                             </a>
 
                             <span onclick="global.confirmar('../apagar/<?php echo $this->view->ativo->ativo_id?>/<?php echo $interface->interface_rede_id ?>', 'Apagar esta Interface?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
-                                Apagar
                             </span>
                         </td>
                     </tr>
@@ -112,3 +110,14 @@
     </div>
 
 </div>
+
+<?php
+
+    if (isset($this->success)){
+        $this->setView('modal/success');
+    }
+    else if (isset($this->errors)){
+        $this->setView('modal/error');
+    }
+
+?>

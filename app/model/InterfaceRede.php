@@ -25,4 +25,23 @@ class InterfaceRede extends Model
     public $macaddress = "";
     public $ativo_id = "";
 
+    public function data($request){
+        return [
+            'hostname' => $request->hostname,
+            'ip' => $request->ip,
+            'mascara' => $request->mascara,
+            'gateway' => $request->gateway,
+            'dns1' => $request->dns1,
+            'dns2' => $request->dns2,
+            'macaddress' => $request->macaddress,
+            'ativo_id' => $request->ativo_id
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

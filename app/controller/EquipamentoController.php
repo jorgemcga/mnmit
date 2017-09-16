@@ -60,26 +60,26 @@ class EquipamentoController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nrpatrimonio' => $request->post->nrpatrimonio,
-            'nome' => $request->post->nome,
-            'datacompra' => $request->post->datacompra,
-            'categoria_equipamento_id' => $request->post->categoria_equipamento_id,
-            'usuario_id' => $request->post->usuario_id
-        ];
+        $data = $this->modelEquipamento->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/equipamento/adicionar" :  "/gerenciamento/equipamento/editar/{$request->post->equipamento_id}";
+
+        if (Validator::make($data, $this->modelEquipamento->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelEquipamento->insert($data) :  $this->modelEquipamento->update($request->post->equipamento_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/equipamento");
+            return Redirect::route("/gerenciamento/equipamento", [
+                "success" => ["Equipamento Salvo com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Equipamento! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/equipamento", [
+                "error" => ["Erro ao salvar Equipamento!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -98,14 +98,14 @@ class EquipamentoController extends Controller
     public function apagar($id){
 
         if($result = $this->modelEquipamento->delete($id)){
-            Redirect::route("/gerenciamento/equipamento");
+            return Redirect::route("/gerenciamento/equipamento", [
+                "success" => ["Equipamento excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Equipamento! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/equipamento", [
+                "error" => ["Erro ao deletar Equipamento!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

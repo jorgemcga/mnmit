@@ -21,4 +21,19 @@ class Componente extends Model
     public $categoria_componente_id = "";
     public $ativo_id = "";
 
+    public function data($request){
+        return [
+            'nome' => $request->nome,
+            'valor' => $request->valor,
+            'categoria_componente_id' => $request->categoria_componente_id,
+            'ativo_id' => $request->ativo_id
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

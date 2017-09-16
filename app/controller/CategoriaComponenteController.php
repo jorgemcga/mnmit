@@ -38,24 +38,26 @@ class CategoriaComponenteController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'tipo_valor' => $request->post->tipo_valor,
-            'sigla_valor' => $request->post->sigla_valor
-        ];
+        $data = $this->modelCategoriaComponente->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
+
+        if (Validator::make($data, $this->CategoriaComponente->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelCategoriaComponente->insert($data) :  $this->modelCategoriaComponente->update($request->post->categoria_componente_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/categoriacomponente");
+            return Redirect::route("/gerenciamento/categoriacomponente", [
+                "success" => ["Categoria Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Categoria! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categoriacomponente", [
+                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -72,13 +74,14 @@ class CategoriaComponenteController extends Controller
     public function apagar($id){
 
         if($result = $this->modelCategoriaComponente->delete($id)){
-            Redirect::route("/gerenciamento/categoriacomponente");
+            return Redirect::route("/gerenciamento/categoriacomponente", [
+                "success" => ["Categoria excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Categoria! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categoriacomponente", [
+                "error" => ["Erro ao deletar Categoria!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
 

@@ -12,4 +12,17 @@ class SistemaOperacional extends Model
     public $nome;
     public $versao;
 
+    public function data($request){
+        return [
+            'nome' => $request->nome,
+            'versao' => $request->versao,
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

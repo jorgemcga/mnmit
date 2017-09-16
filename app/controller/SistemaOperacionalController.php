@@ -39,10 +39,7 @@ class SistemaOperacionalController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'versao' => $request->post->versao,
-        ];
+        $data = $this->modelSO->data($request->post);
 
         $result = $request->post->action=="salvar" ? $this->modelSO->insert($data) :  $this->modelSO->update($request->post->so_id, $data);
 
@@ -72,14 +69,14 @@ class SistemaOperacionalController extends Controller
     public function apagar($id){
 
         if($result = $this->modelSO->delete($id)){
-            Redirect::route("/gerenciamento/sistemaoperacional");
+            return Redirect::route("/gerenciamento/sistemaoperacional", [
+                "success" => ["Sistema Operacional excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao Deletar! Verifique se há pendencias para deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/sistemaoperacional", [
+                "error" => ["Erro ao deletar Sistema Operacional!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

@@ -131,3 +131,14 @@
     </div>
 
 </div>
+
+<?php
+
+    if (isset($this->success)){
+        $this->setView('modal/success');
+    }
+    else if (isset($this->errors)){
+        $this->setView('modal/error');
+    }
+
+?>

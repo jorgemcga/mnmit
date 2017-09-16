@@ -38,26 +38,26 @@ class ManutencaoController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'descricao' => $request->post->descricao,
-            'datainicio' => $request->post->datainicio,
-            'datafim' => $request->post->datafim,
-            'status' => $request->post->status,
-            'ativo_id' => $request->post->ativo_id
-        ];
+        $data = $this->modelManutencao->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
+
+        if (Validator::make($data, $this->CategoriaComponente->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelManutencao->insert($data) :  $this->modelManutencao->update($request->post->manutencao_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}");
+            return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                "success" => ["Manutenção Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao registrar Manutenção! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){

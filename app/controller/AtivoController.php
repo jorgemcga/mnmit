@@ -5,6 +5,7 @@ namespace App\Controller;
 use Core\Containers;
 use Core\Controller;
 use Core\Redirect;
+use Core\Validator;
 
 class AtivoController extends Controller
 {
@@ -53,21 +54,21 @@ class AtivoController extends Controller
                 "field2" => "b.categoria_ativo_id"
             ],
             [
-                "type" => "JOIN",
+                "type" => "LEFT JOIN",
                 "table" => "so as c",
                 "field1" => "a.so_id",
                 "op" => "=",
                 "field2" => "c.so_id"
             ],
             [
-                "type" => "JOIN",
+                "type" => "LEFT JOIN",
                 "table" => "modelo as d",
                 "field1" => "a.modelo_id",
                 "op" => "=",
                 "field2" => "d.modelo_id"
             ],
             [
-                "type" => "JOIN",
+                "type" => "LEFT JOIN",
                 "table" => "fabricante as e",
                 "field1" => "d.fabricante_id",
                 "op" => "=",
@@ -106,32 +107,27 @@ class AtivoController extends Controller
 
     public function salvar($request){
 
-        $monitorar = isset($request->post->monitorar) ? 1 : 0;
+        $request->post->monitorar = isset($request->post->monitorar) ? 1 : 0;
 
-        $data = [
-            'nrpatrimonio' => $request->post->nrpatrimonio,
-            'nome' => $request->post->nome,
-            'tag' => $request->post->tag,
-            'descricao' => $request->post->descricao,
-            'datacompra' => $request->post->datacompra,
-            'monitorar' => $monitorar,
-            'categoria_ativo_id' => $request->post->categoria_ativo_id,
-            'so_id' => $request->post->so_id,
-            'modelo_id'=> $request->post->modelo_id,
-            'serial' => $request->post->serial,
-            'usuario_id' => $request->post->usuario_id
-        ];
+        $data = $this->modelAtivo->data($request->post);
+
+        $url = $request->post->action=="salvar" ? "/gerenciamento/ativo/adicionar" :  "/gerenciamento/ativo/editar/{$request->post->ativo_id}";
+
+        if (Validator::make($data, $this->modelAtivo->rules())){
+            return Redirect::route("{$url}");
+        }
 
         $result = $request->post->action=="salvar" ? $this->modelAtivo->insert($data) :  $this->modelAtivo->update($request->post->ativo_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/ativo");
+            return Redirect::route("/gerenciamento/ativo", [
+                "success" => ["Ativo Salvo com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao realizar operação! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/ativo", [
+                "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
+            ]);
         }
 
     }
@@ -158,13 +154,14 @@ class AtivoController extends Controller
     public function apagar($id){
 
         if($result = $this->modelAtivo->delete($id)){
-            Redirect::route("/gerenciamento/ativo");
+            return Redirect::route("/gerenciamento/ativo", [
+                "success" => ["Ativo excluído!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Ativo! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/ativo", [
+                "error" => ["Erro ao deletar Ativo!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
 

@@ -72,25 +72,26 @@ class ComponenteController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'valor' => $request->post->valor,
-            'categoria_componente_id' => $request->post->categoria_componente_id,
-            'ativo_id' => $request->post->ativo_id
-        ];
+        $data = $this->modelComponente->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/componente/adicionar" :  "/gerenciamento/componente/editar/{$request->post->componente_id}";
+
+        if (Validator::make($data, $this->Componente->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelComponente->insert($data) :  $this->modelComponente->update($request->post->componente_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/componente");
+            return Redirect::route("/gerenciamento/componente", [
+                "success" => ["Componente Salvo com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Componente! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/componente", [
+                "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -110,14 +111,14 @@ class ComponenteController extends Controller
     public function apagar($id){
 
         if($result = $this->modelComponente->delete($id)){
-            Redirect::route("/gerenciamento/componente");
+            return Redirect::route("/gerenciamento/componente", [
+                "success" => ["Componente excluído!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Componente! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/componente", [
+                "error" => ["Erro ao deletar Componente!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

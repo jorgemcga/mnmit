@@ -45,13 +45,14 @@ class CategoriaAtivoController extends Controller
         $result = $request->post->action=="salvar" ? $this->modelCategoriaAtivo->insert($data) :  $this->modelCategoriaAtivo->update($request->post->categoria_ativo_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/categoriaativo");
+            return Redirect::route("/gerenciamento/categoriaativo", [
+                "success" => ["Categoria Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao realizar operação! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/categoriaativo", [
+                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+            ]);
         }
 
     }

@@ -61,26 +61,26 @@ class LicencaController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-            'serial' => $request->post->serial,
-            'datacompra' => $request->post->datacompra,
-            'datavence' => $request->post->datavence,
-            'categoria_licenca_id' => $request->post->categoria_licenca_id,
-        ];
+        $data = $this->modelLicenca->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/licenca/adicionar" :  "/gerenciamento/licenca/editar/{$request->post->licenca_id}";
+
+       if (Validator::make($data, $this->modelLicenca->rules())){
+           return Redirect::route("{$url}");
+       }*/
 
         $result = $request->post->action=="salvar" ? $this->modelLicenca->insert($data) :  $this->modelLicenca->update($request->post->licenca_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/licenca");
+            return Redirect::route("/gerenciamento/licenca", [
+                "success" => ["Licença Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Licença! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/licenca", [
+                "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -99,14 +99,14 @@ class LicencaController extends Controller
     public function apagar($id){
 
         if($result = $this->modelLicenca->delete($id)){
-            Redirect::route("/gerenciamento/Licenca");
+            return Redirect::route("/gerenciamento/licenca", [
+                "success" => ["Licença excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Licenca! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/licenca", [
+                "error" => ["Erro ao deletar Licença!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

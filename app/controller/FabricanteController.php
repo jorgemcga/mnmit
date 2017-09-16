@@ -38,22 +38,26 @@ class FabricanteController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome
-        ];
+        $data = $this->modelFabricante->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/fabricante/adicionar" :  "/gerenciamento/fabricante/editar/{$request->post->fabricante_id}";
+
+        if (Validator::make($data, $this->modelFabricante->rules())){
+            return Redirect::route("{$url}");
+        }*/
 
         $result = $request->post->action=="salvar" ? $this->modelFabricante->insert($data) :  $this->modelFabricante->update($request->post->fabricante_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/fabricante");
+            return Redirect::route("/gerenciamento/fabricante", [
+                "success" => ["Fabricante Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao Salvar Fabricante! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/fabricante", [
+                "error" => ["Erro ao salvar Fabricante!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -70,14 +74,14 @@ class FabricanteController extends Controller
     public function apagar($id){
 
         if($result = $this->modelFabricante->delete($id)){
-            Redirect::route("/gerenciamento/fabricante");
+            return Redirect::route("/gerenciamento/fabricante", [
+                "success" => ["Fabricante excluído!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Fabricante! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/fabricante", [
+                "error" => ["Erro ao deletar Fabricante!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
-
 }

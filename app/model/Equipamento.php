@@ -21,4 +21,20 @@ class Equipamento extends Model
     public $categoria_equipamento_id = "";
     public $usuario_id = "";
 
+    public function data($request){
+        return [
+            'nrpatrimonio' => $request->nrpatrimonio,
+            'nome' => $request->nome,
+            'datacompra' => $request->datacompra,
+            'categoria_equipamento_id' => $request->categoria_equipamento_id,
+            'usuario_id' => $request->usuario_id
+        ];
+    }
+
+    public function rules(){
+        return [
+
+        ];
+    }
+
 }

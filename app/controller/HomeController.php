@@ -26,6 +26,8 @@ class HomeController extends Controller {
         $this->view->nome = "Dashboard";
 
         @$this->view->contador->ativos = $this->modelAtivo->count();
+        @$this->view->contador->ativos->monitorados = $this->modelAtivo->count("monitorar like '1'");
+        @$this->view->contador->ativos->naoMonitorados = $this->modelAtivo->count("monitorar like '0'");
         @$this->view->contador->componentes = $this->modelComponente->count();
         @$this->view->contador->equipamentos = $this->modelEquipamento->count();
         @$this->view->contador->licencas = $this->modelLicenca->count();

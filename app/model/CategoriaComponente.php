@@ -13,4 +13,18 @@ class CategoriaComponente extends Model
     public $tipo_valor = "";
     public $sigla_valor = "";
 
+    public function data($request){
+
+        return $data = [
+            'nome' => $request->nome,
+            'tipo_valor' => $request->tipo_valor,
+            'sigla_valor' => $request->sigla_valor
+        ];
+    }
+
+    public function rules(){
+        return [
+        ];
+    }
+
 }

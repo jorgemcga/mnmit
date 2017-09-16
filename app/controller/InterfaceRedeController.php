@@ -44,29 +44,26 @@ class InterfaceRedeController extends Controller
 
     public function salvar($request){
 
-         $data = [
-            'hostname' => $request->post->hostname,
-            'ip' => $request->post->ip,
-            'mascara' => $request->post->mascara,
-            'gateway' => $request->post->gateway,
-            'dns1' => $request->post->dns1,
-            'dns2' => $request->post->dns2,
-            'macaddress' => $request->post->macaddress,
-            'ativo_id' => $request->post->ativo_id
-        ];
+        $data = $this->modelInterface->data($request->post);
+
+        /*$url = $request->post->action=="salvar" ? "/gerenciamento/ativo/interface/adicionar" :  "/gerenciamento/ativo/interface/editar/{$request->post->interface_id}";
+
+       if (Validator::make($data, $this->modelInterface->rules())){
+           return Redirect::route("{$url}");
+       }*/
 
         $result = $request->post->action=="salvar" ? $this->modelInterface->insert($data) :  $this->modelInterface->update($request->post->interface_rede_id, $data);
 
         if ($result){
-            Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}");
+            return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                "success" => ["Interface Salva com Sucesso!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao salvar Interface! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
+            ]);
         }
-
     }
 
     public function editar($id){
@@ -85,13 +82,14 @@ class InterfaceRedeController extends Controller
     public function apagar($idAtivo, $idInterface){
 
         if($result = $this->modelInterface->delete($idInterface)){
-            Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}");
+            return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
+                "success" => ["Interface excluída!"]
+            ]);
         }
         else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao deletar Interface! Verifique se há pendencias antes de deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+            return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
+                "error" => ["Erro ao deletar Interface!", "Verifique se há pendencias antes de deletar esse item"]
+            ]);
         }
     }
 }

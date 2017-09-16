@@ -31,4 +31,18 @@ class Licenca extends Model
         $this->datavence = date('Y-m-d');
     }
 
+    public function data($request){
+        return [
+            'nome' => $request->nome,
+            'serial' => $request->serial,
+            'datacompra' => $request->datacompra,
+            'datavence' => $request->datavence,
+            'categoria_licenca_id' => $request->categoria_licenca_id,
+        ];
+    }
+    public function rules(){
+        return [
+
+        ];
+    }
 }
