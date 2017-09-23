@@ -22,10 +22,9 @@ class Containers
 
         if($fileNotFound) {
             return require_once $fileNotFound;
-            die();
         }
         else {
-            echo "Erro 404 - Pagina não encontrada!";
+            return "Erro 404 - Pagina não encontrada!";
         }
     }
 

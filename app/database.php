@@ -2,10 +2,12 @@
 
 return [
 
+    /* Options DataBase: MySQL, SQLite */
+
     'driver' => 'mysql',
 
     'sqlite' => [
-        'host' => 'gerenciamento.db',
+        'database' => 'gerenciamento.db',
     ],
 
     'mysql' => [

@@ -2,14 +2,13 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 
-class Fabricante extends Model
+class Fabricante extends ModeloEloquent
 {
     protected $table = "fabricante";
 
-    public $fabricante_id = "";
-    public $nome = "";
+    public $fillable = ['nome'];
 
     public function data($request){
         return [
@@ -19,7 +18,6 @@ class Fabricante extends Model
 
     public function rules(){
         return [
-
         ];
     }
 

@@ -2,24 +2,25 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 
-class Ativo extends Model
+class Ativo extends ModeloEloquent
 {
     protected $table = "ativo";
 
-    public $ativo_id = "";
-    public $nrpatrimonio = "";
-    public $nome = "";
-    public $tag = "";
-    public $descricao = "";
-    public $datacompra = "";
-    public $monitorar = "checked";
-    public $categoria_ativo_id = "";
-    public $so_id = "";
-    public $serial = "";
-    public $modelo_id = "";
-    public $usuario_id = "";
+    public $fillable = [
+        'nrpatrimonio',
+        'nome',
+        'tag',
+        'descricao',
+        'datacompra',
+        'monitorar',
+        'categoria_ativo_id',
+        'so_id',
+        'modelo_id',
+        'serial',
+        'usuario_id'
+    ];
 
     public function data($request){
 
@@ -43,6 +44,24 @@ class Ativo extends Model
             'nome' => 'requerid|min:4',
             'categoria_ativo_id' => 'requerid'
         ];
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo('\App\Model\CategoriaAtivo');
+    }
+
+    public function modelo()
+    {
+        return $this->belongsTo('\App\Model\Modelo');
+    }
+
+    public function so(){
+        return $this->belongsTo('\App\Model\SistemaOperacional');
+    }
+
+    public function usuario(){
+        return $this->belongsTo('\App\Model\Usuario');
     }
 
 }

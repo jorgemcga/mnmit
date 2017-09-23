@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\CategoriaAtivo;
 use Core\Controller;
 use Core\Redirect;
 
@@ -13,7 +13,7 @@ class CategoriaAtivoController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivo');
+        $this->modelCategoriaAtivo = new CategoriaAtivo();
     }
 
     public function index()
@@ -38,27 +38,46 @@ class CategoriaAtivoController extends Controller
 
     public function salvar($request){
 
-        $data = [
-            'nome' => $request->post->nome,
-        ];
+        $data = $this->modelCategoriaAtivo->data($request->post);
 
-        $result = $request->post->action=="salvar" ? $this->modelCategoriaAtivo->insert($data) :  $this->modelCategoriaAtivo->update($request->post->categoria_ativo_id, $data);
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->modelCategoriaAtivo->create($data);
 
-        if ($result){
-            return Redirect::route("/gerenciamento/categoriaativo", [
-                "success" => ["Categoria Salva com Sucesso!"]
-            ]);
+                return Redirect::route("/gerenciamento/categoriaativo", [
+                    "success" => ["Categoria Criada com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/categoriaativo", [
+                    "error" => ["Erro ao Criar Categoria!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            return Redirect::route("/gerenciamento/categoriaativo", [
-                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
-            ]);
-        }
+        elseif ($request->post->action=="editar")
+        {
+            try
+            {
+                $this->modelCategoriaAtivo->find($request->post->categoria_ativo_id)->update($data);
 
+                return Redirect::route("/gerenciamento/categoriaativo", [
+                    "success" => ["Categoria Atualizada com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/categoriaativo", [
+                    "error" => ["Erro ao Atulizar Categoria!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
     }
 
-    public function editar($id){
-
+    public function editar($id)
+    {
         $this->view->action = "editar";
 
         $this->view->categoria_ativo = $this->modelCategoriaAtivo->find($id);
@@ -68,16 +87,21 @@ class CategoriaAtivoController extends Controller
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->modelCategoriaAtivo->find($id)->delete();
 
-        if($result = $this->modelCategoriaAtivo->delete($id)){
-            Redirect::route("/gerenciamento/categoriaativo");
+            return Redirect::route("/gerenciamento/categoriaativo", [
+                "success" => ["Categoria Apagada!"]
+            ]);
         }
-        else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao Deletar! Verifique se há pendencias para deletar esse item!");';
-            echo 'history.go(-1);';
-            echo '</script>';
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/gerenciamento/categoriaativo", [
+                "error" => ["Erro ao Apagar Categoria!", "Verifique se há pendencias para deletar esse item!"]
+            ]);
         }
     }
 }

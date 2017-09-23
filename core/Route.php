@@ -70,6 +70,13 @@ class Route
                 $controller = $route[1];
                 $action = $route[2];
 
+                $auth = new Auth();
+
+                if ($action != "login" && $action != "auth" && !$auth->check()){
+                    $controller = "UsuarioController";
+                    $action = "login";
+                }
+
                 break;
             }
             else {
@@ -83,23 +90,23 @@ class Route
 
             switch (count($param)){
                 case 1:
-                    $controller->$action($param[0], $this->getRequest());
+                    return $controller->$action($param[0], $this->getRequest());
                     break;
                 case 2:
-                    $controller->$action($param[0], $param[1], $this->getRequest());
+                    return $controller->$action($param[0], $param[1], $this->getRequest());
                     break;
                 case 3:
-                    $controller->$action($param[0], $param[1], $param[2], $this->getRequest());
+                    return $controller->$action($param[0], $param[1], $param[2], $this->getRequest());
                     break;
                 default:
-                    $controller->$action($this->getRequest());
+                    return $controller->$action($this->getRequest());
                     break;
             }
 
 
         }
         else {
-            Containers::pageNotFound();
+            return Containers::pageNotFound();
         }
     }
 }

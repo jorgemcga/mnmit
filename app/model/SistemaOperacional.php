@@ -2,20 +2,20 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 
-class SistemaOperacional extends Model
+class SistemaOperacional extends ModeloEloquent
 {
     protected $table = "so";
 
-    public $so_id;
-    public $nome;
-    public $versao;
+    public $fillable = ['nome', 'versao', 'arq'];
+    public $timestamps = false;
 
     public function data($request){
         return [
             'nome' => $request->nome,
             'versao' => $request->versao,
+            'arq' => $request->arq,
         ];
     }
 

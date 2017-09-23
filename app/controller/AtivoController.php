@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\Ativo;
 use Core\Controller;
 use Core\Redirect;
 use Core\Validator;
@@ -18,65 +18,13 @@ class AtivoController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = Containers::getModel('Ativo');
-        $this->modelCategoriaAtivo = Containers::getModel('CategoriaAtivo');
-        $this->modelSO = Containers::getModel('SistemaOperacional');
-        $this->modelModelo = Containers::getModel('ModeloModel');
-        $this->modelInterface = Containers::getModel('InterfaceRede');
+        $this->modelAtivo = new Ativo();
     }
 
 
     public function index(){
 
-        $fields =
-            "ativo_id,
-            nrpatrimonio,
-            a.nome,
-            tag,
-            descricao,
-            datacompra,
-            monitorar,
-            a.categoria_ativo_id,
-            serial,
-            usuario_id,
-            b.nome as categoria,
-            c.nome as so,
-            d.nome as modelo,
-            e.nome as fabricante";
-
-
-        $join = array(
-            [
-                "type" => "JOIN",
-                "table" => "categoria_ativo as b",
-                "field1" => "a.categoria_ativo_id",
-                "op" => "=",
-                "field2" => "b.categoria_ativo_id"
-            ],
-            [
-                "type" => "LEFT JOIN",
-                "table" => "so as c",
-                "field1" => "a.so_id",
-                "op" => "=",
-                "field2" => "c.so_id"
-            ],
-            [
-                "type" => "LEFT JOIN",
-                "table" => "modelo as d",
-                "field1" => "a.modelo_id",
-                "op" => "=",
-                "field2" => "d.modelo_id"
-            ],
-            [
-                "type" => "LEFT JOIN",
-                "table" => "fabricante as e",
-                "field1" => "d.fabricante_id",
-                "op" => "=",
-                "field2" => "e.fabricante_id"
-            ]
-        );
-
-        $this->view->ativos = $this->modelAtivo->join($fields, $join, null);
+        $this->view->ativos = $this->modelAtivo->all();
 
         $this->setPageTitle("Ativos");
         $this->setView("ativo/index", "layout/index");

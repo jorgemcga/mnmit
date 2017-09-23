@@ -35,6 +35,20 @@ class Validator
                                     case 'max':
                                         if (strlen($dataValue) > $subItens[1]) $errors["$ruleKey"] = "Campo {$dataKey} deve ter no maximo {$subItens[1]} caracteres!";
                                         break;
+                                    case 'unique':
+                                        $objModel = "\\App\\Model\\" . $subItens[1];
+                                        $model = new $objModel;
+                                        $find = $model->where($subItens[2], $dataValue)->first();
+                                        if ($find->subItens[2]) {
+                                            if (isset($subItens[3]) && $find->id == $subItens[3]){
+                                                break;
+                                            }
+                                            else {
+                                                $errors["$ruleKey"] = "Campo {$dataKey} deve ser único! {$subItens[1]} já cadastrado!";
+
+                                            }
+                                        }
+                                        break;
                                 }
                             }
                             else {
@@ -68,6 +82,20 @@ class Validator
                                 break;
                             case 'max':
                                 if (strlen($dataValue) > $itens[1]) $errors["$ruleKey"] = "Campo {$dataKey} deve ter no maximo {$itens[1]} caracteres!";
+                                break;
+                            case 'unique':
+                                $objModel = "\\App\\Model\\" . $subItens[1];
+                                $model = new $objModel;
+                                $find = $model->where($subItens[2], $dataValue)->first();
+                                if ($find->subItens[2]) {
+                                    if (isset($subItens[3]) && $find->id == $subItens[3]){
+                                        break;
+                                    }
+                                    else {
+                                        $errors["$ruleKey"] = "Campo {$dataKey} deve ser único! {$subItens[1]} já cadastrado!";
+
+                                    }
+                                }
                                 break;
                         }
                     }

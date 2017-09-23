@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
+
+    <title><?php echo $this->getPageTitle("|"); ?> M&Mit</title>
+
+    <!-- Bootstrap + Base-CSS -->
+    <link href="/css/style-base.css" rel="stylesheet">
+
+    <!-- DataTables -->
+    <link href="/css/jquery.dataTables.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery-3.2.1.min.js"></script>
+
+<script src="/js/popper.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/bootstrap4/js/bootstrap.min.js"></script>
+
+<!-- DataTables -->
+<script src="/js/jquery.dataTables.js"></script>
+
+<!--Global Option-->
+<script src="/js/global.js" type="text/javascript"></script>
+
+
+<div class="content">
+
+    <div class="container-fluid">
+        <?php $this->content(); ?>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <div class="navbar navbar-dark bg-dark">
+        <div class="row">
+            <div class="col-md-12">
+                By @JMA
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+
+</html>

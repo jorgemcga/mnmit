@@ -14,7 +14,7 @@ class ModeloController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->modelModelo = Containers::getModel('ModeloModel');
+        $this->modelModelo = Containers::getModel('Modelo');
         $this->modelFabricante = Containers::getModel('Fabricante');
     }
 

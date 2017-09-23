@@ -13,7 +13,7 @@ class DataBase
 
         if ($conf['driver'] == "sqlite"){
 
-            $sqlite = __DIR__ . "/../storage/database/" . $conf['sqlite']['host'];
+            $sqlite = __DIR__ . "/../storage/database/" . $conf['sqlite']['database'];
             $sqlite = "sqlite: " . $sqlite;
 
             try{
@@ -47,14 +47,13 @@ class DataBase
 
             }
             catch (PDOException $e){
-                echo $e->getMessage();
-                include_once '../app/view/notfound/maintenance.phtml';
-                die();
+//                echo $e->getMessage();
+                return include_once '../app/view/notfound/maintenance.phtml';
             }
         }
         else {
-//            include_once '../app/view/notfound/maintenance.phtml';
-            echo "Drive de conexão não configurado!";
+            return include_once '../app/view/notfound/maintenance.phtml';
+//            echo "Drive de conexão não configurado!";
         }
     }
 

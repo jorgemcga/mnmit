@@ -83,10 +83,10 @@
                             <td><?php echo $ativo->nrpatrimonio; ?></td>
                             <td><?php echo $ativo->nome; ?></td>
                             <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
-                            <td><?php echo $ativo->modelo; ?></td>
-                            <td><?php echo $ativo->so; ?></td>
-                            <td><?php echo $ativo->fabricante; ?></td>
-                            <td><?php echo $ativo->categoria; ?></td>
+                            <td><?php echo $ativo->modelo->nome; ?></td>
+                            <td><?php echo $ativo->so->nome; ?></td>
+                            <td><?php echo $ativo->modelo->fabricante->nome; ?></td>
+                            <td><?php echo $ativo->categoria->nome; ?></td>
                             <td class="text-center">
                                 <?php
                                     echo "<i class='material-icons";

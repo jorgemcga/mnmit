@@ -2,13 +2,19 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 
-class CategoriaAtivo extends Model
+class CategoriaAtivo extends ModeloEloquent
 {
-    protected $table = "categoria_ativo";
+    public $table = "categoria_ativo";
+    public $timestamps = false;
 
-    public $categoria_ativo_id = "";
-    public $nome = "";
+    public $fillable = ['nome'];
+
+    public function data($request){
+        return [
+            'nome' => $request->nome
+        ];
+    }
 
 }

@@ -83,6 +83,23 @@
     $route[] = ['/gerenciamento/categorialicenca/editar/{id}', 'CategoriaLicencaController@editar'];
     $route[] = ['/gerenciamento/categorialicenca/apagar/{id}', 'CategoriaLicencaController@apagar'];
 
-    $route[] = ['/monitoramento', 'MonitoramentoController@index'];
+    $route[] = ['/gerenciamento/usuario', 'UsuarioController@index'];
+    $route[] = ['/gerenciamento/usuario/adicionar', 'UsuarioController@adicionar'];
+    $route[] = ['/gerenciamento/usuario/salvar', 'UsuarioController@salvar'];
+    $route[] = ['/gerenciamento/usuario/editar/{id}', 'UsuarioController@editar'];
+    $route[] = ['/gerenciamento/usuario/apagar/{id}', 'UsuarioController@apagar'];
+
+    $route[] = ['/login', 'UsuarioController@login'];
+    $route[] = ['/logout', 'UsuarioController@logout'];
+    $route[] = ['/login/auth', 'UsuarioController@auth'];
+
+    $route[] = ['/gerenciamento/grupo', 'GrupoController@index'];
+    $route[] = ['/gerenciamento/grupo/adicionar', 'GrupoController@adicionar'];
+    $route[] = ['/gerenciamento/grupo/salvar', 'GrupoController@salvar'];
+    $route[] = ['/gerenciamento/grupo/editar/{id}', 'GrupoController@editar'];
+    $route[] = ['/gerenciamento/grupo/apagar/{id}', 'GrupoController@apagar'];
+
+
+$route[] = ['/monitoramento', 'MonitoramentoController@index'];
 
     return $route;

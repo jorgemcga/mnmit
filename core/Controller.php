@@ -5,9 +5,11 @@ namespace Core;
 abstract class Controller
 {
     protected $view;
+    protected $auth;
     protected $success;
     protected $errors;
     protected $inputs;
+
     private $viewPath;
     private  $layoutPath;
     private $pageTitle = null;
@@ -15,6 +17,7 @@ abstract class Controller
     public function __construct(){
 
         $this->view = new \stdClass();
+        $this->auth = new Auth();
 
         if (Session::get('success')){
             $this->success = Session::get('success');
@@ -30,6 +33,7 @@ abstract class Controller
             $this->inputs = Session::get('inputs');
             Session::destroy(['inputs']);
         }
+
     }
 
     protected function setView($viewPath, $layoutPath = null)

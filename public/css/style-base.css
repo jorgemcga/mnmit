@@ -57,3 +57,12 @@
 h1, h2, h3, h4, h5, h6 {
     display: inline;
 }
+
+.input-group-addon {
+    background-color: white;
+    border: 1px solid white;
+}
+
+.input-login{
+    border: 1px solid white;
+}

@@ -1,0 +1,79 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">language</i>
+                Management & Monitoring IT Infraestruct System
+            </h1>
+            </p>
+            <p>
+            <h1>
+                Bem-Vindo!
+            </h1>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card bg-dark">
+                <div class="card-header text-center text-white">
+                    <h2>
+                        <i class="material-icons" style="font-size: 38px">input</i>
+                        <?php echo $this->getPageTitle(); ?>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal" action="/login/auth" method="post" accept-charset="utf-8">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span id="person" class="input-group-addon material-icons">person</span>
+                                <input name="email" class="form-control input-login" aria-describedby="person" placeholder="email@exemplo.com"
+                                       value="<?php
+                                       echo isset($this->inputs['email']) ? $this->inputs['email'] : $this->view->usuario->email
+                                       ?>">
+                            </div>
+                            <?php if (isset($this->errors['email'])) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                    <?php echo $this->errors['email'];?>
+                                </div>
+                            <?php } ?>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span id="pass" class="input-group-addon material-icons">vpn_key</span>
+                                <input name="password" class="form-control input-login" type="password" aria-describedby="pass" placeholder="*****"
+                                       value="">
+                            </div>
+                            <?php if (isset($this->errors['password'])) { ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                    <?php echo $this->errors['password'];?>
+                                </div>
+                            <?php } ?>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button class="btn btn-lg btn-primary">
+                                Entrar
+                                <i class="material-icons" style="font-size: 20px">arrow_forward</i>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
