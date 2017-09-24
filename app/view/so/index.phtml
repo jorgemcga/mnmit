@@ -66,6 +66,8 @@
                 <tr>
                     <th>Sistema</th>
                     <th>Versão</th>
+                    <th>Arquitetura</th>
+                    <th>Local da Imagem</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -75,13 +77,15 @@
                     <tr>
                         <td><?php echo $so->nome; ?></td>
                         <td><?php echo $so->versao; ?></td>
+                        <td><?php echo $so->arq; ?></td>
+                        <td><?php echo $so->path; ?></td>
                         <td class="text-right">
 
-                            <a href="sistemaoperacional/editar/<?php echo $so->so_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="sistemaoperacional/editar/<?php echo $so->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('sistemaoperacional/apagar/<?php echo $so->so_id; ?>', 'Apagar este Sistema Operacional?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('sistemaoperacional/apagar/<?php echo $so->id; ?>', 'Apagar este Sistema Operacional?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

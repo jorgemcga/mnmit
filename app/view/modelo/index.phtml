@@ -65,6 +65,7 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>Nome de Identificação</th>
+                    <th>Fabricante</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -73,13 +74,14 @@
                 <?php foreach ($this->view->modelos as $modelo){ ?>
                     <tr>
                         <td><?php echo $modelo->nome; ?></td>
+                        <td><?php echo $modelo->fabricante->nome; ?></td>
                         <td class="text-right">
 
-                            <a href="modelo/editar/<?php echo $modelo->modelo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="modelo/editar/<?php echo $modelo->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('modelo/apagar/<?php echo $modelo->modelo_id; ?>', 'Apagar este Modelo?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('modelo/apagar/<?php echo $modelo->id; ?>', 'Apagar este Modelo?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

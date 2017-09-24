@@ -2,34 +2,32 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\Ativo;
+use App\Model\Manutencao;
 use Core\Controller;
 use Core\Redirect;
 
 class ManutencaoController extends Controller
 {
-    private $modelAtivo;
-    private $modelManutencao;
+    private $ativo;
+    private $manutencao;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = Containers::getModel('Ativo');
-        $this->modelManutencao = Containers::getModel('Manutencao');
+        $this->ativo = new Ativo();
+        $this->manutencao = new Manutencao();
     }
-
 
     public function index($idAtivo){
 
-        $this->view->ativo = $this->modelAtivo->find($idAtivo);
+        $this->view->ativo = $this->ativo->find($idAtivo);
 
-        $where = "ativo_id = {$idAtivo}";
-        $this->view->manutencoes = $this->modelManutencao->all($where);
+        $this->view->manutencoes = $this->manutencao->where("ativo_id", $idAtivo)->get();
 
         $this->view->action = "salvar";
         $this->view->show = "";
-        $this->view->manutencao = $this->modelManutencao;
-
+        $this->view->manutencao = $this->manutencao;
 
         $this->setPageTitle("Manutenções em {$this->view->ativo->nome}");
         $this->setView("manutencao/index", "layout/index");
@@ -38,7 +36,7 @@ class ManutencaoController extends Controller
 
     public function salvar($request){
 
-        $data = $this->modelManutencao->data($request->post);
+        $data = $this->manutencao->data($request->post);
 
         /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
 
@@ -46,17 +44,35 @@ class ManutencaoController extends Controller
             return Redirect::route("{$url}");
         }*/
 
-        $result = $request->post->action=="salvar" ? $this->modelManutencao->insert($data) :  $this->modelManutencao->update($request->post->manutencao_id, $data);
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->manutencao->create($data);
 
-        if ($result){
-            return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
-                "success" => ["Manutenção Salva com Sucesso!"]
-            ]);
+                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                    "success" => ["Manutenção Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                    "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
-                "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
-            ]);
+        elseif ($request->post->action=="editar") {
+            try {
+                $this->manutencao->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                    "success" => ["Manutenção Salva com Sucesso!"]
+                ]);
+            } catch (\Exception $exception) {
+                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                    "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -65,20 +81,19 @@ class ManutencaoController extends Controller
         $this->view->action = "editar";
         $this->view->show = "show";
 
-        $this->view->manutencao = $this->modelManutencao->find($id);
-        $this->view->ativo = $this->modelAtivo->find($this->view->manutencao->ativo_id);
+        $this->view->manutencao = $this->manutencao->find($id);
+        $this->view->ativo = $this->ativo->find($this->view->manutencao->id);
 
-        $where = "ativo_id = {$this->view->ativo->ativo_id}";
-        $this->view->manutencoes = $this->modelManutencao->all($where);
+        $this->view->manutencoes = $this->manutencao->where("ativo_id", $this->view->ativo->id)->get();
 
-        $this->setPageTitle("Editar Manutenção  #{$this->view->manutencao->manutencao_id}");
+        $this->setPageTitle("Editar Manutenção  #{$this->view->manutencao->id}");
         $this->setView("manutencao/index", "layout/index");
 
     }
 
 //    public function apagar($id){
 //
-//        if($result = $this->modelManutencao->delete($id)){
+//        if($result = $this->manutencao->delete($id)){
 //            Redirect::route("/gerenciamento/ativo");
 //        }
 //        else {

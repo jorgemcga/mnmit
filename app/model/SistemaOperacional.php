@@ -8,7 +8,7 @@ class SistemaOperacional extends ModeloEloquent
 {
     protected $table = "so";
 
-    public $fillable = ['nome', 'versao', 'arq'];
+    public $fillable = ['nome', 'versao', 'arq', 'path'];
     public $timestamps = false;
 
     public function data($request){
@@ -16,6 +16,7 @@ class SistemaOperacional extends ModeloEloquent
             'nome' => $request->nome,
             'versao' => $request->versao,
             'arq' => $request->arq,
+            'path' => $request->path
         ];
     }
 

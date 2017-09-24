@@ -75,11 +75,11 @@
                         <td><?php echo $fabricante->nome; ?></td>
                         <td class="text-right">
 
-                            <a href="fabricante/editar/<?php echo $fabricante->fabricante_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="fabricante/editar/<?php echo $fabricante->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('fabricante/apagar/<?php echo $fabricante->fabricante_id; ?>', 'Apagar este Fabricante?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('fabricante/apagar/<?php echo $fabricante->id; ?>', 'Apagar este Fabricante?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

@@ -2,7 +2,7 @@
 
     <form class="form-horizontal" action="/gerenciamento/licenca/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
-        <input name="licenca_id" type="hidden" value="<?php echo $this->view->licenca->licenca_id ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->licenca->id ?>">
 
         <div class="card card-inverse">
 
@@ -59,14 +59,14 @@
                         $selected = "";
 
                         foreach ($this->view->categorias as $categoria) {
-                            if (isset($this->view->licenca->categoria_licenca_id) && ($categoria->categoria_licenca_id == $this->view->licenca->categoria_licenca_id)) {
+                            if (isset($this->view->licenca->categoria_licenca_id) && ($categoria->id == $this->view->licenca->categoria_licenca_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $categoria->categoria_licenca_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
                                 <?php echo $categoria->nome ?>
                             </option>
 

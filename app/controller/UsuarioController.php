@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Ativo;
 use Core\Authenticate;
 use App\Model\Grupo;
 use App\Model\Usuario;
@@ -15,12 +16,14 @@ class UsuarioController extends Controller
 
     private $usuario;
     private $grupo;
+    private $ativo;
 
     public function __construct()
     {
         parent::__construct();
         $this->usuario = new Usuario();
         $this->grupo = new Grupo();
+        $this->ativo = new Ativo();
     }
 
 
@@ -75,9 +78,9 @@ class UsuarioController extends Controller
         }
         elseif ($request->post->action=="editar")
         {
-            $url = "/gerenciament/usuario/editar/{$request->post->usuario_id}";
+            $url = "/gerenciament/usuario/editar/{$request->post->id}";
 
-            if (Validator::make($data, $this->usuario->rulesUpdate($request->post->usuario_id))){
+            if (Validator::make($data, $this->usuario->rulesUpdate($request->post->id))){
                 return Redirect::route("{$url}");
             }
 
@@ -95,6 +98,44 @@ class UsuarioController extends Controller
                     "error" => ["Erro ao Atulizar Usuário!", "Verifique os dados e tente novamente!"]
                 ]);
             }
+        }
+        elseif ($request->post->action=="senha")
+        {
+            $url = "/gerenciamento/usuario/alterarsenha/{$request->post->id}";
+
+            $this->usuario = $this->usuario->find($request->post->id);
+
+
+            if (!password_verify($data['oldpassword'],$this->usuario->password))
+            {
+                return Redirect::route("{$url}", [
+                    "error" =>["oldpassword" => "A senha antiga não combina com a digitada"]
+                ]);
+            }
+
+            if ($data['password1'] != $data['password2'])
+            {
+                return Redirect::route("{$url}", [
+                    "error" =>["password" => "Senhas não conferem"]
+                ]);
+            }
+
+            try
+            {
+                $this->usuario->password = password_hash($data['password1'],PASSWORD_BCRYPT);;
+                $this->usuario->save();
+
+                return Redirect::route("/gerenciamento/usuario/perfil/{$this->auth->id()}", [
+                    "success" => ["Senha Alterada com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/usuario/perfil/{$this->auth->id()}", [
+                    "error" => ["Erro ao Atulizar Usuário!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+
         }
     }
 
@@ -126,4 +167,22 @@ class UsuarioController extends Controller
         }
     }
 
+    public function changePass($id)
+    {
+        $this->view->action = "senha";
+        $this->view->usuario = $this->usuario->find($id);
+
+        $this->setPageTitle("Alterar Senha");
+        $this->setView('usuario/mudarSenha', 'layout/index');
+    }
+
+    public function perfil($id)
+    {
+        $this->view->usuario = $this->usuario->find($id);
+
+        $this->view->ativos = $this->ativo->where("usuario_id", $id)->get();
+
+        $this->setPageTitle($this->view->usuario->name);
+        $this->setView('usuario/perfil', 'layout/index');
+    }
 }

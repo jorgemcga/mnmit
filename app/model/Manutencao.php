@@ -2,27 +2,21 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 use PDO;
 
-class Manutencao extends Model
+class Manutencao extends ModeloEloquent
 {
 
     protected $table = "manutencao";
 
-    public $manutencao_id = "";
-    public $descricao = "";
-    public $datainicio = "";
-    public $datafim = "";
-    public $status = "";
-    public $ativo_id = "";
-
-    public function __construct(PDO $pdo)
-    {
-        parent::__construct($pdo);
-        $this->datafim = date('Y-m-d\TH:i:s');
-        $this->datainicio = date('Y-m-d\TH:i:s');
-    }
+    public $fillable = [
+        'descricao',
+        'datainicio',
+        'datafim',
+        'status',
+        'ativo_id'
+    ];
 
     public function data($request){
         return [
@@ -38,5 +32,10 @@ class Manutencao extends Model
         return [
 
         ];
+    }
+
+    public function ativo()
+    {
+        return $this->belongsTo("\App\Model\Ativo");
     }
 }

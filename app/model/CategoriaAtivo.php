@@ -6,7 +6,8 @@ use Core\ModeloEloquent;
 
 class CategoriaAtivo extends ModeloEloquent
 {
-    public $table = "categoria_ativo";
+    protected $table = "categoria_ativo";
+
     public $timestamps = false;
 
     public $fillable = ['nome'];

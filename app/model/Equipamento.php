@@ -1,25 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jorge
- * Date: 31/08/2017
- * Time: 09:44
- */
 
 namespace App\Model;
 
+use Core\ModeloEloquent;
 
-use Core\Model;
-
-class Equipamento extends Model
+class Equipamento extends ModeloEloquent
 {
     protected $table = "equipamento";
 
-    public $equipamento_id = "";
-    public $nrpatrimonio = "";
-    public $nome = "";
-    public $categoria_equipamento_id = "";
-    public $usuario_id = "";
+    public $timestamps = false;
+
+    public $fillable = [
+        'nrpatrimonio',
+        'nome',
+        'datacompra',
+        'categoria_equipamento_id',
+        'usuario_id'
+    ];
 
     public function data($request){
         return [
@@ -35,6 +32,15 @@ class Equipamento extends Model
         return [
 
         ];
+    }
+
+    public function categoria_equipamento()
+    {
+        return $this->belongsTo("\App\Model\CategoriaEquipamento");
+    }
+
+    public function usuario(){
+        return $this->belongsTo("\App\Model\Usuario");
     }
 
 }

@@ -2,16 +2,18 @@
 
 namespace App\Model;
 
-use Core\Model;
+use Core\ModeloEloquent;
 
-class CategoriaComponente extends Model
+class CategoriaComponente extends ModeloEloquent
 {
     protected $table = "categoria_componente";
 
-    public $categoria_componente_id = "";
-    public $nome = "";
-    public $tipo_valor = "";
-    public $sigla_valor = "";
+    public $fillable = [
+        'nome',
+        'tipo_valor',
+        'sigla_valor'
+    ];
+    public $timestamps = false;
 
     public function data($request){
 

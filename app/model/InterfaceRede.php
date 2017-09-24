@@ -1,29 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jorge
- * Date: 31/08/2017
- * Time: 11:17
- */
 
 namespace App\Model;
 
+use Core\ModeloEloquent;
 
-use Core\Model;
-
-class InterfaceRede extends Model
+class InterfaceRede extends ModeloEloquent
 {
     protected $table = "interface_rede";
 
-    public $interface_rede_id = "";
-    public $hostname = "";
-    public $ip = "";
-    public $mascara = "";
-    public $gateway = "";
-    public $dns1 = "";
-    public $dns2 = "";
-    public $macaddress = "";
-    public $ativo_id = "";
+    public $timestamps = false;
+    public $fillable = [
+        'hostname',
+        'ip',
+        'mascara',
+        'gateway',
+        'dns1',
+        'dns2',
+        'macaddress',
+        'ativo_id'
+    ];
 
     public function data($request){
         return [
@@ -42,6 +37,10 @@ class InterfaceRede extends Model
         return [
 
         ];
+    }
+
+    public function ativo(){
+        return $this->belongsTo("\App\Model\Ativo");
     }
 
 }

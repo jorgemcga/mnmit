@@ -47,14 +47,12 @@
         </div>
 
         <div class="col-md-6 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'">
+            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'" title="Voltar">
                 <i class="material-icons" style="font-size: 18px;">arrow_back</i>
-                Voltar
             </button>
 
-            <button type="button" class="btn btn-outline-primary"  onclick="location='../adicionar/<?php echo $this->view->ativo->ativo_id ?>'">
+            <button type="button" class="btn btn-outline-primary"  onclick="location='../adicionar/<?php echo $this->view->ativo->id ?>'" title="Criar Nova">
                 <i class="material-icons" style="font-size: 18px;">add</i>
-                Criar Nova
             </button>
 
         </div>
@@ -92,11 +90,11 @@
                         <td><?php echo $interface->macaddress; ?></td>
                         <td class="text-right">
 
-                            <a href="../editar/<?php echo $interface->interface_rede_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="../editar/<?php echo $interface->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('../apagar/<?php echo $this->view->ativo->ativo_id?>/<?php echo $interface->interface_rede_id ?>', 'Apagar esta Interface?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('../apagar/<?php echo $this->view->ativo->id?>/<?php echo $interface->id ?>', 'Apagar esta Interface?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

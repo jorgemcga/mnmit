@@ -2,24 +2,24 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\CategoriaComponente;
 use Core\Controller;
 use Core\Redirect;
+use Core\Validator;
 
 class CategoriaComponenteController extends Controller
 {
-    private $modelCategoriaComponente;
+    private $categoria;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelCategoriaComponente = Containers::getModel('CategoriaComponente');
+        $this->categoria = new CategoriaComponente();
     }
-
 
     public function index(){
 
-        $this->view->categorias = $this->modelCategoriaComponente->all();
+        $this->view->categorias = $this->categoria->all();
 
         $this->setPageTitle("Categorias de Componentes");
         $this->setView("categoria_componente/index", "layout/index");
@@ -28,7 +28,7 @@ class CategoriaComponenteController extends Controller
 
     public function adicionar(){
 
-        $this->view->categoria = $this->modelCategoriaComponente;
+        $this->view->categoria = $this->categoria;
 
         $this->view->action = "salvar";
 
@@ -38,25 +38,46 @@ class CategoriaComponenteController extends Controller
 
     public function salvar($request){
 
-        $data = $this->modelCategoriaComponente->data($request->post);
+        $data = $this->categoria->data($request->post);
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
+        $url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
 
-        if (Validator::make($data, $this->CategoriaComponente->rules())){
+        if (Validator::make($data, $this->categoria->rules())){
             return Redirect::route("{$url}");
-        }*/
-
-        $result = $request->post->action=="salvar" ? $this->modelCategoriaComponente->insert($data) :  $this->modelCategoriaComponente->update($request->post->categoria_componente_id, $data);
-
-        if ($result){
-            return Redirect::route("/gerenciamento/categoriacomponente", [
-                "success" => ["Categoria Salva com Sucesso!"]
-            ]);
         }
-        else {
-            return Redirect::route("/gerenciamento/categoriacomponente", [
-                "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
-            ]);
+
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->categoria->create($data);
+
+                return Redirect::route("/gerenciamento/categoriacomponente", [
+                    "success" => ["Categoria Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/categoriacomponente", [
+                    "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
+        elseif ($request->post->action=="editar") {
+            try
+            {
+                $this->categoria->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/categoriacomponente", [
+                    "success" => ["Categoria Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/categoriacomponente", [
+                    "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -64,25 +85,28 @@ class CategoriaComponenteController extends Controller
 
         $this->view->action = "editar";
 
-        $this->view->categoria = $this->modelCategoriaComponente->find($id);
+        $this->view->categoria = $this->categoria->find($id);
 
         $this->setPageTitle("Editar Categoria");
         $this->setView('categoria_componente/form', 'layout/index');
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->categoria->find($id)->delete();
 
-        if($result = $this->modelCategoriaComponente->delete($id)){
             return Redirect::route("/gerenciamento/categoriacomponente", [
                 "success" => ["Categoria excluída!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/categoriacomponente", [
                 "error" => ["Erro ao deletar Categoria!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }
     }
-
 }

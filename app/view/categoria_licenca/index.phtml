@@ -59,11 +59,11 @@
                         <td><?php echo $categoria->sigla; ?></td>
                         <td class="text-right">
 
-                            <a href="categorialicenca/editar/<?php echo $categoria->categoria_licenca_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="categorialicenca/editar/<?php echo $categoria->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('categorialicenca/apagar/<?php echo $categoria->categoria_licenca_id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('categorialicenca/apagar/<?php echo $categoria->id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

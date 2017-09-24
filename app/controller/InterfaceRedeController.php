@@ -2,29 +2,28 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\Ativo;
+use App\Model\InterfaceRede;
 use Core\Controller;
 use Core\Redirect;
 
 class InterfaceRedeController extends Controller
 {
-    private $modelAtivo;
-    private $modelInterface;
+    private $ativo;
+    private $interface;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = Containers::getModel('Ativo');
-        $this->modelInterface = Containers::getModel('InterfaceRede');
+        $this->ativo = new Ativo();
+        $this->interface = new InterfaceRede();
     }
 
     public function index($idAtivo){
 
-        $this->view->ativo = $this->modelAtivo->find($idAtivo);
+        $this->view->ativo = $this->ativo->find($idAtivo);
 
-        $where = "ativo_id = {$idAtivo}";
-
-        $this->view->interfaces = $this->modelInterface->all($where);
+        $this->view->interfaces = $this->interface->where('ativo_id', $idAtivo)->get();
 
         $this->setPageTitle("Interfaces de Rede em " . $this->view->ativo->nome);
         $this->setView('interface/index', 'layout/index');
@@ -33,8 +32,8 @@ class InterfaceRedeController extends Controller
 
     public function adicionar($idAtivo){
 
-        $this->view->ativo = $this->modelAtivo->find($idAtivo);
-        $this->view->interface = $this->modelInterface;
+        $this->view->ativo = $this->ativo->find($idAtivo);
+        $this->view->interface = $this->interface;
 
         $this->view->action = "salvar";
 
@@ -44,25 +43,43 @@ class InterfaceRedeController extends Controller
 
     public function salvar($request){
 
-        $data = $this->modelInterface->data($request->post);
+        $data = $this->interface->data($request->post);
 
         /*$url = $request->post->action=="salvar" ? "/gerenciamento/ativo/interface/adicionar" :  "/gerenciamento/ativo/interface/editar/{$request->post->interface_id}";
 
-       if (Validator::make($data, $this->modelInterface->rules())){
+       if (Validator::make($data, $this->interface->rules())){
            return Redirect::route("{$url}");
        }*/
 
-        $result = $request->post->action=="salvar" ? $this->modelInterface->insert($data) :  $this->modelInterface->update($request->post->interface_rede_id, $data);
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->interface->create($data);
 
-        if ($result){
-            return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
-                "success" => ["Interface Salva com Sucesso!"]
-            ]);
+                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                    "success" => ["Interface Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                    "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
-                "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
-            ]);
+        elseif ($request->post->action=="editar") {
+            try {
+                $this->interface->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                    "success" => ["Interface Salva com Sucesso!"]
+                ]);
+            } catch (\Exception $exception) {
+                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                    "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -70,23 +87,27 @@ class InterfaceRedeController extends Controller
 
         $this->view->action = "editar";
 
-        $this->view->interface = $this->modelInterface->find($id);
+        $this->view->interface = $this->interface->find($id);
 
-        $this->view->ativo->ativo_id = $this->view->interface->ativo_id;
+        @$this->view->ativo->id = $this->view->interface->ativo_id;
 
         $this->setPageTitle("Editar Interface de Rede");
         $this->setView('interface/form', 'layout/index');
 
     }
 
-    public function apagar($idAtivo, $idInterface){
+    public function apagar($idAtivo, $idInterface)
+    {
+        try
+        {
+            $this->interface->find($idInterface)->delete();
 
-        if($result = $this->modelInterface->delete($idInterface)){
             return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
                 "success" => ["Interface excluída!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
                 "error" => ["Erro ao deletar Interface!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

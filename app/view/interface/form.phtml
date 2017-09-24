@@ -2,8 +2,8 @@
 
     <form class="form-horizontal" action="/gerenciamento/ativo/interface/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
-        <input name="interface_rede_id" type="hidden" value="<?php echo $this->view->interface->interface_rede_id ?>">
-        <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->ativo_id ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->interface->id ?>">
+        <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->id ?>">
 
         <div class="card card-inverse">
 
@@ -16,7 +16,7 @@
                     </h3>
 
                     <div class="col-md-2 text-right">
-                        <button type="submit" class="btn btn-success">
+                        <button class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>

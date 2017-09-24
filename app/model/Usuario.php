@@ -16,7 +16,10 @@ class Usuario extends ModeloEloquent
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'grupo_id' => $request->grupo_id
+            'grupo_id' => $request->grupo_id,
+            'oldpassword' => $request->oldpassword,
+            'password1' => $request->password1,
+            'password2' => $request->password2,
         ];
     }
 

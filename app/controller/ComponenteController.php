@@ -2,56 +2,31 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\Ativo;
+use App\Model\CategoriaComponente;
+use App\Model\Componente;
 use Core\Controller;
 use Core\Redirect;
+use Core\Validator;
 
 class ComponenteController extends Controller
 {
-    private $modelComponente;
-    private $modelCategoriaComponente;
-    private $modelAtivo;
+    private $componente;
+    private $categoria;
+    private $ativo;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->modelComponente = Containers::getModel('Componente');
-        $this->modelAtivo = Containers::getModel('Ativo');
-        $this->modelCategoriaComponente = Containers::getModel('CategoriaComponente');
-
+        $this->componente = new Componente();
+        $this->ativo = new Ativo();
+        $this->categoria = new CategoriaComponente();
     }
 
     public function index(){
 
-        $fields =
-            "componente_id,
-            a.nome,
-            valor,
-            b.nome as categoria,
-            c.nome as ativo,
-            tipo_valor,
-            sigla_valor";
-
-
-        $join = array(
-            [
-                "type" => "JOIN",
-                "table" => "categoria_componente as b",
-                "field1" => "a.categoria_componente_id",
-                "op" => "=",
-                "field2" => "b.categoria_componente_id"
-            ],
-            [
-                "type" => "LEFT JOIN",
-                "table" => "ativo as c",
-                "field1" => "a.ativo_id",
-                "op" => "=",
-                "field2" => "c.ativo_id"
-            ]
-        );
-
-        $this->view->componentes = $this->modelComponente->join($fields, $join, null);
+        $this->view->componentes = $this->componente->all();
 
         $this->setPageTitle("Componentes");
         $this->setView("componente/index", "layout/index");
@@ -60,9 +35,9 @@ class ComponenteController extends Controller
 
     public function adicionar(){
 
-        $this->view->componente = $this->modelComponente;
-        $this->view->ativo = $this->modelAtivo->all();
-        $this->view->categoria = $this->modelCategoriaComponente->all();
+        $this->view->componente = $this->componente;
+        $this->view->ativo = $this->ativo->all();
+        $this->view->categoria = $this->categoria->all();
 
         $this->view->action = "salvar";
 
@@ -70,27 +45,48 @@ class ComponenteController extends Controller
         $this->setView("componente/form", "layout/index");
     }
 
-    public function salvar($request){
+    public function salvar($request)
+    {
+        $data = $this->componente->data($request->post);
 
-        $data = $this->modelComponente->data($request->post);
+        $url = $request->post->action=="salvar" ? "/gerenciamento/componente/adicionar" :  "/gerenciamento/componente/editar/{$request->post->componente_id}";
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/componente/adicionar" :  "/gerenciamento/componente/editar/{$request->post->componente_id}";
-
-        if (Validator::make($data, $this->Componente->rules())){
+        if (Validator::make($data, $this->componente->rules())){
             return Redirect::route("{$url}");
-        }*/
-
-        $result = $request->post->action=="salvar" ? $this->modelComponente->insert($data) :  $this->modelComponente->update($request->post->componente_id, $data);
-
-        if ($result){
-            return Redirect::route("/gerenciamento/componente", [
-                "success" => ["Componente Salvo com Sucesso!"]
-            ]);
         }
-        else {
-            return Redirect::route("/gerenciamento/componente", [
-                "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
-            ]);
+
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->componente->create($data);
+
+                return Redirect::route("/gerenciamento/componente", [
+                    "success" => ["Componente Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/componente", [
+                    "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
+        elseif ($request->post->action=="editar") {
+            try
+            {
+                $this->componente->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/componente", [
+                    "success" => ["Componente Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/componente", [
+                    "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -98,24 +94,28 @@ class ComponenteController extends Controller
 
         $this->view->action = "editar";
 
-        $this->view->componente = $this->modelComponente->find($id);
+        $this->view->componente = $this->componente->find($id);
 
-        $this->view->ativo = $this->modelAtivo->all();
-        $this->view->categoria = $this->modelCategoriaComponente->all();
+        $this->view->ativo = $this->ativo->all();
+        $this->view->categoria = $this->categoria->all();
 
         $this->setPageTitle("Editar Componente");
         $this->setView('componente/form', 'layout/index');
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->componente->find($id)->delete();
 
-        if($result = $this->modelComponente->delete($id)){
             return Redirect::route("/gerenciamento/componente", [
                 "success" => ["Componente excluído!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/componente", [
                 "error" => ["Erro ao deletar Componente!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

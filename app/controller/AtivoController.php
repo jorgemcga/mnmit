@@ -3,28 +3,36 @@
 namespace App\Controller;
 
 use App\Model\Ativo;
+use App\Model\CategoriaAtivo;
+use App\Model\Modelo;
+use App\Model\SistemaOperacional;
+use App\Model\Usuario;
 use Core\Controller;
 use Core\Redirect;
 use Core\Validator;
 
 class AtivoController extends Controller
 {
-    private $modelAtivo;
-    private $modelCategoriaAtivo;
-    private $modelSO;
-    private $modelModelo;
-    private $modelInterface;
+    private $ativo;
+    private $categoria;
+    private $so;
+    private $modelo;
+    private $usuario;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = new Ativo();
+        $this->ativo = new Ativo();
+        $this->categoria = new CategoriaAtivo();
+        $this->so = new SistemaOperacional();
+        $this->modelo = new Modelo();
+        $this->usuario = new Usuario();
     }
 
 
     public function index(){
 
-        $this->view->ativos = $this->modelAtivo->all();
+        $this->view->ativos = $this->ativo->all();
 
         $this->setPageTitle("Ativos");
         $this->setView("ativo/index", "layout/index");
@@ -33,7 +41,7 @@ class AtivoController extends Controller
 
     public function visualizar($id){
 
-        $this->view->ativo = $this->modelAtivo->find($id);
+        $this->view->ativo = $this->ativo->find($id);
 
         $this->setPageTitle($this->view->ativo->nome);
         $this->setView("ativo/detalhes", "layout/index");
@@ -42,10 +50,12 @@ class AtivoController extends Controller
 
     public function adicionar(){
 
-        $this->view->ativo = $this->modelAtivo;
-        $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
-        $this->view->so = $this->modelSO->all();
-        $this->view->modelo = $this->modelModelo->all();
+        $this->view->ativo = $this->ativo;
+
+        $this->view->categorias = $this->categoria->all();
+        $this->view->sos = $this->so->all();
+        $this->view->modelos = $this->modelo->all();
+        $this->view->usuarios = $this->usuario->all();
 
         $this->view->action = "salvar";
 
@@ -53,60 +63,79 @@ class AtivoController extends Controller
         $this->setView("ativo/form", "layout/index");
     }
 
-    public function salvar($request){
-
+    public function salvar($request)
+    {
         $request->post->monitorar = isset($request->post->monitorar) ? 1 : 0;
 
-        $data = $this->modelAtivo->data($request->post);
+        $data = $this->ativo->data($request->post);
 
         $url = $request->post->action=="salvar" ? "/gerenciamento/ativo/adicionar" :  "/gerenciamento/ativo/editar/{$request->post->ativo_id}";
 
-        if (Validator::make($data, $this->modelAtivo->rules())){
-            return Redirect::route("{$url}");
-        }
+        if (Validator::make($data, $this->ativo->rules())) return Redirect::route("{$url}");
 
-        $result = $request->post->action=="salvar" ? $this->modelAtivo->insert($data) :  $this->modelAtivo->update($request->post->ativo_id, $data);
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->ativo->create($data);
 
-        if ($result){
-            return Redirect::route("/gerenciamento/ativo", [
-                "success" => ["Ativo Salvo com Sucesso!"]
-            ]);
+                return Redirect::route("/gerenciamento/ativo", [
+                    "success" => ["Ativo Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/ativo", [
+                    "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            return Redirect::route("/gerenciamento/ativo", [
-                "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
-            ]);
-        }
+        elseif ($request->post->action=="editar") {
+            try {
+                $this->ativo->find($request->post->id)->update($data);
 
+                return Redirect::route("/gerenciamento/ativo", [
+                    "success" => ["Ativo Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/ativo", [
+                    "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
     }
 
-    public function editar($id){
-
+    public function editar($id)
+    {
         $this->view->action = "editar";
 
-        $this->view->ativo = $this->modelAtivo->find($id);
+        $this->view->ativo = $this->ativo->find($id);
 
-        if ($this->view->ativo->monitorar == 1){
-            $this->view->ativo->monitorar = "checked";
-        }
+        if ($this->view->ativo->monitorar == 1) $this->view->ativo->monitorar = "checked";
 
-        $this->view->categoria_ativo = $this->modelCategoriaAtivo->all();
-        $this->view->so = $this->modelSO->all();
-        $this->view->modelo = $this->modelModelo->all();
+        $this->view->categorias = $this->categoria->all();
+        $this->view->sos = $this->so->all();
+        $this->view->modelos = $this->modelo->all();
+        $this->view->usuarios = $this->usuario->all();
 
         $this->setPageTitle("Editar Ativo");
         $this->setView('ativo/form', 'layout/index');
-
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->ativo->find($id)->delete();
 
-        if($result = $this->modelAtivo->delete($id)){
             return Redirect::route("/gerenciamento/ativo", [
                 "success" => ["Ativo excluído!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/ativo", [
                 "error" => ["Erro ao deletar Ativo!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

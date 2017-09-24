@@ -2,7 +2,7 @@
 
     <form class="form-horizontal" action="/gerenciamento/ativo/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
-        <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->ativo_id ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->ativo->id ?>">
 
         <div class="card card-inverse">
 
@@ -127,15 +127,15 @@
 
                         $selected = "";
 
-                        foreach ($this->view->categoria_ativo as $categoria) {
-                            if (isset($this->view->ativo->categoria_ativo_id) && ($categoria->categoria_ativo_id == $this->view->ativo->categoria_ativo_id)) {
+                        foreach ($this->view->categorias as $categoria) {
+                            if (isset($this->view->ativo->categoria_ativo_id) && ($categoria->id == $this->view->ativo->categoria_ativo_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $categoria->categoria_ativo_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
                                 <?php echo $categoria->nome ?>
                             </option>
 
@@ -152,15 +152,15 @@
 
                         $selected = "";
 
-                        foreach ($this->view->so as $so) {
-                            if (isset($this->view->ativo->so_id) && ($so->so_id == $this->view->ativo->so_id)) {
+                        foreach ($this->view->sos as $so) {
+                            if (isset($this->view->ativo->so_id) && ($so->id == $this->view->ativo->so_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $so->so_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $so->id?>">
                                 <?php echo $so->nome . " | Versão: " . $so->versao?>
                             </option>
 
@@ -182,15 +182,15 @@
 
                         $selected = "";
 
-                        foreach ($this->view->modelo as $modelo) {
-                            if (isset($this->view->ativo->modelo_id) && ($modelo->modelo_id == $this->view->ativo->modelo_id)) {
+                        foreach ($this->view->modelos as $modelo) {
+                            if (isset($this->view->ativo->modelo_id) && ($modelo->id == $this->view->ativo->modelo_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $modelo->modelo_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $modelo->id?>">
                                 <?php echo $modelo->nome?>
                             </option>
 
@@ -202,6 +202,24 @@
                 <div class="form-group">
                     <label>Usuário</label>
                     <select  class="form-control" name="usuario_id" value="<?php echo $this->view->ativo->usuario_id ?>">
+                        <option>Nenhum</option>
+                        <?php
+
+                        $selected = "";
+
+                        foreach ($this->view->usuarios as $usuario) {
+                            if (isset($this->view->ativo->usuario_id) && ($usuario->id == $this->view->ativo->usuario_id)) {
+                                $selected = "selected";
+                            }
+                            else{
+                                $selected = "";
+                            }
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $usuario->id?>">
+                                <?php echo $usuario->name?>
+                            </option>
+
+                        <?php } ?>
                     </select>
                 </div>
 

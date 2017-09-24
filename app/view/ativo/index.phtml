@@ -49,9 +49,8 @@
         </div>
 
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='ativo/adicionar'">
+            <button type="button" class="btn btn-outline-primary" onclick="location='ativo/adicionar'" title="Novo">
                 <i class="material-icons" style="font-size: 18px;">add</i>
-                Criar Novo
             </button>
         </div>
 
@@ -72,6 +71,7 @@
                         <th>Sistema Operacional</th>
                         <th>Fabricante</th>
                         <th>Categoria</th>
+                        <th>Utilizador</th>
                         <th>Monitorado</th>
                         <th></th>
                     </tr>
@@ -83,10 +83,11 @@
                             <td><?php echo $ativo->nrpatrimonio; ?></td>
                             <td><?php echo $ativo->nome; ?></td>
                             <td><?php echo date('d/m/Y',strtotime($ativo->datacompra)); ?></td>
-                            <td><?php echo $ativo->modelo->nome; ?></td>
-                            <td><?php echo $ativo->so->nome; ?></td>
-                            <td><?php echo $ativo->modelo->fabricante->nome; ?></td>
-                            <td><?php echo $ativo->categoria->nome; ?></td>
+                            <td><?php echo isset($ativo->modelo->nome) ? $ativo->modelo->nome : "Nenhum" ?></td>
+                            <td><?php echo isset($ativo->so->nome) ? $ativo->so->nome : "Nenhum" ?></td>
+                            <td><?php echo isset($ativo->modelo->fabricante->nome) ? $ativo->modelo->fabricante->nome : "Nenhum" ?></td>
+                            <td><?php echo $ativo->categoria_ativo->nome; ?></td>
+                            <td><?php echo isset($ativo->usuario->name) ? $ativo->usuario->name : "Nenhum" ?></td>
                             <td class="text-center">
                                 <?php
                                     echo "<i class='material-icons";
@@ -96,27 +97,27 @@
                             </td>
                             <td class="text-right">
 
-<!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->ativo_id; ?><!--" class="btn btn-outline-info">-->
+<!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->id; ?><!--" class="btn btn-outline-info">-->
 <!--                                    <i class="material-icons" style="font-size: 18px;">description</i>-->
 <!--                                    Detalhar-->
 <!--                                </a>-->
 
-                                <a title="CLique para ver Interfaces de Rede" href="ativo/interface/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-secondary">
+                                <a title="CLique para ver Interfaces de Rede" href="ativo/interface/todas/<?php echo $ativo->id; ?>" class="btn btn-outline-secondary">
                                     <i class="material-icons" style="font-size: 18px;">language</i>
 
                                 </a>
 
-                                <a title="Clique para ver Manutenções" href="ativo/manutencao/todas/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-info">
+                                <a title="Clique para ver Manutenções" href="ativo/manutencao/todas/<?php echo $ativo->id; ?>" class="btn btn-outline-info">
                                     <i class="material-icons" style="font-size: 18px;">build</i>
 
                                 </a>
 
-                                <a href="ativo/editar/<?php echo $ativo->ativo_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                                <a href="ativo/editar/<?php echo $ativo->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                     <i class="material-icons" style="font-size: 18px;">edit</i>
 
                                 </a>
 
-                                <span onclick="global.confirmar('ativo/apagar/<?php echo $ativo->ativo_id; ?>', 'Apagar este ativo?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                                <span onclick="global.confirmar('ativo/apagar/<?php echo $ativo->id; ?>', 'Apagar este ativo?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                     <i class="material-icons" style="font-size: 18px;">delete</i>
 
                                 </span>

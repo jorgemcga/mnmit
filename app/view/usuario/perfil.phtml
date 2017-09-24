@@ -1,0 +1,73 @@
+<!--<script type="text/javascript" src="/js/dataTableAply.js"></script>-->
+
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/usuario">
+                <i class="material-icons">person</i>
+                Usuários
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/gerenciamento/grupo">
+                <i class="material-icons">people</i>
+                Grupos
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">account_circle</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h2>Ativos em sua Responsabilidade</h2>
+            <table id="table" class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Nome do Grupo</th>
+                    <th>Atribuido em</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->ativos as $ativo){ ?>
+                    <tr>
+                        <td><?php echo $ativo->nome; ?></td>
+                        <td><?php echo date('d/m/Y H:i:s', strtotime($ativo->created_at)) ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

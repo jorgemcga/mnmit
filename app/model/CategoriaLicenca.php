@@ -2,16 +2,14 @@
 
 namespace App\Model;
 
+use Core\ModeloEloquent;
 
-use Core\Model;
-
-class CategoriaLicenca extends Model
+class CategoriaLicenca extends ModeloEloquent
 {
     public $table = "categoria_licenca";
 
-    public $categoria_licenca_id = "";
-    public $nome = "";
-    public $sigla = "";
+    public $fillable = ['nome', 'sigla'];
+    public $timestamps = false;
 
     public function data($request){
         return [

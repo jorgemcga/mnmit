@@ -1,35 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jorge
- * Date: 09/09/2017
- * Time: 12:47
- */
 
 namespace App\Model;
 
+use Core\ModeloEloquent;
 
-use Core\Model;
-use PDO;
-
-class Licenca extends Model
+class Licenca extends ModeloEloquent
 {
     public $table = "licenca";
 
-    public $licenca_id = "";
-    public $nome = "";
-    public $serial = "";
-    public $datacompra = "";
-    public $datavence = "";
-    public $categoria_licenca_id = "";
-
-    public function __construct(PDO $pdo)
-    {
-        parent::__construct($pdo);
-
-        $this->datacompra = date('Y-m-d');
-        $this->datavence = date('Y-m-d');
-    }
+    public $fillable = [
+        'nome',
+        'serial',
+        'datacompra',
+        'datavence',
+        'categoria_licenca_id'
+    ];
 
     public function data($request){
         return [
@@ -44,5 +29,10 @@ class Licenca extends Model
         return [
 
         ];
+    }
+
+    public function categoria_licenca()
+    {
+        return $this->belongsTo("\App\Model\CategoriaLicenca");
     }
 }

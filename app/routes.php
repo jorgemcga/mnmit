@@ -88,6 +88,8 @@
     $route[] = ['/gerenciamento/usuario/salvar', 'UsuarioController@salvar'];
     $route[] = ['/gerenciamento/usuario/editar/{id}', 'UsuarioController@editar'];
     $route[] = ['/gerenciamento/usuario/apagar/{id}', 'UsuarioController@apagar'];
+    $route[] = ['/gerenciamento/usuario/alterarsenha/{id}', 'UsuarioController@changePass'];
+    $route[] = ['/gerenciamento/usuario/perfil/{id}', 'UsuarioController@perfil'];
 
     $route[] = ['/login', 'UsuarioController@login'];
     $route[] = ['/logout', 'UsuarioController@logout'];

@@ -2,56 +2,36 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\CategoriaLicenca;
+use App\Model\Licenca;
 use Core\Controller;
 use Core\Redirect;
+use Core\Validator;
 
 class LicencaController extends Controller
 {
-    private $modelLicenca;
-    private $modelCategoriaLicenca;
+    private $licenca;
+    private $categoria;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelLicenca = Containers::getModel('Licenca');
-        $this->modelCategoriaLicenca = Containers::getModel('CategoriaLicenca');
+        $this->licenca = new Licenca();
+        $this->categoria = new CategoriaLicenca();
     }
 
-
-    public function index(){
-
-        $fields =
-            "licenca_id,
-            a.nome,
-            a.categoria_licenca_id,
-            serial,
-            datacompra,
-            datavence,
-            b.sigla as categoria";
-
-
-        $join = array(
-            [
-                "type" => "JOIN",
-                "table" => "categoria_licenca as b",
-                "field1" => "a.categoria_licenca_id",
-                "op" => "=",
-                "field2" => "b.categoria_licenca_id"
-            ]
-        );
-
-        $this->view->licencas = $this->modelLicenca->join($fields, $join, null);
+    public function index()
+    {
+        $this->view->licencas = $this->licenca->all();
 
         $this->setPageTitle("Licenças");
         $this->setView("licenca/index", "layout/index");
-
     }
 
     public function adicionar(){
 
-        $this->view->licenca = $this->modelLicenca;
-        $this->view->categorias = $this->modelCategoriaLicenca->all();
+        $this->view->licenca = $this->licenca;
+        $this->view->categorias = $this->categoria->all();
 
         $this->view->action = "salvar";
 
@@ -61,25 +41,46 @@ class LicencaController extends Controller
 
     public function salvar($request){
 
-        $data = $this->modelLicenca->data($request->post);
+        $data = $this->licenca->data($request->post);
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/licenca/adicionar" :  "/gerenciamento/licenca/editar/{$request->post->licenca_id}";
+        $url = $request->post->action=="salvar" ? "/gerenciamento/licenca/adicionar" :  "/gerenciamento/licenca/editar/{$request->post->licenca_id}";
 
-       if (Validator::make($data, $this->modelLicenca->rules())){
+       if (Validator::make($data, $this->licenca->rules())){
            return Redirect::route("{$url}");
-       }*/
+       }
 
-        $result = $request->post->action=="salvar" ? $this->modelLicenca->insert($data) :  $this->modelLicenca->update($request->post->licenca_id, $data);
+       if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->licenca->create($data);
 
-        if ($result){
-            return Redirect::route("/gerenciamento/licenca", [
-                "success" => ["Licença Salva com Sucesso!"]
-            ]);
+                return Redirect::route("/gerenciamento/licenca", [
+                    "success" => ["Licença Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/licenca", [
+                    "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            return Redirect::route("/gerenciamento/licenca", [
-                "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
-            ]);
+       elseif ($request->post->action=="editar") {
+            try
+            {
+                $this->licenca->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/licenca", [
+                    "success" => ["Licença Salva com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/licenca", [
+                    "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -87,23 +88,27 @@ class LicencaController extends Controller
 
         $this->view->action = "editar";
 
-        $this->view->licenca = $this->modelLicenca->find($id);
+        $this->view->licenca = $this->licenca->find($id);
 
-        $this->view->categorias = $this->modelCategoriaLicenca->all();
+        $this->view->categorias = $this->categoria->all();
 
         $this->setPageTitle("Editar Licenca");
         $this->setView('licenca/form', 'layout/index');
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->licenca->find($id)->delete();
 
-        if($result = $this->modelLicenca->delete($id)){
             return Redirect::route("/gerenciamento/licenca", [
                 "success" => ["Licença excluída!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/licenca", [
                 "error" => ["Erro ao deletar Licença!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

@@ -63,27 +63,21 @@
                         <td><?php echo $licenca->serial; ?></td>
                         <td>
                             <?php
-
-                                if (isset($licenca->ativo)){
-                                    echo $licenca->ativo;
-                                }
-                                else if (isset($licenca->usuario)){
-                                    echo $licenca->usuario;
-                                }
+                                if (isset($licenca->ativo)) echo $licenca->ativo->nome;
+                                else if (isset($licenca->usuario)) echo $licenca->usuario->nome;
                                 else echo "Nenhum Utilizador";
-
                             ?>
                         </td>
                         <td><?php echo date('d/m/Y',strtotime($licenca->datacompra)); ?></td>
                         <td><?php echo date('d/m/Y',strtotime($licenca->datavence)); ?></td>
-                        <td><?php echo $licenca->categoria; ?></td>
+                        <td><?php echo $licenca->categoria_licenca->nome; ?></td>
                         <td class="text-right">
 
-                            <a href="licenca/editar/<?php echo $licenca->licenca_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="licenca/editar/<?php echo $licenca->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('licenca/apagar/<?php echo $licenca->licenca_id; ?>', 'Apagar esta Licença?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('licenca/apagar/<?php echo $licenca->id; ?>', 'Apagar esta Licença?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

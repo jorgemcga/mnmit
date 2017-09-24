@@ -79,16 +79,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons" style="font-size: 22px;">account_circle</i>
-                    <?php
-                        echo $this->auth->name();
-                    ?>
+                    <?php echo $this->auth->name(); ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/gerenciamento/usuario/mudarsenha">
+                    <a class="dropdown-item" href="/gerenciamento/usuario/alterarsenha/<?php echo $this->auth->id(); ?>">
                         <i class="material-icons" style="font-size: 22px">vpn_key</i>
                         Trocar Senha
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/usuario/perfil">
+                    <a class="dropdown-item" href="/gerenciamento/usuario/perfil/<?php echo $this->auth->id(); ?>">
                         <i class="material-icons" style="font-size: 22px">recent_actors</i>
                         Ver Perfil
                     </a>

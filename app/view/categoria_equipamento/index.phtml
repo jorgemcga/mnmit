@@ -57,11 +57,11 @@
                         <td><?php echo $categoria->nome; ?></td>
                         <td class="text-right">
 
-                            <a href="categoriaequipamento/editar/<?php echo $categoria->categoria_equipamento_id ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="categoriaequipamento/editar/<?php echo $categoria->id ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('categoriaequipamento/apagar/<?php echo $categoria->categoria_equipamento_id ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('categoriaequipamento/apagar/<?php echo $categoria->id ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

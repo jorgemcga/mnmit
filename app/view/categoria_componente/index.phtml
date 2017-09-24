@@ -73,11 +73,11 @@
                         <td><?php echo $categoria->sigla_valor; ?></td>
                         <td class="text-right">
 
-                            <a href="categoriacomponente/editar/<?php echo $categoria->categoria_componente_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="categoriacomponente/editar/<?php echo $categoria->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('categoriacomponente/apagar/<?php echo $categoria->categoria_componente_id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('categoriacomponente/apagar/<?php echo $categoria->id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

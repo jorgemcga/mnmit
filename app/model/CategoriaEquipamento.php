@@ -2,15 +2,14 @@
 
 namespace App\Model;
 
+use Core\ModeloEloquent;
 
-use Core\Model;
-
-class CategoriaEquipamento extends Model
+class CategoriaEquipamento extends ModeloEloquent
 {
     protected $table = "categoria_equipamento";
 
-    public $categoria_equipamento_id = "";
-    public $nome = "";
+    public $fillable = ["nome"];
+    public $timestamps = false;
 
     public function data($request){
         return [

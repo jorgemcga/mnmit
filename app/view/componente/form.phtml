@@ -2,7 +2,7 @@
 
     <form class="form-horizontal" action="/gerenciamento/componente/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
-        <input name="componente_id" type="hidden" value="<?php echo $this->view->componente->componente_id ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->componente->id ?>">
 
         <div class="card card-inverse">
 
@@ -50,14 +50,14 @@
                         $selected = "";
 
                         foreach ($this->view->categoria as $categoria) {
-                            if (isset($this->view->componente->categoria_componente_id) && ($categoria->categoria_componente_id == $this->view->componente->categoria_componente_id)) {
+                            if (isset($this->view->componente->categoria_componente_id) && ($categoria->id == $this->view->componente->categoria_componente_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $categoria->categoria_componente_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
                                 <?php echo $categoria->nome?>
                             </option>
 
@@ -74,7 +74,7 @@
                         $selected = "";
 
                         foreach ($this->view->ativo as $ativo) {
-                            if (isset($this->view->componente->ativo_id) && ($ativo->ativo_id == $this->view->componente->ativo_id)) {
+                            if (isset($this->view->componente->ativo_id) && ($ativo->id == $this->view->componente->ativo_id)) {
                                 $selected = "selected";
                             }
                             else{

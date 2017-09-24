@@ -2,26 +2,28 @@
 
 namespace App\Controller;
 
-use Core\Containers;
+use App\Model\Fabricante;
+use App\Model\Modelo;
 use Core\Controller;
 use Core\Redirect;
+use Core\Validator;
 
 class ModeloController extends Controller
 {
-    private $modelModelo;
-    private $modelFabricante;
+    private $modelo;
+    private $fabricante;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelModelo = Containers::getModel('Modelo');
-        $this->modelFabricante = Containers::getModel('Fabricante');
+        $this->modelo = new Modelo();
+        $this->fabricante = new Fabricante();
     }
 
 
     public function index(){
 
-        $this->view->modelos = $this->modelModelo->all();;
+        $this->view->modelos = $this->modelo->all();;
 
         $this->setPageTitle("Modelos");
         $this->setView("modelo/index", "layout/index");
@@ -30,8 +32,8 @@ class ModeloController extends Controller
 
     public function adicionar(){
 
-        $this->view->modelo = $this->modelModelo;
-        $this->view->fabricante = $this->modelFabricante->all();
+        $this->view->modelo = $this->modelo;
+        $this->view->fabricante = $this->fabricante->all();
 
         $this->view->action = "salvar";
 
@@ -41,25 +43,43 @@ class ModeloController extends Controller
 
     public function salvar($request){
 
-        $data = $this->modelModelo->data($request->post);
+        $data = $this->modelo->data($request->post);
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
+        $url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->id}";
 
-        if (Validator::make($data, $this->CategoriaComponente->rules())){
+        if (Validator::make($data, $this->modelo->rules())){
             return Redirect::route("{$url}");
-        }*/
-
-        $result = $request->post->action=="salvar" ? $this->modelModelo->insert($data) :  $this->modelModelo->update($request->post->modelo_id, $data);
-
-        if ($result){
-            return Redirect::route("/gerenciamento/modelo", [
-                "success" => ["Modelo Salvo com Sucesso!"]
-            ]);
         }
-        else {
-            return Redirect::route("/gerenciamento/modelo", [
-                "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
-            ]);
+
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->modelo->create($data);
+
+                return Redirect::route("/gerenciamento/modelo", [
+                    "success" => ["Modelo Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/modelo", [
+                    "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
+        elseif ($request->post->action=="editar") {
+            try {
+                $this->modelo->find($request->post->id)->update($data);
+
+                return Redirect::route("/gerenciamento/modelo", [
+                    "success" => ["Modelo Salvo com Sucesso!"]
+                ]);
+            } catch (\Exception $exception) {
+                return Redirect::route("/gerenciamento/modelo", [
+                    "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
     }
 
@@ -67,22 +87,26 @@ class ModeloController extends Controller
 
         $this->view->action = "editar";
 
-        $this->view->modelo = $this->modelModelo->find($id);
-        $this->view->fabricante = $this->modelFabricante->all();
+        $this->view->modelo = $this->modelo->find($id);
+        $this->view->fabricante = $this->fabricante->all();
 
         $this->setPageTitle("Editar Modelo");
         $this->setView('modelo/form', 'layout/index');
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->modelo->find($id)->delete();
 
-        if($result = $this->modelModelo->delete($id)){
             return Redirect::route("/gerenciamento/modelo", [
                 "success" => ["Modelo excluído!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/modelo", [
                 "error" => ["Erro ao deletar Modelo!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

@@ -70,16 +70,16 @@
                 <?php foreach ($this->view->componentes as $componente){ ?>
                     <tr>
                         <td><?php echo $componente->nome; ?></td>
-                        <td><?php echo $componente->valor . $componente->sigla_valor; ?></td>
-                        <td><?php echo $componente->categoria; ?></td>
-                        <td><?php echo isset($componente->ativo) ? $componente->ativo : "Não atribuído" ?></td>
+                        <td><?php echo $componente->valor . " " . $componente->categoria_componente->sigla_valor; ?></td>
+                        <td><?php echo $componente->categoria_componente->nome; ?></td>
+                        <td><?php echo isset($componente->ativo) ? $componente->ativo->nome : "Não atribuído" ?></td>
                         <td class="text-right">
 
-                            <a href="componente/editar/<?php echo $componente->componente_id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
+                            <a href="componente/editar/<?php echo $componente->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
 
-                            <span onclick="global.confirmar('componente/apagar/<?php echo $componente->componente_id; ?>', 'Apagar este Componente?')" class="btn btn-outline-danger" title="Clique para Apagar">
+                            <span onclick="global.confirmar('componente/apagar/<?php echo $componente->id; ?>', 'Apagar este Componente?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>

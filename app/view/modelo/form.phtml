@@ -2,7 +2,7 @@
 
     <form class="form-horizontal" action="/gerenciamento/modelo/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
-        <input name="modelo_id" type="hidden" value="<?php echo $this->view->modelo->modelo_id ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->modelo->id ?>">
 
         <div class="card card-inverse">
 
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <label>Nome da Modelo</label>
-                    <input required name="nome" type="text" class="form-control" placeholder=""
+                    <input required name="nome" class="form-control" placeholder=""
                            value="<?php echo $this->view->modelo->nome ?>">
                 </div>
 
@@ -45,14 +45,14 @@
                         $selected = "";
 
                         foreach ($this->view->fabricante as $fabricante) {
-                            if (isset($this->view->modelo->fabricante_id) && ($fabricante->fabricante_id == $this->view->modelo->fabricante_id)) {
+                            if (isset($this->view->modelo->fabricante_id) && ($fabricante->id == $this->view->modelo->fabricante_id)) {
                                 $selected = "selected";
                             }
                             else{
                                 $selected = "";
                             }
                             ?>
-                            <option <?php echo $selected ?> value="<?php echo $fabricante->fabricante_id?>">
+                            <option <?php echo $selected ?> value="<?php echo $fabricante->id?>">
                                 <?php echo $fabricante->nome?>
                             </option>
 

@@ -2,35 +2,38 @@
 
 namespace App\Controller;
 
+use App\Model\Ativo;
+use App\Model\Componente;
+use App\Model\Equipamento;
+use App\Model\Licenca;
 use Core\Controller;
-use Core\Containers;
 
 class HomeController extends Controller {
 
-    public $modelAtivo;
-    public $modelComponente;
-    public $modelEquipamento;
-    public $modelLicenca;
+    public $ativo;
+    public $componente;
+    public $equipamento;
+    public $licenca;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelAtivo = Containers::getModel('Ativo');
-        $this->modelComponente = Containers::getModel('Componente');
-        $this->modelEquipamento = Containers::getModel('Equipamento');
-        $this->modelLicenca = Containers::getModel('Licenca');
+        $this->ativo = new Ativo();
+        $this->componente = new Componente();
+        $this->equipamento = new Equipamento();
+        $this->licenca = new Licenca();
     }
 
     public function index(){
 
         $this->view->nome = "Dashboard";
 
-        @$this->view->contador->ativos = $this->modelAtivo->count();
-        @$this->view->contador->ativos->monitorados = $this->modelAtivo->count("monitorar like '1'");
-        @$this->view->contador->ativos->naoMonitorados = $this->modelAtivo->count("monitorar like '0'");
-        @$this->view->contador->componentes = $this->modelComponente->count();
-        @$this->view->contador->equipamentos = $this->modelEquipamento->count();
-        @$this->view->contador->licencas = $this->modelLicenca->count();
+        @$this->view->contador->ativos = $this->ativo->count();
+        @$this->view->contador->ativos->monitorados = $this->ativo->where("monitorar","=" ,1)->count();
+        @$this->view->contador->ativos->naoMonitorados = $this->ativo->where("monitorar","=", 0)->count();
+        @$this->view->contador->componentes = $this->componente->count();
+        @$this->view->contador->equipamentos = $this->equipamento->count();
+        @$this->view->contador->licencas = $this->licenca->count();
 
         $this->setPageTitle("Dashboard");
         $this->setView("home/index", "layout/index");

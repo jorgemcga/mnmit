@@ -2,25 +2,26 @@
 
 namespace App\Controller;
 
+use App\Model\SistemaOperacional;
 use Core\Controller;
-use Core\Containers;
 use Core\Redirect;
+use Core\Validator;
 
 class SistemaOperacionalController extends Controller
 {
 
-    private $modelSO;
+    private $so;
 
     public function __construct()
     {
         parent::__construct();
-        $this->modelSO = Containers::getModel('SistemaOperacional');
+        $this->so = new SistemaOperacional();
     }
 
     public function index()
     {
 
-        $this->view->so = $this->modelSO->all();
+        $this->view->so = $this->so->all();
 
         $this->setPageTitle("Sistemas Operacionais");
         $this->setView("so/index", "layout/index");
@@ -30,50 +31,76 @@ class SistemaOperacionalController extends Controller
     public function adicionar()
     {
 
-        $this->view->so = $this->modelSO;
+        $this->view->so = $this->so;
         $this->view->action = "salvar";
 
         $this->setPageTitle("Adicionar Sistema Operacional");
         $this->setView("so/form", "layout/index");
     }
 
-    public function salvar($request){
+    public function salvar($request)
+    {
+        $data = $this->so->data($request->post);
 
-        $data = $this->modelSO->data($request->post);
+        $url = $request->post->action=="salvar" ? "/gerenciamento/sistemaopercional/adicionar" :  "/gerenciamento/sistemaopercional/editar/{$request->post->id}";
 
-        $result = $request->post->action=="salvar" ? $this->modelSO->insert($data) :  $this->modelSO->update($request->post->so_id, $data);
+        if (Validator::make($data, $this->so->rules())) return Redirect::route("{$url}");
 
-        if ($result){
-            Redirect::route("/gerenciamento/sistemaoperacional");
+        if ($request->post->action=="salvar")
+        {
+            try
+            {
+                $this->so->create($data);
+
+                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                    "success" => ["Sistema Operacional Salvo com Sucesso!"]
+                ]);
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                    "error" => ["Erro ao salvar Sistema Operacional!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
         }
-        else {
-            echo '<script language="javascript">';
-            echo 'alert("Erro ao Salvar! Verifique os dados!");';
-            echo 'history.go(-1);';
-            echo '</script>';
-        }
+        elseif ($request->post->action=="editar") {
+            try {
+                $this->so->find($request->post->id)->update($data);
 
+                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                    "success" => ["Sistema Operacional Salvo com Sucesso!"]
+                ]);
+            } catch (\Exception $exception) {
+                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                    "error" => ["Erro ao salvar Sistema Operacional!", "Verifique os dados e tente novamente!"]
+                ]);
+            }
+        }
     }
 
     public function editar($id){
 
         $this->view->action = "editar";
 
-        $this->view->so = $this->modelSO->find($id);
+        $this->view->so = $this->so->find($id);
 
         $this->setPageTitle("Editar Sistema Operacional");
         $this->setView('so/form', 'layout/index');
 
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
+        try
+        {
+            $this->so->find($id)->delete();
 
-        if($result = $this->modelSO->delete($id)){
             return Redirect::route("/gerenciamento/sistemaoperacional", [
-                "success" => ["Sistema Operacional excluída!"]
+                "success" => ["Sistema Operacional excluído!"]
             ]);
         }
-        else {
+        catch (\Exception $exception)
+        {
             return Redirect::route("/gerenciamento/sistemaoperacional", [
                 "error" => ["Erro ao deletar Sistema Operacional!", "Verifique se há pendencias antes de deletar esse item"]
             ]);

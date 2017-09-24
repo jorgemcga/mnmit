@@ -46,7 +46,7 @@ class Ativo extends ModeloEloquent
         ];
     }
 
-    public function categoria()
+    public function categoria_ativo()
     {
         return $this->belongsTo('\App\Model\CategoriaAtivo');
     }
@@ -56,11 +56,13 @@ class Ativo extends ModeloEloquent
         return $this->belongsTo('\App\Model\Modelo');
     }
 
-    public function so(){
+    public function so()
+    {
         return $this->belongsTo('\App\Model\SistemaOperacional');
     }
 
-    public function usuario(){
+    public function usuario()
+    {
         return $this->belongsTo('\App\Model\Usuario');
     }
 
