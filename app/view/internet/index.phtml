@@ -1,0 +1,57 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
+<!--<div class="">-->
+<!--    <ul class="nav justify-content-center bg-light">-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="/gerenciamento/licenca">-->
+<!--                <i class="material-icons">copyright</i>-->
+<!--                Licenças-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="/gerenciamento/categorialicenca">-->
+<!--                <i class="material-icons">class</i>-->
+<!--                Categorias-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">public</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='internet/config'">
+                <i class="material-icons" style="font-size: 18px;">settings</i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+    </div>
+
+</div>
+
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

@@ -1,0 +1,40 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">http</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='hhtp/config'">
+                <i class="material-icons" style="font-size: 18px;">settings</i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+    </div>
+
+</div>
+
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

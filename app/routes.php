@@ -102,6 +102,23 @@
     $route[] = ['/gerenciamento/grupo/apagar/{id}', 'GrupoController@apagar'];
 
 
-$route[] = ['/monitoramento', 'MonitoramentoController@index'];
+    $route[] = ['/monitoramento', 'MonitoramentoController@index'];
+    $route[] = ['/monitoramento/start', 'MonitoramentoController@start'];
+
+    $route[] = ['/monitoramento/internet', 'InternetController@index'];
+    $route[] = ['/monitoramento/internet/config', 'InternetController@config'];
+    $route[] = ['/monitoramento/internet/salvar', 'InternetController@salvar'];
+
+    $route[] = ['/monitoramento/icmp', 'PingController@index'];
+    $route[] = ['/monitoramento/icmp/config', 'PingController@config'];
+    $route[] = ['/monitoramento/icmp/salvar', 'PingController@salvar'];
+
+    $route[] = ['/monitoramento/http', 'HttpController@index'];
+    $route[] = ['/monitoramento/http/config', 'HttpController@config'];
+    $route[] = ['/monitoramento/http/salvar', 'HttpController@salvar'];
+
+    $route[] = ['/monitoramento/snmp', 'SnmpController@index'];
+    $route[] = ['/monitoramento/snmp/config', 'SnmpController@config'];
+    $route[] = ['/monitoramento/snmp/salvar', 'SnmpController@salvar'];
 
     return $route;
