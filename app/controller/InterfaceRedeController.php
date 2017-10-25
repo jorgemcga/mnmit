@@ -41,8 +41,9 @@ class InterfaceRedeController extends Controller
         $this->setView("interface/form", "layout/index");
     }
 
-    public function salvar($request){
-
+    public function salvar($request)
+    {
+        $request->post->monitorar = isset($request->post->monitorar) ? 1 : 0;
         $data = $this->interface->data($request->post);
 
         /*$url = $request->post->action=="salvar" ? "/gerenciamento/ativo/interface/adicionar" :  "/gerenciamento/ativo/interface/editar/{$request->post->interface_id}";
@@ -88,6 +89,8 @@ class InterfaceRedeController extends Controller
         $this->view->action = "editar";
 
         $this->view->interface = $this->interface->find($id);
+
+        if ($this->view->interface->monitorar == 1) $this->view->interface->monitorar = "checked";
 
         @$this->view->ativo->id = $this->view->interface->ativo_id;
 

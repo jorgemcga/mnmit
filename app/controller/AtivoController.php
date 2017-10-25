@@ -65,8 +65,6 @@ class AtivoController extends Controller
 
     public function salvar($request)
     {
-        $request->post->monitorar = isset($request->post->monitorar) ? 1 : 0;
-
         $data = $this->ativo->data($request->post);
 
         $url = $request->post->action=="salvar" ? "/gerenciamento/ativo/adicionar" :  "/gerenciamento/ativo/editar/{$request->post->ativo_id}";
@@ -112,8 +110,6 @@ class AtivoController extends Controller
         $this->view->action = "editar";
 
         $this->view->ativo = $this->ativo->find($id);
-
-        if ($this->view->ativo->monitorar == 1) $this->view->ativo->monitorar = "checked";
 
         $this->view->categorias = $this->categoria->all();
         $this->view->sos = $this->so->all();

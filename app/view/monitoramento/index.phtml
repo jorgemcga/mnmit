@@ -1,15 +1,123 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
+<!--<div class="">-->
+<!--    <ul class="nav justify-content-center bg-light">-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="/gerenciamento/ativo">-->
+<!--                <i class="material-icons">devices</i>-->
+<!--                Ativos-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="/gerenciamento/categoriaativo">-->
+<!--                <i class="material-icons">devices_other</i>-->
+<!--                Categorias-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link " href="/gerenciamento/sistemaoperacional">-->
+<!--                <i class="material-icons">settings_applications</i>-->
+<!--                Sistemas Operacionais-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link " href="/gerenciamento/modelo">-->
+<!--                <i class="material-icons">cast</i>-->
+<!--                Modelos-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link " href="/gerenciamento/fabricante">-->
+<!--                <i class="material-icons">developer_board</i>-->
+<!--                Fabricantes-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
 <div class="container-fluid">
 
     <div class="row">
 
-        <div class="col-md-12">
-            <h1> Monitoramento </h1>
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">language</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
         </div>
 
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-dark" onclick="location='/monitoramento/config'" title="Configurações">
+                <i class="material-icons" style="font-size: 18px;">settings</i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
         <div class="col-md-12">
-            <p>Nome: <?php echo $this->view->nome; ?></p>
+
+            <table class="table table-light border">
+
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Nome de Identificação</th>
+                        <td>Servidor de Monitoramento<?php echo $this->view->servidor->nome; ?></td>
+                    </tr>
+                   <tr>
+                        <th>E-mail Administrador</th>
+                        <td><?php echo $this->view->servidor->email; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Plataforma</th>
+                        <td><?php echo $this->view->servidor->plataforma; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Data de Criação</th>
+                        <td><?php echo $this->view->servidor->created_at; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Útilma Atualiazação</th>
+                        <td><?php echo $this->view->servidor->updated_at; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <?php if ($this->view->servidor->status == 1){ ?>
+                            <td class='text-success'>
+                                <label class="col-md-10"> Em Execução </label>
+                                <button type='button' class='btn btn-outline-danger' onclick='location="/monitoramento/stop/<?php echo $this->view->servidor->id; ?>"' title='Parar'>
+                                    <i class='material-icons' style='font-size: 18px;'>stop</i>
+                                </button>
+                            </td>
+                        <?php } else { ?>
+                            <td class='text-danger'>
+                                <label class="col-md-10"> Parado </label>
+                                <button type='button' class='btn btn-outline-success' onclick='location="/monitoramento/start/<?php echo $this->view->servidor->id; ?>"' title='Iniciar'>
+                                    <i class='material-icons' style='font-size: 18px;'>play_arrow</i>
+                                </button>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                </thead>
+
+            </table>
+
         </div>
 
     </div>
 
 </div>
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

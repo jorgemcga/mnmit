@@ -72,7 +72,6 @@
                         <th>Fabricante</th>
                         <th>Categoria</th>
                         <th>Utilizador</th>
-                        <th>Monitorado</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -88,13 +87,6 @@
                             <td><?php echo isset($ativo->modelo->fabricante->nome) ? $ativo->modelo->fabricante->nome : "Nenhum" ?></td>
                             <td><?php echo $ativo->categoria_ativo->nome; ?></td>
                             <td><?php echo isset($ativo->usuario->name) ? $ativo->usuario->name : "Nenhum" ?></td>
-                            <td class="text-center">
-                                <?php
-                                    echo "<i class='material-icons";
-                                    echo $ativo->monitorar == 1 ? " text-success' title='Sim'>check" : " text-danger' title='Não'>clear";
-                                    echo "</i>";
-                                ?>
-                            </td>
                             <td class="text-right">
 
 <!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->id; ?><!--" class="btn btn-outline-info">-->

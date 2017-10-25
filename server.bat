@@ -1,1 +1,1 @@
-"C:\xampp\php\php.exe" -f C:\xampp\htdocs\mnmit\server.php
+C:\curl\bin\curl.exe http://localhost:81/monitoramento

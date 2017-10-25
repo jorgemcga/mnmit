@@ -74,6 +74,7 @@
                     <th>DNS 1</th>
                     <th>DNS 2</th>
                     <th>Mac Address</th>
+                    <th class="text-center">Monitorada</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -88,6 +89,13 @@
                         <td><?php echo $interface->dns1; ?></td>
                         <td><?php echo $interface->dns2; ?></td>
                         <td><?php echo $interface->macaddress; ?></td>
+                        <td class="text-center">
+                            <?php
+                            echo "<i class='material-icons";
+                            echo $interface->monitorar == 1 ? " text-success' title='Sim'>check" : " text-danger' title='Não'>clear";
+                            echo "</i>";
+                            ?>
+                        </td>
                         <td class="text-right">
 
                             <a href="../editar/<?php echo $interface->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">

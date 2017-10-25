@@ -14,7 +14,6 @@ class Ativo extends ModeloEloquent
         'tag',
         'descricao',
         'datacompra',
-        'monitorar',
         'categoria_ativo_id',
         'so_id',
         'modelo_id',
@@ -30,7 +29,6 @@ class Ativo extends ModeloEloquent
             'tag' => $request->tag,
             'descricao' => $request->descricao,
             'datacompra' => $request->datacompra,
-            'monitorar' => $request->monitorar,
             'categoria_ativo_id' => $request->categoria_ativo_id,
             'so_id' => $request->so_id,
             'modelo_id'=> $request->modelo_id,
@@ -64,6 +62,10 @@ class Ativo extends ModeloEloquent
     public function usuario()
     {
         return $this->belongsTo('\App\Model\Usuario');
+    }
+
+    public function interface_rede(){
+        return $this->hasMany('\App\Model\InterfaceRede');
     }
 
 }

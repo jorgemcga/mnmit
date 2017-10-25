@@ -11,5 +11,4 @@ class PingController extends Controller
         $this->setPageTitle("Monitoramento ICMP (Ping)");
         $this->setView("ping/index", "layout/index");
     }
-
 }

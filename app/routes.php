@@ -103,7 +103,10 @@
 
 
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
-    $route[] = ['/monitoramento/start', 'MonitoramentoController@start'];
+    $route[] = ['/monitoramento/servidor', 'MonitoramentoController@servidor'];
+    $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo'];
+    $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start'];
+    $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop'];
 
     $route[] = ['/monitoramento/internet', 'InternetController@index'];
     $route[] = ['/monitoramento/internet/config', 'InternetController@config'];

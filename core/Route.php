@@ -73,8 +73,10 @@ class Route
                 $auth = new Auth();
 
                 if ($action != "login" && $action != "auth" && !$auth->check()){
-                    $controller = "UsuarioController";
-                    $action = "login";
+                    if (!($controller == "MonitoramentoController" && $action=="index")) {
+                        $controller = "UsuarioController";
+                        $action = "login";
+                    }
                 }
 
                 break;
