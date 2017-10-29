@@ -28,6 +28,11 @@ class Ping extends ModeloEloquent
         ];
     }
 
+    public function interface_rede()
+    {
+        return $this->belongsTo('\App\Model\InterfaceRede');
+    }
+
     public function pingWin($interface)
     {
         exec("ping {$interface->ip}", $saida, $retorno);
@@ -36,12 +41,12 @@ class Ping extends ModeloEloquent
 
         foreach ($saida as $peaces){
             str_replace(",", "", $peaces);
-            $newSaida .= $peaces . "\n";
+            $newSaida .= $peaces . "<br>";
         }
 
         $data = [
             'status' => $retorno,
-            'descricao' => "'$newSaida'",
+            'descricao' => $newSaida,
             'interface_rede_id' => $interface->id
         ];
 
@@ -64,7 +69,7 @@ class Ping extends ModeloEloquent
         $newSaida = "";
 
         foreach ($saida as $peaces){
-            $newSaida .= $peaces;
+            $newSaida .= $peaces . "<br>";
         }
 
         $data = [

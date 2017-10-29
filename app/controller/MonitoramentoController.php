@@ -155,12 +155,13 @@ class MonitoramentoController extends Controller {
     {
         $interfaces = $this->interface->where("monitorar", "like","1")->get();
 
+
         foreach ($interfaces as $interface)
         {
-           if ($this->monitor->first()->plataforma == "Windows") $return = $this->ping->pingWin($interface);
-           else $return =  $this->ping->pingLinux($interface);
+            if ($this->monitor->first()->plataforma == "Windows") $return = $this->ping->pingWin($interface);
+            else $return =  $this->ping->pingLinux($interface);
 
-           if(!$return) echo "ERRORORORO";
+            if(!$return) echo "ERRORORORO";
         }
 
         return 0;

@@ -114,7 +114,7 @@
 
     $route[] = ['/monitoramento/icmp', 'PingController@index'];
     $route[] = ['/monitoramento/icmp/config', 'PingController@config'];
-    $route[] = ['/monitoramento/icmp/salvar', 'PingController@salvar'];
+    $route[] = ['/monitoramento/icmp/salvar/{id}', 'PingController@salvar'];
 
     $route[] = ['/monitoramento/http', 'HttpController@index'];
     $route[] = ['/monitoramento/http/config', 'HttpController@config'];

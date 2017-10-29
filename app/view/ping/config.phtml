@@ -1,0 +1,178 @@
+<div class="container-fluid mt-1">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">settings</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+        <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" title="Voltar" onclick="location='/monitoramento/icmp'">
+                <i class="material-icons" style="font-size: 18px;">arrow_back</i>
+            </button>
+        </div>
+
+    </div>
+
+    <form class="form-horizontal" action="/monitoramento/icmp/salvar/1" method="post" accept-charset="utf-8">
+        <input name="id" type="hidden" value="<?php echo $this->view->agendador->id ?>">
+
+        <div class="card card-inverse">
+
+            <div class="card-header">
+
+                <div class="row">
+                    <h3 class="col-md-10">
+                        <i class="material-icons" style="font-size: 28px">history</i>
+                        Agendamento de Disparos
+                    </h3>
+
+                    <div class="col-md-2 text-right">
+                        <button class="btn btn-success">
+                            <i class="material-icons" style="font-size: 18px;">done</i>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label>Periodicidade</label>
+                        <select  class="form-control" name="periodicidade">
+                            <?php
+
+                            $periodos = array("horario" => "Hora em Hora", "diario" => "Diariamente", "semanal" => "Semanalmente", "mensal" => "Mensalmente");
+                            $selected = "";
+
+                            foreach ($periodos as $key => $periodo) {
+
+                                if ($this->view->agendador->periodicidade == $key) $selected = "selected";
+                                else $selected = "";
+                                ?>
+
+                                <option <?php echo $selected ?> value="<?php echo $key?>">
+                                    <?php echo $periodo ?>
+                                </option>
+
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <label>Ultimo Disparo</label>
+                        <input class="form-control" disabled value="<?php echo date("d/m/Y H:i:s", strtotime($this->view->agendador->updated_at)) ?>">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <br>
+
+    <form class="form-horizontal" action="/monitoramento/icmp/salvar/2" method="post" accept-charset="utf-8">
+
+        <div class="card card-inverse">
+
+            <div class="card-header">
+
+                <div class="row">
+                    <h3 class="col-md-10">
+                        <i class="material-icons" style="font-size: 28px">language</i>
+                        Interfaces Monitoradas
+                    </h3>
+
+                    <div class="col-md-2 text-right">
+                        <button class="btn btn-success">
+                            <i class="material-icons" style="font-size: 18px;">done</i>
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group row">
+                <?php foreach ($this->view->ativos as $ativo){ ?>
+
+                    <div class="col-md-4">
+                        <div class="card card-header bg-primary text-white">
+                            <h5>
+                                <i class="material-icons">phonelink</i>
+                                <?php echo $ativo->nome ?>
+                            </h5>
+                        </div>
+                        <div class="card card-body">
+                            <div class="row">
+                            <?php foreach ($ativo->interface_rede as $interface){ ?>
+                            <input name="<?php echo "id" . $interface->id ?>" type="hidden" value="<?php echo $interface->id ?>">
+                            <div class="col-md-6">
+                                <div class="alert bg-secondary text-white" >
+                                    <label>
+                                        <i class="material-icons">share</i>
+                                        <?php echo $interface->ip; ?>
+                                    </label>
+                                    <?php
+                                        $checked = "";
+                                        $active = "";
+                                        $unchecked = "";
+                                        $unactive = "";
+                                        if ($interface->monitorar == 1){
+                                            $checked = "checked";
+                                            $active = "active";
+                                        }
+                                        else {
+                                            $unchecked = "checked";
+                                            $unactive = "active";
+                                        }
+                                    ?>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-outline-dark <?php echo $active ?>">
+                                            <input type="radio" value="1" name="<?php echo "monitorar" . $interface->id ?>" <?php echo $checked ?>> Sim
+                                        </label>
+                                        <label class="btn btn-outline-dark <?php echo $unactive ?>">
+                                            <input type="radio" value="0" name="<?php echo "monitorar" . $interface->id ?>" <?php echo $unchecked ?>> Não
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php } ?>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

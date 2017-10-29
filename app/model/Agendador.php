@@ -16,7 +16,7 @@ class Agendador extends ModeloEloquent
 
     public function data($request){
         return [
-            'status' => $request->status,
+            'periodicidade' => $request->periodicidade,
         ];
     }
 
