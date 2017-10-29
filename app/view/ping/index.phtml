@@ -59,11 +59,35 @@
                         <td><?php echo $ping->interface_rede->ip; ?></td>
                         <td><?php echo date('d/m/Y H:i:s',strtotime($ping->updated_at)); ?></td>
                         <td class="text-right">
-                            <span onclick="showModal()" class="btn btn-outline-primary" title="Resultado Completo">
+                            <span onclick="showModal(<?php echo $ping->interface_rede_id; ?>)" class="btn btn-outline-primary" title="Resultado Completo">
                                 <i class="material-icons" style="font-size: 18px;">more_horiz</i>
                             </span>
                         </td>
                     </tr>
+
+                    <div class="modal fade" id="<?php echo $ping->interface_rede_id; ?>" tabindex="-1" role="dialog" aria-labelledby="msgSuccess" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h4>Detalhes da Execução</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <?php echo $ping->descricao; ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function showModal(id)
+                        {
+                            jQuery("#"+id).modal('show');
+                        }
+                    </script>
+
                 <?php } ?>
                 </tbody>
 
@@ -73,29 +97,6 @@
     </div>
 
 </div>
-
-<div class="modal fade" id="msg" tabindex="-1" role="dialog" aria-labelledby="msgSuccess" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h4>Detalhes da Execução</h4>
-            </div>
-            <div class="modal-body">
-                <?php echo $ping->descricao; ?>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    function showModal()
-    {
-        jQuery('#msg').modal('show');
-    }
-</script>
 
 <?php
 
