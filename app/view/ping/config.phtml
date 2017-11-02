@@ -121,7 +121,7 @@
                             <?php foreach ($ativo->interface_rede as $interface){ ?>
                             <input name="<?php echo "id" . $interface->id ?>" type="hidden" value="<?php echo $interface->id ?>">
                             <div class="col-md-6">
-                                <div class="alert bg-secondary text-white" >
+                                <div class="alert bg-dark text-white" >
                                     <label>
                                         <i class="material-icons">share</i>
                                         <?php echo $interface->ip; ?>
@@ -141,10 +141,10 @@
                                         }
                                     ?>
                                     <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-outline-dark <?php echo $active ?>">
+                                        <label class="btn btn-outline-primary <?php echo $active ?>">
                                             <input type="radio" value="1" name="<?php echo "monitorar" . $interface->id ?>" <?php echo $checked ?>> Sim
                                         </label>
-                                        <label class="btn btn-outline-dark <?php echo $unactive ?>">
+                                        <label class="btn btn-outline-primary <?php echo $unactive ?>">
                                             <input type="radio" value="0" name="<?php echo "monitorar" . $interface->id ?>" <?php echo $unchecked ?>> Não
                                         </label>
                                     </div>

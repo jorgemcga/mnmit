@@ -4,29 +4,30 @@ namespace App\Model;
 
 use Core\ModeloEloquent;
 
-class Monitoramento extends ModeloEloquent
+class Site extends ModeloEloquent
 {
+    protected $table = "site";
 
-    protected $table = "monitor";
+    public $timestamps = false;
 
     public $fillable = [
-        'status',
+        'url',
         'nome',
-        'email',
-        'plataforma'
+        'usuario',
+        'senha'
     ];
 
     public function data($request){
         return [
+            'url' => $request->url,
             'nome' => $request->nome,
-            'email' => $request->email,
-            'plataforma' => $request->plataforma
+            'usuario' => $request->usuario,
+            'senha' => $request->senha
         ];
     }
 
     public function rules(){
         return [
-
         ];
     }
 

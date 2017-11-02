@@ -1,5 +1,22 @@
 <script type="text/javascript" src="/js/dataTableAply.js"></script>
 
+<div class="">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/monitoramento/http">
+                <i class="material-icons">http</i>
+                Monitoramento
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/monitoramento/site">
+                <i class="material-icons">description</i>
+                Sites
+            </a>
+        </li>
+    </ul>
+</div>
+
 <div class="container-fluid">
 
     <div class="row">
@@ -14,7 +31,7 @@
         </div>
 
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='hhtp/config'">
+            <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='http/config'">
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
@@ -22,7 +39,68 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12">
 
+            <table id="table" class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th class="text-center">Status</th>
+                    <th>Site</th>
+                    <th>Execução</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->https as $http) {
+                    if(!empty($http->status)) { ?>
+                    <tr>
+                        <td class="text-center">
+                            <?php
+                            echo "<i class='material-icons";
+                            echo $http->status == 1 ? " text-success' title='Acessível'>check" : " text-danger' title='Inacessível'>clear";
+                            echo "</i>";
+                            ?>
+                        </td>
+                        <td><?php echo $http->site->nome; ?></td>
+                        <td><?php echo date('d/m/Y H:i:s',strtotime($http->updated_at)); ?></td>
+                        <td class="text-right">
+                            <span onclick="showModal(<?php echo $http->site_id; ?>)" class="btn btn-outline-primary" title="Resultado Completo">
+                                <i class="material-icons" style="font-size: 18px;">more_horiz</i>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="<?php echo $http->site_id; ?>" tabindex="-1" role="dialog" aria-labelledby="msgSuccess" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h4>Detalhes da Execução</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <?php echo $http->descricao; ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function showModal(id)
+                        {
+                            jQuery("#"+id).modal('show');
+                        }
+                    </script>
+
+                <?php }} ?>
+                </tbody>
+
+            </table>
+
+        </div>
     </div>
 
 </div>

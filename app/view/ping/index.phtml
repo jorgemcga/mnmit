@@ -30,7 +30,6 @@
     </div>
 
     <div class="row">
-
         <div class="col-md-12">
 
             <table id="table" class="table table-striped">
@@ -46,7 +45,8 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($this->view->pings as $ping) { ?>
+                <?php foreach ($this->view->pings as $ping) {
+                    if(!empty($ping->status)) {?>
                     <tr>
                         <td class="text-center">
                             <?php
@@ -88,7 +88,7 @@
                         }
                     </script>
 
-                <?php } ?>
+                <?php }} ?>
                 </tbody>
 
             </table>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Agendador;
 use App\Model\Ativo;
+use App\Model\Http;
 use App\Model\InterfaceRede;
 use App\Model\Monitoramento;
 use App\Model\Ping;
@@ -17,6 +18,7 @@ class MonitoramentoController extends Controller {
     protected $agendador;
     protected $interface;
     protected $ping;
+    protected $http;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class MonitoramentoController extends Controller {
         $this->agendador = new Agendador();
         $this->interface = new InterfaceRede();
         $this->ping = new Ping();
+        $this->http = new Http();
     }
 
     public function index()
@@ -76,6 +79,7 @@ class MonitoramentoController extends Controller {
                         $this->pingAll();
                         break;
                     case "http":
+                        $this->http->isUp();
                         break;
                     case "snmp":
                         break;
@@ -108,6 +112,35 @@ class MonitoramentoController extends Controller {
         catch (\Exception $exception)
         {
             return false;
+        }
+    }
+
+    public function config($id)
+    {
+        $this->view->monitor = $this->monitor->find($id);
+
+        $this->setPageTitle("Configurações Servidor");
+        $this->setView("monitoramento/config", "layout/index");
+
+    }
+
+    public function salvar($request)
+    {
+        try
+        {
+            $data = $this->monitor->data($request->post);
+
+            $this->monitor->find($request->post->id)->update($data);
+
+            return Redirect::route("/monitoramento/servidor", [
+                "success" => ["Servidor Atualizado!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/servidor", [
+                "error" => ["Erro ao Atualizar Servidor!", "Verifique a conexão com o banco de dados!"]
+            ]);
         }
     }
 
@@ -164,7 +197,7 @@ class MonitoramentoController extends Controller {
             if(!$return) echo "ERRORORORO";
         }
 
-        return 0;
+        return true;
 
     }
 }

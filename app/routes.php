@@ -104,6 +104,8 @@
 
     $route[] = ['/monitoramento', 'MonitoramentoController@index'];
     $route[] = ['/monitoramento/servidor', 'MonitoramentoController@servidor'];
+    $route[] = ['/monitoramento/servidor/config/{$id}', 'MonitoramentoController@config'];
+    $route[] = ['/monitoramento/servidor/salvar', 'MonitoramentoController@salvar'];
     $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo'];
     $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start'];
     $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop'];
@@ -119,6 +121,12 @@
     $route[] = ['/monitoramento/http', 'HttpController@index'];
     $route[] = ['/monitoramento/http/config', 'HttpController@config'];
     $route[] = ['/monitoramento/http/salvar', 'HttpController@salvar'];
+
+    $route[] = ['/monitoramento/site', 'SiteController@index'];
+    $route[] = ['/monitoramento/site/adicionar', 'SiteController@adicionar'];
+    $route[] = ['/monitoramento/site/salvar', 'SiteController@salvar'];
+    $route[] = ['/monitoramento/site/editar/{id}', 'SiteController@editar'];
+    $route[] = ['/monitoramento/site/apagar/{id}', 'SiteController@apagar'];
 
     $route[] = ['/monitoramento/snmp', 'SnmpController@index'];
     $route[] = ['/monitoramento/snmp/config', 'SnmpController@config'];

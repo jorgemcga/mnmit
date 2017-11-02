@@ -1,40 +1,5 @@
 <script type="text/javascript" src="/js/dataTableAply.js"></script>
 
-<!--<div class="">-->
-<!--    <ul class="nav justify-content-center bg-light">-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/gerenciamento/ativo">-->
-<!--                <i class="material-icons">devices</i>-->
-<!--                Ativos-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/gerenciamento/categoriaativo">-->
-<!--                <i class="material-icons">devices_other</i>-->
-<!--                Categorias-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link " href="/gerenciamento/sistemaoperacional">-->
-<!--                <i class="material-icons">settings_applications</i>-->
-<!--                Sistemas Operacionais-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link " href="/gerenciamento/modelo">-->
-<!--                <i class="material-icons">cast</i>-->
-<!--                Modelos-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link " href="/gerenciamento/fabricante">-->
-<!--                <i class="material-icons">developer_board</i>-->
-<!--                Fabricantes-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</div>-->
-
 <div class="container-fluid">
 
     <div class="row">
@@ -49,7 +14,7 @@
         </div>
 
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-dark" onclick="location='/monitoramento/config'" title="Configurações">
+            <button type="button" class="btn btn-outline-dark" onclick="location='/monitoramento/servidor/config/<?php echo $this->view->servidor->id; ?>'" title="Configurações">
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
@@ -65,7 +30,7 @@
                 <thead class="thead-inverse">
                     <tr>
                         <th>Nome de Identificação</th>
-                        <td>Servidor de Monitoramento<?php echo $this->view->servidor->nome; ?></td>
+                        <td><?php echo $this->view->servidor->nome; ?></td>
                     </tr>
                    <tr>
                         <th>E-mail Administrador</th>
@@ -77,11 +42,11 @@
                     </tr>
                     <tr>
                         <th>Data de Criação</th>
-                        <td><?php echo $this->view->servidor->created_at; ?></td>
+                        <td><?php echo date("H:i:s - d/m/Y", strtotime($this->view->servidor->created_at)); ?></td>
                     </tr>
                     <tr>
                         <th>Útilma Atualiazação</th>
-                        <td><?php echo $this->view->servidor->updated_at; ?></td>
+                        <td><?php echo date("H:i:s - d/m/Y", strtotime($this->view->servidor->updated_at)); ?></td>
                     </tr>
                     <tr>
                         <th>Status</th>

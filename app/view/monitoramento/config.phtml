@@ -1,0 +1,74 @@
+<div class="container-fluid mt-1">
+
+    <br>
+
+    <form class="form-horizontal" action="/monitoramento/servidor/salvar" method="post" accept-charset="utf-8">
+        <input name="id" type="hidden" value="<?php echo $this->view->monitor->id ?>">
+
+        <div class="card card-inverse">
+
+            <div class="card-header">
+
+                <div class="row">
+                    <h3 class="col-md-10">
+                        <i class="material-icons" style="font-size: 28px">settings</i>
+                        <?php echo $this->getPageTitle(); ?>
+                    </h3>
+
+                    <div class="col-md-2 text-right">
+                        <button class="btn btn-success">
+                            <i class="material-icons" style="font-size: 18px;">done</i>
+                            Salvar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="location='/monitoramento/servidor'">
+                            <i class="material-icons" style="font-size: 18px;">clear</i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label>Nome do Servidor</label>
+                        <input class="form-control" name="nome" value="<?php echo $this->view->monitor->nome ?>">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>E-mail Administrador</label>
+                        <input class="form-control" name="email" value="<?php echo $this->view->monitor->email ?>">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Plataforma</label>
+                        <select  class="form-control" name="plataforma">
+                            <?php
+
+                            $sos = array("Windows" => "Windows", "Linux" => "Linux");
+                            $selected = "";
+
+                            foreach ($sos as $key => $so) {
+
+                                if ($this->view->monitor->plataforma == $key) $selected = "selected";
+                                else $selected = "";
+                                ?>
+
+                                <option <?php echo $selected ?> value="<?php echo $key?>">
+                                    <?php echo $so ?>
+                                </option>
+
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
