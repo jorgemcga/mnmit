@@ -9,8 +9,6 @@ class Http extends ModeloEloquent
     protected $table = "http";
     protected $site;
 
-    public $timestamps = false;
-
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

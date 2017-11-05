@@ -1,6 +1,6 @@
 <script type="text/javascript" src="/js/dataTableAply.js"></script>
 
-<div class="">
+<div class="menu-barra">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
             <a class="nav-link" href="/monitoramento/http">
@@ -39,6 +39,14 @@
     </div>
 
     <div class="row">
+
+        <div class="col-12 text-center">
+            <h2> <i class="material-icons" style="font-size: 32px;">history</i> Execuções mais recentes...</h2>
+        </div>
+
+    </div>
+
+    <div class="row">
         <div class="col-md-12">
 
             <table id="table" class="table table-striped">
@@ -54,12 +62,12 @@
 
                 <tbody>
                 <?php foreach ($this->view->https as $http) {
-                    if(!empty($http->status)) { ?>
+                    if(!empty($http->created_at)) { ?>
                     <tr>
                         <td class="text-center">
                             <?php
                             echo "<i class='material-icons";
-                            echo $http->status == 1 ? " text-success' title='Acessível'>check" : " text-danger' title='Inacessível'>clear";
+                            echo $http->status == 0 ? " text-success' title='Acessível'>check" : " text-danger' title='Inacessível'>clear";
                             echo "</i>";
                             ?>
                         </td>

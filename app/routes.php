@@ -131,5 +131,19 @@
     $route[] = ['/monitoramento/snmp', 'SnmpController@index'];
     $route[] = ['/monitoramento/snmp/config', 'SnmpController@config'];
     $route[] = ['/monitoramento/snmp/salvar', 'SnmpController@salvar'];
+    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run'];
+    $route[] = ['/monitoramento/snmp/start/{id}', 'SnmpController@start'];
+    $route[] = ['/monitoramento/snmp/stop/{id}', 'SnmpController@stop'];
+    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run'];
+
+    $route[] = ['/monitoramento/oid', 'OidController@index'];
+    $route[] = ['/monitoramento/oid/adicionar', 'OidController@adicionar'];
+    $route[] = ['/monitoramento/oid/salvar', 'OidController@salvar'];
+    $route[] = ['/monitoramento/oid/editar/{id}', 'OidController@editar'];
+    $route[] = ['/monitoramento/oid/apagar/{id}', 'OidController@apagar'];
+
+    $route[] = ['/monitoramento/oid-ativo', 'OidAtivoController@index'];
+    $route[] = ['/monitoramento/oid-ativo/salvar', 'OidAtivoController@salvar'];
+    $route[] = ['/monitoramento/oid-ativo/apagar/{id}/{id}', 'OidAtivoController@apagar'];
 
     return $route;

@@ -1,0 +1,76 @@
+<div class="container-fluid mt-1">
+    <br>
+    <form class="form-horizontal" action="/monitoramento/oid/salvar" method="post" accept-charset="utf-8">
+        <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
+        <input name="id" type="hidden" value="<?php echo $this->view->oid->id ?>">
+
+        <div class="card card-inverse">
+
+            <div class="card-header">
+
+                <div class="row">
+                    <h3 class="col-md-10">
+                        <i class="material-icons" style="font-size: 28px">casino</i>
+                        <?php echo $this->getPageTitle(); ?>
+                    </h3>
+
+                    <div class="col-md-2 text-right">
+                        <button class="btn btn-outline-success">
+                            <i class="material-icons" style="font-size: 18px;">done</i>
+                            Gravar
+                        </button>
+
+                        <button type="button" class="btn btn-outline-danger" onclick="location='/monitoramento/oid'">
+                            <i class="material-icons" style="font-size: 18px;">clear</i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label>Nome Identificador</label>
+                    <input name="nome" class="form-control" placeholder="Nome Identificador" required
+                           value="<?php echo $this->view->oid->nome?>">
+                </div>
+                <div class="form-group">
+                    <label>OID</label>
+                    <input name="oid" class="form-control" placeholder="0.0.00.0.0.0.0" required
+                           value="<?php echo $this->view->oid->oid?>">
+                </div>
+                <div class="form-group">
+                    <label>Versão</label>
+                    <select  class="form-control" name="versao">
+                        <?php
+
+                        $versoes = array("SNMP::VERSION_2C" => "SNMPv2c", "SNMP::VERSION_1" => "SNMPv1");
+                        $selected = "";
+
+                        foreach ($versoes as $key => $versao) {
+
+                            if ($this->view->oid->versao == $key) $selected = "selected";
+                            else $selected = "";
+                            ?>
+
+                            <option <?php echo $selected ?> value="<?php echo $key?>">
+                                <?php echo $versao ?>
+                            </option>
+
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Community String</label>
+                    <input name="string" class="form-control" placeholder="ex: public, private, etc."
+                           required value="<?php echo $this->view->oid->string ?>">
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

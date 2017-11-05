@@ -12,11 +12,13 @@ class Agendador extends ModeloEloquent
     public $fillable = [
         'periodicidade',
         'tipo',
+        'status'
     ];
 
     public function data($request){
         return [
             'periodicidade' => $request->periodicidade,
+            'status' => $request->status
         ];
     }
 

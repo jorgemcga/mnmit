@@ -1,0 +1,164 @@
+<script type="text/javascript" src="/js/dataTableAply.js"></script>
+
+<div class="menu-barra">
+    <ul class="nav justify-content-center bg-light">
+        <li class="nav-item">
+            <a class="nav-link" href="/monitoramento/snmp">
+                <i class="material-icons">share</i>
+                Monitoramento
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/monitoramento/oid">
+                <i class="material-icons">casino</i>
+                Coleção de OID's
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/monitoramento/oid-ativo">
+                <i class="material-icons">compare_arrows</i>
+                Relacionar
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <p>
+            <h1>
+                <i class="material-icons" style="font-size: 38px">compare_arrows</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h1>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" action="/monitoramento/oid-ativo/salvar" method="post" accept-charset="utf-8">
+                <div class="card card-inverse">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><strong>Ativos</strong></label>
+                                    <select name="ativo_id" class="form-control" required>
+                                        <option selected value=""></option>
+                                        <?php
+                                        foreach ($this->view->ativos as $ativo) { ?>
+
+                                            <option value="<?php echo $ativo->id?>">
+                                                <?php echo $ativo->nome ?>
+                                            </option>
+
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>IP de Conexão</label>
+                                    <input class="form-control" name="ip" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label><strong>OID's</strong></label>
+                                    <select name="oid_id" class="form-control" required>
+                                        <option selected value=""></option>
+                                        <?php
+                                        foreach ($this->view->oids as $oid) { ?>
+
+                                            <option value="<?php echo $oid->id?>">
+                                                <?php echo $oid->nome ?>
+                                            </option>
+
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <button class="btn btn-outline-primary">
+                                    <i class="material-icons" style="font-size: 18px;">compare_arrows</i>
+                                    Relacionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+        <h4>
+            <i class="material-icons">share</i>
+            Relacionamentos
+        </h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table id="table" class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Ativo</th>
+                    <th>OID</th>
+                    <th>IP de Conexão</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->oidAtivo as $oidAtivo) {?>
+                    <tr>
+                        <td><?php echo $oidAtivo->ativo->nome; ?></td>
+                        <td><?php echo $oidAtivo->oid->nome; ?></td>
+                        <td><?php echo $oidAtivo->ip; ?></td>
+                        <td class="text-right">
+<!--                            <span onclick="run" class="btn btn-outline-primary" title="Run?">-->
+<!--                                <i class="material-icons" style="font-size: 18px;">play_arrow</i>-->
+<!--                            </span>-->
+                            <span class="btn btn-outline-danger" title="Desfazer"
+                                onclick="global.confirmar('/monitoramento/oid-ativo/apagar/<?php echo $oidAtivo->oid_id . "/" . $oidAtivo->ativo_id; ?>', 'Deseja realmente desfazer esta relação?')">
+                                <i class="material-icons" style="font-size: 18px;">close</i>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<?php
+
+if (isset($this->success)){
+    $this->setView('modal/success');
+}
+else if (isset($this->errors)){
+    $this->setView('modal/error');
+}
+
+?>

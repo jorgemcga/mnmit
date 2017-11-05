@@ -30,18 +30,15 @@
         <div class="col-md-4">
             <p>
             <h1>
-                <i class="material-icons" style="font-size: 38px">share</i>
+                <i class="material-icons" style="font-size: 38px">casino</i>
                 <?php echo $this->getPageTitle(); ?>
             </h1>
             </p>
         </div>
 
         <div class="col-md-8 text-right mt-3">
-<!--            <button type="button" class="btn btn-outline-primary" title="run" onclick="location='snmp/run'">-->
-<!--                <i class="material-icons" style="font-size: 18px;">play_arrow</i>-->
-<!--            </button>-->
-            <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='snmp/config'">
-                <i class="material-icons" style="font-size: 18px;">settings</i>
+            <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='/monitoramento/oid/adicionar'">
+                <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
 
@@ -54,21 +51,30 @@
 
                 <thead class="thead-inverse">
                 <tr>
-                    <th>Nome do Ativo</th>
+                    <th>Nome Identificador</th>
                     <th>OID</th>
-                    <th>Valor</th>
-                    <th>Execução</th>
+                    <th>Versão SNMP</th>
+                    <th>Community String</th>
+                    <th></th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <?php foreach ($this->view->snmps as $snmp) {
-                    if(!empty($snmp->created_at)) {?>
+                <?php foreach ($this->view->oids as $oid) {
+                    if(!empty($oid->created_at)) { ?>
                         <tr>
-                            <td><?php echo $snmp->ativo->nome; ?></td>
-                            <td><?php echo $snmp->oid->nome; ?></td>
-                            <td><?php echo $snmp->valor; ?></td>
-                            <td><?php echo date('d/m/Y H:i:s',strtotime($snmp->updated_at)); ?></td>
+                            <td><?php echo $oid->nome; ?></td>
+                            <td><?php echo $oid->oid; ?></td>
+                            <td><?php echo $oid->versao; ?></td>
+                            <td><?php echo $oid->string; ?></td>
+                            <td class="text-right">
+                                <span onclick="location='/monitoramento/oid/editar/<?php echo $oid->id; ?>'" class="btn btn-outline-primary" title="Editar">
+                                    <i class="material-icons" style="font-size: 18px;">edit</i>
+                                </span>
+                                <span onclick="global.confirmar('/monitoramento/oid/apagar/<?php echo $oid->id; ?>', 'Apagar essa OID?')"; class="btn btn-outline-danger" title="Apagar">
+                                    <i class="material-icons" style="font-size: 18px;">delete</i>
+                                </span>
+                            </td>
                         </tr>
                     <?php }} ?>
                 </tbody>
@@ -76,6 +82,7 @@
             </table>
 
         </div>
+
     </div>
 
 </div>

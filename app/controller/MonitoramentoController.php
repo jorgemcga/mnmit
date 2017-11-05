@@ -7,7 +7,9 @@ use App\Model\Ativo;
 use App\Model\Http;
 use App\Model\InterfaceRede;
 use App\Model\Monitoramento;
+use App\Model\Oid;
 use App\Model\Ping;
+use App\Model\Snmp;
 use Core\Controller;
 use Core\Redirect;
 
@@ -19,6 +21,7 @@ class MonitoramentoController extends Controller {
     protected $interface;
     protected $ping;
     protected $http;
+    protected $snmp;
 
     public function __construct()
     {
@@ -29,6 +32,7 @@ class MonitoramentoController extends Controller {
         $this->interface = new InterfaceRede();
         $this->ping = new Ping();
         $this->http = new Http();
+        $this->snmp = new Snmp();
     }
 
     public function index()
@@ -39,52 +43,54 @@ class MonitoramentoController extends Controller {
 
         foreach ($agendados as $agendado)
         {
-            $periodo = false;
+            if($agendado->status == 1) {
 
-            switch ($agendado->periodicidade)
-            {
-                case "horario":
-                    if ($agendado->validarHorario()) {
-                        $periodo = true;
-                        $agendado->touch();
-                    }
-                    break;
-                case "diario":
-                    if ($agendado->validarDiario()) {
-                        $periodo = true;
-                        $agendado->touch();
-                    }
-                    break;
-                case "semanal":
-                    if ($agendado->validarSemanal()) {
-                        $periodo = true;
-                        $agendado->touch();
-                    }
-                    break;
-                case "mensal":
-                    if ($agendado->validarMensal()){
-                        $periodo = true;
-                        $agendado->touch();
-                    }
-                    break;
-                default:
-                    $periodo = false;
-                    break;
-            }
+                $periodo = false;
 
-            if ($periodo)
-            {
-                switch ($agendado->tipo) {
-                    case "icmp":
-                        $this->pingAll();
+                switch ($agendado->periodicidade) {
+                    case "horario":
+                        if ($agendado->validarHorario()) {
+                            $periodo = true;
+                            $agendado->touch();
+                        }
                         break;
-                    case "http":
-                        $this->http->isUp();
+                    case "diario":
+                        if ($agendado->validarDiario()) {
+                            $periodo = true;
+                            $agendado->touch();
+                        }
                         break;
-                    case "snmp":
+                    case "semanal":
+                        if ($agendado->validarSemanal()) {
+                            $periodo = true;
+                            $agendado->touch();
+                        }
+                        break;
+                    case "mensal":
+                        if ($agendado->validarMensal()) {
+                            $periodo = true;
+                            $agendado->touch();
+                        }
                         break;
                     default:
+                        $periodo = false;
                         break;
+                }
+
+                if ($periodo) {
+                    switch ($agendado->tipo) {
+                        case "icmp":
+                            $retrun = $this->pingAll();
+                            break;
+                        case "http":
+                            $return = $this->http->isUp();
+                            break;
+                        case "snmp":
+                            $return = $this->snmp->runAll();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
