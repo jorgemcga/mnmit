@@ -1,22 +1,3 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
-
-<!--<div class="">-->
-<!--    <ul class="nav justify-content-center bg-light">-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/gerenciamento/licenca">-->
-<!--                <i class="material-icons">copyright</i>-->
-<!--                Licenças-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link" href="/gerenciamento/categorialicenca">-->
-<!--                <i class="material-icons">class</i>-->
-<!--                Categorias-->
-<!--            </a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</div>-->
-
 <div class="container-fluid">
 
     <div class="row">
@@ -31,6 +12,9 @@
         </div>
 
         <div class="col-md-8 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" title="run" onclick="location='internet/run'">
+                <i class="material-icons" style="font-size: 18px;">play_arrow</i>
+            </button>
             <button type="button" class="btn btn-outline-dark" title="Configurações" onclick="location='internet/config'">
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
@@ -39,7 +23,33 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12">
 
+            <table id="table" class="table table-striped">
+
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Ping</th>
+                    <th>Download (Mbit/s)</th>
+                    <th>Upload (Mbit/s)</th>
+                    <th>Execução</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($this->view->internets as $internet) { ?>
+                        <tr>
+                            <td><?php echo $internet->ping; ?></td>
+                            <td><?php echo $internet->download; ?></td>
+                            <td><?php echo $internet->upload; ?></td>
+                            <td><?php echo date('d/m/Y H:i:s',strtotime($internet->updated_at)); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+
+            </table>
+
+        </div>
     </div>
 
 </div>

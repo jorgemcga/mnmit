@@ -102,7 +102,7 @@ class SnmpController extends Controller
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/servidor", [
+            return Redirect::route("/monitoramento/snmp/config", [
                 "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }

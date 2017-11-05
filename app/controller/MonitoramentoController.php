@@ -6,6 +6,7 @@ use App\Model\Agendador;
 use App\Model\Ativo;
 use App\Model\Http;
 use App\Model\InterfaceRede;
+use App\Model\Internet;
 use App\Model\Monitoramento;
 use App\Model\Oid;
 use App\Model\Ping;
@@ -22,6 +23,7 @@ class MonitoramentoController extends Controller {
     protected $ping;
     protected $http;
     protected $snmp;
+    protected $internet;
 
     public function __construct()
     {
@@ -33,6 +35,7 @@ class MonitoramentoController extends Controller {
         $this->ping = new Ping();
         $this->http = new Http();
         $this->snmp = new Snmp();
+        $this->internet = new Internet();
     }
 
     public function index()
@@ -87,6 +90,9 @@ class MonitoramentoController extends Controller {
                             break;
                         case "snmp":
                             $return = $this->snmp->runAll();
+                            break;
+                        case "internet":
+                            $return = $this->internet->run();
                             break;
                         default:
                             break;
