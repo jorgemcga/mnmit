@@ -120,14 +120,16 @@
     $route[] = ['/monitoramento/icmp', 'PingController@index'];
     $route[] = ['/monitoramento/icmp/config', 'PingController@config'];
     $route[] = ['/monitoramento/icmp/salvar/{id}', 'PingController@salvar'];
-    $route[] = ['/monitoramento/snmp/start/{id}', 'SnmpController@start'];
-    $route[] = ['/monitoramento/snmp/stop/{id}', 'SnmpController@stop'];
+    $route[] = ['/monitoramento/icmp/start/{id}', 'PingController@start'];
+    $route[] = ['/monitoramento/icmp/stop/{id}', 'PingController@stop'];
+    $route[] = ['/monitoramento/icmp/run', 'PingController@run'];
 
     $route[] = ['/monitoramento/http', 'HttpController@index'];
     $route[] = ['/monitoramento/http/config', 'HttpController@config'];
     $route[] = ['/monitoramento/http/salvar', 'HttpController@salvar'];
-    $route[] = ['/monitoramento/snmp/start/{id}', 'SnmpController@start'];
-    $route[] = ['/monitoramento/snmp/stop/{id}', 'SnmpController@stop'];
+    $route[] = ['/monitoramento/http/start/{id}', 'HttpController@start'];
+    $route[] = ['/monitoramento/http/stop/{id}', 'HttpController@stop'];
+    $route[] = ['/monitoramento/http/run', 'HttpController@run'];
 
     $route[] = ['/monitoramento/site', 'SiteController@index'];
     $route[] = ['/monitoramento/site/adicionar', 'SiteController@adicionar'];

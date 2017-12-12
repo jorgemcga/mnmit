@@ -83,13 +83,13 @@ class MonitoramentoController extends Controller {
                 if ($periodo) {
                     switch ($agendado->tipo) {
                         case "icmp":
-                            $retrun = $this->pingAll();
+                            $retrun = $this->ping->run();
                             break;
                         case "http":
-                            $return = $this->http->isUp();
+                            $return = $this->http->run();
                             break;
                         case "snmp":
-                            $return = $this->snmp->runAll();
+                            $return = $this->snmp->run();
                             break;
                         case "internet":
                             $return = $this->internet->run();
@@ -206,7 +206,7 @@ class MonitoramentoController extends Controller {
             if ($this->monitor->first()->plataforma == "Windows") $return = $this->ping->pingWin($interface);
             else $return =  $this->ping->pingLinux($interface);
 
-            if(!$return) echo "ERRORORORO";
+            if(!$return) return false;
         }
 
         return true;

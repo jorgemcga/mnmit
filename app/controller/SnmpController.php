@@ -27,8 +27,8 @@ class SnmpController extends Controller
 
     public function index()
     {
-        $ativos = $this->ativo->all();
-        $oids = $this->oid->all();
+
+        $oids = $this->oid->all();$ativos = $this->ativo->all();
 
         foreach ($ativos as $ativo) {
             foreach ($oids as $oid) {
@@ -110,7 +110,19 @@ class SnmpController extends Controller
 
     public function run()
     {
-        $return = $this->snmp->runAll();
-        echo $return;
+        try
+        {
+            $this->snmp->run();
+
+            return Redirect::route("/monitoramento/snmp", [
+                //"success" => ["Execução!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/snmp", [
+                "error" => ["Houve um erro ao pegar valores SNMP!", "Verifique as configurações!"]
+            ]);
+        }
     }
 }

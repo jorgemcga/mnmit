@@ -50,7 +50,7 @@ class SiteController extends Controller
         //$data['senha'] = password_hash($request->post->senha,PASSWORD_BCRYPT);
 
         //$url = $request->post->action=="salvar" ? "/monitoramento/site/adicionar" :  "/monitoramento/site/editar/{$request->post->id}";
-        //if (Validator::make($data, $this->ativo->rules())) return Redirect::route("{$url}");
+        //if (Validator::make($data, $this->site->rules())) return Redirect::route("{$url}");
 
         if ($request->post->action=="salvar")
         {
@@ -70,8 +70,9 @@ class SiteController extends Controller
             }
         }
         elseif ($request->post->action=="editar") {
-            try {
-                $this->ativo->find($request->post->id)->update($data);
+            try
+            {
+                $this->site->find($request->post->id)->update($data);
 
                 return Redirect::route("/monitoramento/site", [
                     "success" => ["Site Atualizado com Sucesso!"]

@@ -33,6 +33,23 @@ class Ping extends ModeloEloquent
         return $this->belongsTo('\App\Model\InterfaceRede');
     }
 
+    public function run()
+    {
+        $interface = new InterfaceRede();
+        $monitor = new Monitoramento();
+
+        $interfaces = $interface->where("monitorar", "like","1")->get();
+
+        foreach ($interfaces as $interface)
+        {
+            if ($monitor->first()->plataforma == "Windows") $return = $this->pingWin($interface);
+            else $return =  $this->pingLinux($interface);
+
+            if(!$return) return false;
+        }
+        return true;
+    }
+
     public function pingWin($interface)
     {
         exec("ping {$interface->ip}", $saida, $retorno);

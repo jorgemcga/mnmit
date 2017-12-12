@@ -63,4 +63,62 @@ class HttpController extends Controller
         }
     }
 
+    public function start($id)
+    {
+        try
+        {
+            $data = ['status' => '1'];
+
+            $this->agendador->find($id)->update($data);
+
+            return Redirect::route("/monitoramento/http/config", [
+                "success" => ["Disparos Habilitados!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/http/config", [
+                "error" => ["Erro ao Habilitar Disparos!", "Verifique a conexão com o banco de dados!"]
+            ]);
+        }
+    }
+
+    public function stop($id)
+    {
+        try
+        {
+            $data = ['status' => '0'];
+
+            $this->agendador->find($id)->update($data);
+
+            return Redirect::route("/monitoramento/http/config", [
+                "success" => ["Disparos Desabilitados!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/http/config", [
+                "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
+            ]);
+        }
+    }
+
+    public function run()
+    {
+        try
+        {
+            $this->http->run();
+
+            return Redirect::route("/monitoramento/http", [
+                //"success" => ["Execução!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/http", [
+                "error" => ["Houve um erro ao executar o Monitoramento de Sites!", "Verifique as configurações!"]
+            ]);
+        }
+    }
+
 }

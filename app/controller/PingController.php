@@ -96,4 +96,62 @@ class PingController extends Controller
             ]);
         }
     }
+
+    public function start($id)
+    {
+        try
+        {
+            $data = ['status' => '1'];
+
+            $this->agendador->find($id)->update($data);
+
+            return Redirect::route("/monitoramento/icmp/config", [
+                "success" => ["Disparos Habilitados!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/icmp/config", [
+                "error" => ["Erro ao Habilitar Disparos!", "Verifique a conexão com o banco de dados!"]
+            ]);
+        }
+    }
+
+    public function stop($id)
+    {
+        try
+        {
+            $data = ['status' => '0'];
+
+            $this->agendador->find($id)->update($data);
+
+            return Redirect::route("/monitoramento/icmp/config", [
+                "success" => ["Disparos Desabilitados!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/icmp/config", [
+                "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
+            ]);
+        }
+    }
+
+    public function run()
+    {
+        try
+        {
+            $this->ping->run();
+
+            return Redirect::route("/monitoramento/icmp", [
+                //"success" => ["Execução!"]
+            ]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route("/monitoramento/icmp", [
+                "error" => ["Houve um erro ao executar o Monitoramento por Ping!", "Verifique as configurações!"]
+            ]);
+        }
+    }
 }

@@ -34,7 +34,7 @@ class Http extends ModeloEloquent
         ];
     }
 
-    public function isUp()
+    public function run()
     {
         $sites = $this->site->all();
 

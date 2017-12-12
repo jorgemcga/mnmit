@@ -33,10 +33,23 @@
                     </h3>
 
                     <div class="col-md-2 text-right">
+
+                        <?php if ($this->view->agendador->status == 1){ ?>
+                            <button type='button' class='btn btn-outline-success' onclick='location="/monitoramento/icmp/stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
+                                <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
+                            </button>
+
+                        <?php } else { ?>
+                            <button type='button' class='btn btn-outline-warning' onclick='location="/monitoramento/icmp/start/<?php echo $this->view->agendador->id; ?>"' title='Habilitar'>
+                                <i class='material-icons' style='font-size: 18px;'>alarm_off</i>
+                            </button>
+                        <?php } ?>
+
                         <button class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Salvar
                         </button>
+
                     </div>
                 </div>
             </div>

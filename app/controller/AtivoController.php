@@ -124,7 +124,7 @@ class AtivoController extends Controller
     {
         try
         {
-            $this->ativo->find($id)->delete();
+                $this->ativo->find($id)->delete();
 
             return Redirect::route("/gerenciamento/ativo", [
                 "success" => ["Ativo excluído!"]

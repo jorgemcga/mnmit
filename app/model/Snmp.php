@@ -35,7 +35,7 @@ class Snmp extends ModeloEloquent
         return [];
     }
 
-    public function runAll()
+    public function run()
     {
         $oidAtivos = $this->oidAtivo->all();
 

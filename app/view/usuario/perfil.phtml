@@ -35,7 +35,7 @@
                 <?php foreach ($this->view->ativos as $ativo){ ?>
                     <tr>
                         <td><?php echo $ativo->nome; ?></td>
-                        <td><?php echo date('d/m/Y H:i:s', strtotime($ativo->created_at)) ?></td>
+                        <td><?php echo date('d/m/Y H:i:s', strtotime($ativo->updated_at)) ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>
