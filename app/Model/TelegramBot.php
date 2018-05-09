@@ -7,9 +7,9 @@ namespace App\Model;
  */
 class TelegramBot
 {
-    private static $groupId = "-231213341";
-    private static $msg = "";
-    private static $APItoken = "480509858:AAFmwcoi7r30AVuzs73yJd38ExqA9rPeXKU";
+    private static $groupId;
+    private static $msg;
+    private static $APItoken;
 
     public static function setGroupId($groupId)
     {
