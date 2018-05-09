@@ -15,7 +15,7 @@ class Grupo extends ModeloEloquent
 {
     public $table = "grupo";
 
-    public $fillable = ['nome'];
+    public $fillable = ['nome', 'email', 'telegram_group'];
 
     public function data($request){
         return [
