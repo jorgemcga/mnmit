@@ -23,9 +23,19 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <label>Nome do Usuário</label>
+                    <label>Nome do Grupo</label>
                     <input name="nome" class="form-control" placeholder="Nome Visível" required
                            value="<?php echo $this->view->grupo->nome ?>">
+                </div>
+                <div class="form-group">
+                    <label>Email do Grupo</label>
+                    <input name="email" class="form-control" placeholder="email@hospedagem.com"
+                           value="<?php echo $this->view->grupo->email ?>">
+                </div>
+                <div class="form-group">
+                    <label>ID do Grupo do Telegram</label>
+                    <input name="telegram_group" class="form-control" placeholder="-0000000"
+                           value="<?php echo $this->view->grupo->telegram_group ?>">
                 </div>
             </div>
         </div>

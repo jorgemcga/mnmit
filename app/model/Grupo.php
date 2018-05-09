@@ -19,8 +19,9 @@ class Grupo extends ModeloEloquent
 
     public function data($request){
         return [
-          'nome' => $request->nome
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telegram_group' => $request->telegram_group
         ];
     }
-
 }

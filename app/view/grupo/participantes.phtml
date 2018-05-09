@@ -1,0 +1,99 @@
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-10">
+            <h2>
+                Grupo <?php echo $this->view->grupo->nome ?>
+            </h2>
+        </div>
+        <div class="col-md-2 text-right">
+            <a class="btn btn-outline-primary" title="Voltar" href="../../grupo">
+                <i class="material-icons" style="font-size: 18px;">arrow_back</i>
+            </a>
+        </div>
+    </div>
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/grupo/participante/adicionar" method="post" accept-charset="utf-8">
+        <input name="grupo_id" type="hidden" value="<?php echo $this->view->grupo->id ?>">
+        <div id="add-part" class="card card-inverse mt-3">
+            <div class="card-header">
+                <div class="row">
+                    <h3 class="col-md-6">
+                        <i class="material-icons" style="font-size: 28px">person_add</i>
+                        Adicionar Participante
+                    </h3>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="material-icons" style="font-size: 18px;">add</i>
+                            Adicionar
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick='jQuery("#add-part").hide()'>
+                            <i class="material-icons" style="font-size: 18px;">clear</i>
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Usuários</label>
+                    <select class="form-control" name="usuario_id">
+                        <?php foreach($this->view->usuarios as $usuario) { ?>
+                        <option value="<?php echo $usuario->id ?>">
+                            <?php echo $usuario->name ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-4">
+        <div class="col-md-10">
+            <h2>
+                <i class="material-icons" style="font-size: 38px">people</i>
+                <?php echo $this->getPageTitle(); ?>
+            </h2>
+        </div>
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick='jQuery("#add-part").show()' title="Adicionar">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <table id="table" class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Nome do Usuário</th>
+                        <th>E-mail</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->view->participantes as $participante){ ?>
+                    <tr>
+                        <td><?php echo $participante->usuario->name; ?></td>
+                        <td><?php echo $participante->usuario->email; ?></td>
+                        <td class="text-right">
+                            <span class="btn btn-outline-danger" title="Clique para Remover Usuário"
+                                onclick="global.confirmar('../participante/remover/<?php echo $participante->usuario->id; ?>/<?php echo $this->view->grupo->id; ?>', 'Remover deste Grupo?')">
+                                <i class="material-icons" style="font-size: 18px;">clear</i>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<?php
+
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

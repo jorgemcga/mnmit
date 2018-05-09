@@ -9,7 +9,6 @@ class Auth
     private static $name = null;
     private static $email = null;
     private static $type = null;
-    private static $grupo_id = null;
 
     public function __construct()
     {
@@ -20,7 +19,6 @@ class Auth
         self::$name = $user['name'];
         self::$email = $user['email'];
         self::$type = $user['type'];
-        self::$grupo_id = $user['grupo_id'];
     }
 
     public static function id()
@@ -36,11 +34,6 @@ class Auth
     public static function email()
     {
         return self::$email;
-    }
-
-    public static function grupo_id()
-    {
-        return self::$grupo_id;
     }
 
     public static function type()

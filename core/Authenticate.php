@@ -24,8 +24,7 @@ trait Authenticate
                     "id" => $result->id,
                     "email" => $result->email,
                     "name" => $result->name,
-                    "type" => $result->type,
-                    "grupo_id" => $result->grupo_id
+                    "type" => $result->type
                 ];
 
                 Session::set('user', $user);

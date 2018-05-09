@@ -105,6 +105,9 @@
     $route[] = ['/gerenciamento/grupo/salvar', 'GrupoController@salvar', '1'];
     $route[] = ['/gerenciamento/grupo/editar/{id}', 'GrupoController@editar', '1'];
     $route[] = ['/gerenciamento/grupo/apagar/{id}', 'GrupoController@apagar', '1'];
+    $route[] = ['/gerenciamento/grupo/participantes/{id}', 'GrupoController@participantes', '1'];
+    $route[] = ['/gerenciamento/grupo/participante/adicionar', 'GrupoController@adicionarParticipante', '1'];
+    $route[] = ['/gerenciamento/grupo/participante/remover/{id}/{id}', 'GrupoController@removerParticipante', '1'];
 
 
     $route[] = ['/monitoramento', 'MonitoramentoController@index', '0'];
