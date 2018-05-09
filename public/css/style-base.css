@@ -1,5 +1,5 @@
 /*@import "/../bootstrap/css/bootstrap.min.css";*/
-@import "/../bootstrap4/css/bootstrap.min.css";
+@import "../bootstrap4/css/bootstrap.min.css";
 
 /* BASE CSS */
 .row-bottom-20{
@@ -24,7 +24,7 @@
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(/../googleicons/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+    src: url(../googleicons/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
 }
 
 .material-icons {

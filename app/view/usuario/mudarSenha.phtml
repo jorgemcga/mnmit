@@ -1,25 +1,19 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/usuario/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/usuario/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->usuario->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">vpn_key</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-outline-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Alterar
                         </button>
-
                         <button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
@@ -27,9 +21,7 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Senha Antiga</label>
                     <input name="oldpassword" class="form-control" type="password" required
@@ -43,7 +35,6 @@
                         </div>
                     <?php } ?>
                 </div>
-
                 <div class="form-group">
                     <label>Nova Senha</label>
                     <input name="password1" class="form-control" type="password" placeholder="Mínimo 6 dígitos" required
@@ -57,11 +48,9 @@
                         </div>
                     <?php } ?>
                 </div>
-
                 <div class="form-group">
                     <label>Repita a Nova Senha</label>
-                    <input name="password2" class="form-control" type="password" placeholder="Mínimo 6 dígitos" required
-                           value="">
+                    <input name="password2" class="form-control" type="password" placeholder="Mínimo 6 dígitos" required value="">
                     <?php if (isset($this->errors['password'])) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -71,11 +60,7 @@
                         </div>
                     <?php } ?>
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

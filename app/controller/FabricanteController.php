@@ -10,6 +10,7 @@ use Core\Validator;
 class FabricanteController extends Controller
 {
     private $fabricante;
+    private $urlIndex = BASE_URL . "/gerenciamento/fabricante";
 
     public function __construct()
     {
@@ -41,7 +42,7 @@ class FabricanteController extends Controller
     {
         $data = $this->fabricante->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/fabricante/adicionar" :  "/gerenciamento/fabricante/editar/{$request->post->id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->id}";
 
         if (Validator::make($data, $this->fabricante->rules())){
             return Redirect::route("{$url}");
@@ -53,13 +54,13 @@ class FabricanteController extends Controller
             {
                 $this->fabricante->create($data);
 
-                return Redirect::route("/gerenciamento/fabricante", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Fabricante Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/fabricante", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Fabricante!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -68,13 +69,13 @@ class FabricanteController extends Controller
             try {
                 $this->fabricante->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/fabricante", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Fabricante Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/fabricante", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Fabricante!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -98,13 +99,13 @@ class FabricanteController extends Controller
         {
             $this->fabricante->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/fabricante", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Fabricante excluído!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/fabricante", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Fabricante!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

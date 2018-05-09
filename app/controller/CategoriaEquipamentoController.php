@@ -10,6 +10,7 @@ use Core\Validator;
 class CategoriaEquipamentoController extends Controller
 {
     private $categoria;
+    private $urlIndex = BASE_URL . "/gerenciamento/categoriaequipamento";
 
     public function __construct()
     {
@@ -43,7 +44,7 @@ class CategoriaEquipamentoController extends Controller
 
         $data = $this->categoria->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/categoriaequipamento/adicionar" :  "/gerenciamento/categoriaequipamento/editar/{$request->post->categoria_equipamento_id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->categoria_equipamento_id}";
 
         if (Validator::make($data, $this->categoria->rules())){
             return Redirect::route("{$url}");
@@ -55,13 +56,13 @@ class CategoriaEquipamentoController extends Controller
             {
                 $this->categoria->create($data);
 
-                return Redirect::route("/gerenciamento/categoriaequipamento", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Categoria Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/categoriaequipamento", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -70,13 +71,13 @@ class CategoriaEquipamentoController extends Controller
             try {
                 $this->categoria->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/categoriaequipamento", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Categoria Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/categoriaequipamento", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -99,11 +100,11 @@ class CategoriaEquipamentoController extends Controller
         try {
             $this->categoria->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/categoriaequipamento", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Item excluído!"]
             ]);
         } catch (\Exception $exception) {
-            return Redirect::route("/gerenciamento/categoriaequipamento", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Categoria!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

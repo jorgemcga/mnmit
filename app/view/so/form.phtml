@@ -1,47 +1,37 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/sistemaoperacional/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/sistemaoperacional/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->so->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">settings_applications</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
-                        <button type="submit" class="btn btn-success">
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-outline-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
-                        <button type="button" class="btn btn-danger" onclick="history.go(-1)">
+                        <button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
                         </button>
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome do Sistema Operacional</label>
                     <input required name="nome" class="form-control" placeholder=""
                            value="<?php echo $this->view->so->nome ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Versão</label>
                     <input name="versao" class="form-control" placeholder=""
                            value="<?php echo $this->view->so->versao ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Arquitetura</label>
                     <select  class="form-control" name="arq">
@@ -54,17 +44,12 @@
                         </option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label>Localização da Imagem</label>
                     <input name="path" class="form-control" placeholder=""
                            value="<?php echo $this->view->so->path ?>">
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

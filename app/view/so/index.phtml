@@ -1,77 +1,66 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
-<div class="">
-    <ul class="nav justify-content-center bg-light">
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/ativo">
-                <i class="material-icons">devices</i>
-                Ativos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriaativo">
-                <i class="material-icons">devices_other</i>
-                Categorias
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
-                <i class="material-icons">settings_applications</i>
-                Sistemas Operacionais
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/modelo">
-                <i class="material-icons">cast</i>
-                Modelos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/fabricante">
-                <i class="material-icons">developer_board</i>
-                Fabricantes
-            </a>
-        </li>
-    </ul>
-</div>
+<ul class="nav justify-content-center bg-light">
+    <li class="nav-item">
+        <a class="nav-link" href="ativo">
+            <i class="material-icons">devices</i>
+            Ativos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="categoriaativo">
+            <i class="material-icons">devices_other</i>
+            Categorias
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="sistemaoperacional">
+            <i class="material-icons">settings_applications</i>
+            Sistemas Operacionais
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="modelo">
+            <i class="material-icons">cast</i>
+            Modelos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="fabricante">
+            <i class="material-icons">developer_board</i>
+            Fabricantes
+        </a>
+    </li>
+</ul>
 
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">settings_applications</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">settings_applications</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" onclick="location='sistemaoperacional/adicionar'" title="Adicionar">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Sistema</th>
-                    <th>Versão</th>
-                    <th>Arquitetura</th>
-                    <th>Local da Imagem</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Sistema</th>
+                        <th>Versão</th>
+                        <th>Arquitetura</th>
+                        <th>Local da Imagem</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->so as $so){ ?>
                     <tr>
@@ -80,11 +69,9 @@
                         <td><?php echo $so->arq; ?></td>
                         <td><?php echo $so->path; ?></td>
                         <td class="text-right">
-
                             <a href="sistemaoperacional/editar/<?php echo $so->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
-
                             <span onclick="global.confirmar('sistemaoperacional/apagar/<?php echo $so->id; ?>', 'Apagar este Sistema Operacional?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
@@ -93,20 +80,12 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

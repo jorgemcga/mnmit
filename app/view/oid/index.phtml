@@ -1,21 +1,21 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
 <div class="menu-barra">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/snmp">
+            <a class="nav-link" href="snmp">
                 <i class="material-icons">share</i>
                 Monitoramento
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/oid">
+            <a class="nav-link" href="oid">
                 <i class="material-icons">casino</i>
                 Coleção de OID's
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/oid-ativo">
+            <a class="nav-link" href="oid-ativo">
                 <i class="material-icons">compare_arrows</i>
                 Relacionar
             </a>
@@ -24,10 +24,8 @@
 </div>
 
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
             <h1>
                 <i class="material-icons" style="font-size: 38px">casino</i>
@@ -35,30 +33,24 @@
             </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='/monitoramento/oid/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Nome Identificador</th>
-                    <th>OID</th>
-                    <th>Versão SNMP</th>
-                    <th>Community String</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nome Identificador</th>
+                        <th>OID</th>
+                        <th>Versão SNMP</th>
+                        <th>Community String</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->oids as $oid) {
                     if(!empty($oid->created_at)) { ?>
@@ -68,33 +60,23 @@
                             <td><?php echo $oid->versao; ?></td>
                             <td><?php echo $oid->string; ?></td>
                             <td class="text-right">
-                                <span onclick="location='/monitoramento/oid/editar/<?php echo $oid->id; ?>'" class="btn btn-outline-primary" title="Editar">
+                                <span onclick="location='oid/editar/<?php echo $oid->id; ?>'" class="btn btn-outline-primary" title="Editar">
                                     <i class="material-icons" style="font-size: 18px;">edit</i>
                                 </span>
-                                <span onclick="global.confirmar('/monitoramento/oid/apagar/<?php echo $oid->id; ?>', 'Apagar essa OID?')"; class="btn btn-outline-danger" title="Apagar">
+                                <span onclick="global.confirmar('oid/apagar/<?php echo $oid->id; ?>', 'Apagar essa OID?')" class="btn btn-outline-danger" title="Apagar">
                                     <i class="material-icons" style="font-size: 18px;">delete</i>
                                 </span>
                             </td>
                         </tr>
                     <?php }} ?>
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
-
 </div>
 
-
 <?php
-
-if (isset($this->success)){
-    $this->setView('modal/success');
-}
-else if (isset($this->errors)){
-    $this->setView('modal/error');
-}
-
-?>
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

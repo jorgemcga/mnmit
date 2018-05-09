@@ -1,35 +1,27 @@
-<div class="container-fluid mt-1">
-    <br>
-    <form class="form-horizontal" action="/monitoramento/site/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/monitoramento/site/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->site->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">description</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-outline-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
-                        <button type="button" class="btn btn-outline-danger" onclick="location='/monitoramento/site'">
+                        <button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
                         </button>
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome</label>
                     <input name="nome" class="form-control" placeholder="Nome Identificador" required
@@ -50,11 +42,7 @@
                     <input name="senha" type="password" class="form-control" placeholder="*****"
                            value="">
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

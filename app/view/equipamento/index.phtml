@@ -1,60 +1,50 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/equipamento">
+            <a class="nav-link" href="equipamento">
                 <i class="material-icons">keyboard</i>
                 Equipamentos
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriaequipamento">
+            <a class="nav-link" href="categoriaequipamento">
                 <i class="material-icons">mouse</i>
                 Categorias
             </a>
         </li>
     </ul>
 </div>
-
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-4">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">keyboard</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">keyboard</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
         <div class="col-md-8 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='equipamento/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Nº Patromonio</th>
-                    <th>Nome de Identificação</th>
-                    <th>Data de Compra</th>
-                    <th>Categoria</th>
-                    <th>Utilizador</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nº Patromonio</th>
+                        <th>Nome de Identificação</th>
+                        <th>Data de Compra</th>
+                        <th>Categoria</th>
+                        <th>Utilizador</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->equipamentos as $equipamento){ ?>
                     <tr>
@@ -75,20 +65,12 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

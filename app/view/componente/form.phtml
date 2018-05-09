@@ -1,25 +1,19 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/componente/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/componente/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->componente->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">memory</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
                         <button type="button" class="btn btn-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
@@ -27,72 +21,50 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome do Componente</label>
                     <input name="nome" class="form-control" placeholder="Nome Identificador" required
                            value="<?php echo $this->view->componente->nome ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Valor Atribuível</label>
                     <input name="valor" class="form-control" placeholder="Valor da Unidade de Medida"
                            value="<?php echo $this->view->componente->valor ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Categoria</label>
                     <select name="categoria_componente_id" class="form-control">
                         <?php
+                            $selected = "";
 
-                        $selected = "";
-
-                        foreach ($this->view->categoria as $categoria) {
-                            if (isset($this->view->componente->categoria_componente_id) && ($categoria->id == $this->view->componente->categoria_componente_id)) {
-                                $selected = "selected";
-                            }
-                            else{
-                                $selected = "";
-                            }
-                            ?>
-                            <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
-                                <?php echo $categoria->nome?>
-                            </option>
-
+                            foreach ($this->view->categoria as $categoria) {
+                                if (isset($this->view->componente->categoria_componente_id) && ($categoria->id == $this->view->componente->categoria_componente_id))
+                                    $selected = "selected";
+                        ?>
+                        <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
+                            <?php echo $categoria->nome?>
+                        </option>
                         <?php } ?>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label>Aplicar ao Ativo</label>
                     <select name="ativo_id" class="form-control">
                         <option selected> Nenhum </option>
                         <?php
-
-                        $selected = "";
-
-                        foreach ($this->view->ativo as $ativo) {
-                            if (isset($this->view->componente->ativo_id) && ($ativo->id == $this->view->componente->ativo_id)) {
-                                $selected = "selected";
-                            }
-                            else{
-                                $selected = "";
-                            }
-                            ?>
-                            <option <?php echo $selected ?> value="<?php echo $ativo->ativo_id?>">
-                                <?php echo $ativo->nome?>
-                            </option>
-
+                            $selected = "";
+                            foreach ($this->view->ativo as $ativo) {
+                                if (isset($this->view->componente->ativo_id) && ($ativo->id == $this->view->componente->ativo_id))
+                                    $selected = "selected";
+                        ?>
+                        <option <?php echo $selected ?> value="<?php echo $ativo->ativo_id?>">
+                            <?php echo $ativo->nome?>
+                        </option>
                         <?php } ?>
                     </select>
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

@@ -18,6 +18,7 @@ class AtivoController extends Controller
     private $so;
     private $modelo;
     private $usuario;
+    private $urlIndex = BASE_URL . "/gerenciamento/ativo";
 
     public function __construct()
     {
@@ -67,7 +68,7 @@ class AtivoController extends Controller
     {
         $data = $this->ativo->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/ativo/adicionar" :  "/gerenciamento/ativo/editar/{$request->post->ativo_id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->ativo_id}";
 
         if (Validator::make($data, $this->ativo->rules())) return Redirect::route("{$url}");
 
@@ -77,13 +78,13 @@ class AtivoController extends Controller
             {
                 $this->ativo->create($data);
 
-                return Redirect::route("/gerenciamento/ativo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Ativo Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/ativo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -92,13 +93,13 @@ class AtivoController extends Controller
             try {
                 $this->ativo->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/ativo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Ativo Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/ativo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Ativo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -126,13 +127,13 @@ class AtivoController extends Controller
         {
                 $this->ativo->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/ativo", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Ativo excluído!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/ativo", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Ativo!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

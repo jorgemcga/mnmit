@@ -20,12 +20,9 @@ class Containers
     {
         $fileNotFound = __DIR__ . "/../app/view/notfound/index.phtml";
 
-        if($fileNotFound) {
-            return require_once $fileNotFound;
-        }
-        else {
-            return "Erro 404 - Pagina não encontrada!";
-        }
+        if($fileNotFound) return require_once $fileNotFound;
+
+        return "Erro 404 - Pagina não encontrada!";
     }
 
 }

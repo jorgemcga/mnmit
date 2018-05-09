@@ -9,6 +9,7 @@ use Core\Redirect;
 class OidController extends Controller
 {
     protected $oid;
+    private $urlIndex = BASE_URL . "/monitoramento/oid";
 
     public function __construct()
     {
@@ -39,23 +40,19 @@ class OidController extends Controller
     {
         $data = $this->oid->data($request->post);
 
-//        $url = $request->post->action=="salvar" ? "/gerenciamento/ativo/adicionar" :  "/gerenciamento/ativo/editar/{$request->post->ativo_id}";
-//
-//        if (Validator::make($data, $this->ativo->rules())) return Redirect::route("{$url}");
-
         if ($request->post->action=="salvar")
         {
             try
             {
                 $this->oid->create($data);
 
-                return Redirect::route("/monitoramento/oid", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["OID Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/monitoramento/oid", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar OID!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -64,13 +61,11 @@ class OidController extends Controller
             try {
                 $this->oid->find($request->post->id)->update($data);
 
-                return Redirect::route("/monitoramento/oid", [
-                    "success" => ["OID Atualizado com Sucesso!"]
-                ]);
+                return Redirect::route($this->urlIndex, ["success" => ["OID Atualizado com Sucesso!"]]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/monitoramento/oid", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Atualizar OID!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -93,13 +88,11 @@ class OidController extends Controller
         {
             $this->oid->find($id)->delete();
 
-            return Redirect::route("/monitoramento/oid", [
-                "success" => ["OID excluído!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["OID excluído!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/oid", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao Deletar OID!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

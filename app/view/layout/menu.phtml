@@ -11,63 +11,63 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="<?php echo BASE_URL ?>">
                     <i class="material-icons">donut_large</i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">important_devices</i>
                     Gerenciamento
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/gerenciamento/ativo">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/ativo">
                         <i class="material-icons">devices</i>
                         Ativos
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/componente">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/componente">
                         <i class="material-icons">memory</i>
                         Componentes
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/equipamento">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/equipamento">
                         <i class="material-icons">keyboard</i>
                         Equipamentos
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/licenca">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/licenca">
                         <i class="material-icons">copyright</i>
                         Licenças
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/usuario">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/usuario">
                         <i class="material-icons">supervisor_account</i>
                         Usuários
                     </a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/monitoramento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="monitoramento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">track_changes</i>
                     Monitoramento
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/monitoramento/internet">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/internet">
                         <i class="material-icons">public</i>
                         Velocidade da Internet
                     </a>
-                    <a class="dropdown-item" href="/monitoramento/icmp">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/icmp">
                         <i class="material-icons">drafts</i>
                         ICMP (Ping)
                     </a>
-                    <a class="dropdown-item" href="/monitoramento/http">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/http">
                         <i class="material-icons">http</i>
                         HTTP/HTTPS
                     </a>
-                    <a class="dropdown-item" href="/monitoramento/snmp">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/snmp">
                         <i class="material-icons">share</i>
                         SNMP
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/monitoramento/servidor">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/servidor">
                         <i class="material-icons">language</i>
                         Servidor Monitor
                     </a>
@@ -77,21 +77,21 @@
 
         <ul class="navbar-nav text-left">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons" style="font-size: 22px;">account_circle</i>
                     <?php echo $this->auth->name(); ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/gerenciamento/usuario/alterarsenha/<?php echo $this->auth->id(); ?>">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/usuario/alterarsenha/<?php echo $this->auth->id(); ?>">
                         <i class="material-icons" style="font-size: 22px">vpn_key</i>
                         Trocar Senha
                     </a>
-                    <a class="dropdown-item" href="/gerenciamento/usuario/perfil/<?php echo $this->auth->id(); ?>">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/gerenciamento/usuario/perfil/<?php echo $this->auth->id(); ?>">
                         <i class="material-icons" style="font-size: 22px">account_box</i>
                         Ver Perfil
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout">
+                    <a class="dropdown-item" href="<?php echo BASE_URL ?>/logout">
                         <i class="material-icons" style="font-size: 22px">exit_to_app</i>
                         Sair
                     </a>

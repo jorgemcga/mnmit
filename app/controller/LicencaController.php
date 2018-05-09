@@ -12,6 +12,7 @@ class LicencaController extends Controller
 {
     private $licenca;
     private $categoria;
+    private $urlIndex = BASE_URL . "/gerenciamento/licenca";
 
     public function __construct()
     {
@@ -43,7 +44,7 @@ class LicencaController extends Controller
 
         $data = $this->licenca->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/licenca/adicionar" :  "/gerenciamento/licenca/editar/{$request->post->licenca_id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->licenca_id}";
 
        if (Validator::make($data, $this->licenca->rules())){
            return Redirect::route("{$url}");
@@ -55,13 +56,13 @@ class LicencaController extends Controller
             {
                 $this->licenca->create($data);
 
-                return Redirect::route("/gerenciamento/licenca", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Licença Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/licenca", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -71,13 +72,13 @@ class LicencaController extends Controller
             {
                 $this->licenca->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/licenca", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Licença Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/licenca", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Licença!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -103,13 +104,13 @@ class LicencaController extends Controller
         {
             $this->licenca->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/licenca", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Licença excluída!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/licenca", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Licença!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

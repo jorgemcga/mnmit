@@ -1,20 +1,13 @@
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-12">
             <p>
             <h1><?php echo $this->getPageTitle(); ?></h1>
             </p>
         </div>
-
         <div class="col-md-12">
-
             <?php
-
                 $ativo = $this->view->ativo;
-
-
                 echo "<p> Número de Patrimonio: {$ativo->nrpatrimonio} </p>";
                 echo "<p> Tag: {$ativo->tag} </p>";
                 echo "<p> Descrição: {$ativo->descricao} </p>";
@@ -25,11 +18,8 @@
                 echo "<p> Serial SO: {$ativo->serial} </p>";
                 echo "<p> Modelo: {$ativo->modelo_id} </p>";
                 echo "<p> Utilizador: {$ativo->usuario_id} </p>";
-
             ?>
-
         </div>
-
         <div class="col">
             <button onclick="history.go(-1)" class="btn btn-outline-primary">
                 <i class="material-icons">
@@ -38,7 +28,5 @@
                 Voltar
             </button>
         </div>
-
     </div>
-
 </div>

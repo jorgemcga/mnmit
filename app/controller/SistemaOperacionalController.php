@@ -11,6 +11,7 @@ class SistemaOperacionalController extends Controller
 {
 
     private $so;
+    private $urlIndex = BASE_URL . "/gerenciamento/sistemaopercional";
 
     public function __construct()
     {
@@ -42,7 +43,7 @@ class SistemaOperacionalController extends Controller
     {
         $data = $this->so->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/sistemaopercional/adicionar" :  "/gerenciamento/sistemaopercional/editar/{$request->post->id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->id}";
 
         if (Validator::make($data, $this->so->rules())) return Redirect::route("{$url}");
 
@@ -52,13 +53,11 @@ class SistemaOperacionalController extends Controller
             {
                 $this->so->create($data);
 
-                return Redirect::route("/gerenciamento/sistemaoperacional", [
-                    "success" => ["Sistema Operacional Salvo com Sucesso!"]
-                ]);
+                return Redirect::route($this->urlIndex, ["success" => ["Sistema Operacional Salvo com Sucesso!"]]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Sistema Operacional!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -67,11 +66,9 @@ class SistemaOperacionalController extends Controller
             try {
                 $this->so->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/sistemaoperacional", [
-                    "success" => ["Sistema Operacional Salvo com Sucesso!"]
-                ]);
+                return Redirect::route($this->urlIndex, ["success" => ["Sistema Operacional Salvo com Sucesso!"]]);
             } catch (\Exception $exception) {
-                return Redirect::route("/gerenciamento/sistemaoperacional", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Sistema Operacional!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -95,13 +92,11 @@ class SistemaOperacionalController extends Controller
         {
             $this->so->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/sistemaoperacional", [
-                "success" => ["Sistema Operacional excluído!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["Sistema Operacional excluído!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/sistemaoperacional", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Sistema Operacional!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

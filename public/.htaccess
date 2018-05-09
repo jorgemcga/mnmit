@@ -1,12 +1,5 @@
-<IfModule mod_rewrite.c>
-
-    RewriteEngine On
-
-    RewriteRule ^(.*)/$ /$l [L,R=301]
-
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-
-    RewriteRule ^ index.php [L]
-
-</IfModule>
+RewriteEngine On
+RewriteRule ^$ index.php [QSA]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?$1 [QSA,L]

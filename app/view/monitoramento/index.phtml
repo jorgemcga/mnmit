@@ -1,32 +1,24 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/js/dataTableAply.js"></script>
 
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-4">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">language</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">language</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
         <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-dark" onclick="location='/monitoramento/servidor/config/<?php echo $this->view->servidor->id; ?>'" title="Configurações">
+            <button type="button" class="btn btn-outline-dark" onclick="location='servidor/config/<?php echo $this->view->servidor->id; ?>'" title="Configurações">
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table class="table table-light border">
-
                 <thead class="thead-inverse">
                     <tr>
                         <th>Nome de Identificação</th>
@@ -53,36 +45,27 @@
                         <?php if ($this->view->servidor->status == 1){ ?>
                             <td class='text-success'>
                                 <label class="col-md-10"> Em Execução </label>
-                                <button type='button' class='btn btn-outline-danger' onclick='location="/monitoramento/stop/<?php echo $this->view->servidor->id; ?>"' title='Parar'>
+                                <button type='button' class='btn btn-outline-danger' onclick='location="stop/<?php echo $this->view->servidor->id; ?>"' title='Parar'>
                                     <i class='material-icons' style='font-size: 18px;'>stop</i>
                                 </button>
                             </td>
                         <?php } else { ?>
                             <td class='text-danger'>
                                 <label class="col-md-10"> Parado </label>
-                                <button type='button' class='btn btn-outline-success' onclick='location="/monitoramento/start/<?php echo $this->view->servidor->id; ?>"' title='Iniciar'>
+                                <button type='button' class='btn btn-outline-success' onclick='location="start/<?php echo $this->view->servidor->id; ?>"' title='Iniciar'>
                                     <i class='material-icons' style='font-size: 18px;'>play_arrow</i>
                                 </button>
                             </td>
                         <?php } ?>
                     </tr>
                 </thead>
-
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-if (isset($this->success)){
-    $this->setView('modal/success');
-}
-else if (isset($this->errors)){
-    $this->setView('modal/error');
-}
-
-?>
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

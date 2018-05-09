@@ -15,6 +15,7 @@ class EquipamentoController extends Controller
     private $equipamento;
     private $categoria;
     private $usuario;
+    private $urlIndex = BASE_URL . "/gerenciamento/equipamento";
 
     public function __construct()
     {
@@ -49,7 +50,7 @@ class EquipamentoController extends Controller
 
         $data = $this->equipamento->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/equipamento/adicionar" :  "/gerenciamento/equipamento/editar/{$request->post->equipamento_id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->equipamento_id}";
 
         if (Validator::make($data, $this->equipamento->rules())){
             return Redirect::route("{$url}");
@@ -61,13 +62,13 @@ class EquipamentoController extends Controller
             {
                 $this->equipamento->create($data);
 
-                return Redirect::route("/gerenciamento/equipamento", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Equipamento Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/equipamento", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Equipamento!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -77,13 +78,13 @@ class EquipamentoController extends Controller
             {
                 $this->equipamento->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/equipamento", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Equipamento Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/equipamento", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Equipamento!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -108,13 +109,13 @@ class EquipamentoController extends Controller
         {
             $this->equipamento->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/equipamento", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Equipamento excluída!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/equipamento", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Equipamento!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

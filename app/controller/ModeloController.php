@@ -12,6 +12,7 @@ class ModeloController extends Controller
 {
     private $modelo;
     private $fabricante;
+    private $urlIndex = BASE_URL . "/gerenciamento/categoriacomponente";
 
     public function __construct()
     {
@@ -45,7 +46,7 @@ class ModeloController extends Controller
 
         $data = $this->modelo->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->id}";
 
         if (Validator::make($data, $this->modelo->rules())){
             return Redirect::route("{$url}");
@@ -57,14 +58,14 @@ class ModeloController extends Controller
             {
                 $this->modelo->create($data);
 
-                return Redirect::route("/gerenciamento/modelo", [
-                    "success" => ["Modelo Salvo com Sucesso!"]
+                return Redirect::route($this->urlIndex,
+                        ["success" => ["Modelo Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/modelo", [
-                    "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
+                return Redirect::route($this->urlIndex,
+                        ["error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
@@ -72,11 +73,11 @@ class ModeloController extends Controller
             try {
                 $this->modelo->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/modelo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Modelo Salvo com Sucesso!"]
                 ]);
             } catch (\Exception $exception) {
-                return Redirect::route("/gerenciamento/modelo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Modelo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -101,13 +102,13 @@ class ModeloController extends Controller
         {
             $this->modelo->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/modelo", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Modelo excluído!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/modelo", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Modelo!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

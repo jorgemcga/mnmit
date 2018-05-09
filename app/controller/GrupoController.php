@@ -9,6 +9,7 @@ use Core\Redirect;
 class GrupoController extends Controller
 {
     private $grupo;
+    private $urlIndex = BASE_URL . "/gerenciamento/grupo";
 
     public function __construct()
     {
@@ -46,13 +47,13 @@ class GrupoController extends Controller
             {
                 $this->grupo->create($data);
 
-                return Redirect::route("/gerenciamento/grupo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Grupo Criado com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/grupo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Criar Grupo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -63,13 +64,13 @@ class GrupoController extends Controller
             {
                 $this->grupo->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/grupo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Grupo Atualizado com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/grupo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Atulizar Grupo!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -92,11 +93,11 @@ class GrupoController extends Controller
         try {
             $this->grupo->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/grupo", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Grupo Apagado!"]
             ]);
         } catch (\Exception $exception) {
-            return Redirect::route("/gerenciamento/grupo", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao Apagar Grupo!", "Verifique se há pendencias antes de deletar!"]
             ]);
         }

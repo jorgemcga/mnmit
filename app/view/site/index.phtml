@@ -1,58 +1,47 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
-<div class="">
-    <ul class="nav justify-content-center bg-light">
-        <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/http">
-                <i class="material-icons">http</i>
-                Monitoramento
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/site">
-                <i class="material-icons">description</i>
-                Sites
-            </a>
-        </li>
-    </ul>
-</div>
+<ul class="nav justify-content-center bg-light">
+    <li class="nav-item">
+        <a class="nav-link" href="http">
+            <i class="material-icons">http</i>
+            Monitoramento
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="site">
+            <i class="material-icons">description</i>
+            Sites
+        </a>
+    </li>
+</ul>
 
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">description</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">description</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='site/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Nome</th>
-                    <th>URL</th>
-                    <th>Usuário</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>URL</th>
+                        <th>Usuário</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->sites as $site) { ?>
                     <tr>
@@ -65,31 +54,23 @@
                         </td>
                         <td><?php echo $site->usuario; ?></td>
                         <td class="text-right">
-                            <span onclick="location='/monitoramento/site/editar/<?php echo $site->id; ?>'" class="btn btn-outline-primary" title="Editar">
+                            <span onclick="location='site/editar/<?php echo $site->id; ?>'" class="btn btn-outline-primary" title="Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </span>
-                            <span onclick="global.confirmar('/monitoramento/site/apagar/<?php echo $site->id; ?>', 'Apagar esse Site?')"; class="btn btn-outline-danger" title="Apagar">
+                            <span onclick="global.confirmar('site/apagar/<?php echo $site->id; ?>', 'Apagar esse Site?')"; class="btn btn-outline-danger" title="Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
                         </td>
                     </tr>
                 <?php } ?>
                 </tbody>
-
             </table>
-
         </div>
     </div>
-
 </div>
 
 <?php
-
-if (isset($this->success)){
-    $this->setView('modal/success');
-}
-else if (isset($this->errors)){
-    $this->setView('modal/error');
-}
-
-?>
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

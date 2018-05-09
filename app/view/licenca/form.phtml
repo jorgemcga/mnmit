@@ -1,25 +1,19 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/licenca/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/licenca/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->licenca->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
                     <h3 class="col-md-10">
                         <i class="material-icons" style="font-size: 28px">copyright</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
                     <div class="col-md-2 text-right">
                         <button type="submit" class="btn btn-outline-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
                         <button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
@@ -27,9 +21,7 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome</label>
                     <input name="nome" class="form-control" placeholder="Nome Identificador" required
@@ -53,32 +45,19 @@
                 <div class="form-group">
                     <label>Categoria</label>
                     <select  class="form-control" name="categoria_licenca_id">
-
                         <?php
-
-                        $selected = "";
-
-                        foreach ($this->view->categorias as $categoria) {
-                            if (isset($this->view->licenca->categoria_licenca_id) && ($categoria->id == $this->view->licenca->categoria_licenca_id)) {
-                                $selected = "selected";
-                            }
-                            else{
-                                $selected = "";
-                            }
-                            ?>
-                            <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
-                                <?php echo $categoria->nome ?>
-                            </option>
-
+                            $selected = "";
+                            foreach ($this->view->categorias as $categoria) {
+                                if (isset($this->view->licenca->categoria_licenca_id) && ($categoria->id == $this->view->licenca->categoria_licenca_id))
+                                    $selected = "selected";
+                        ?>
+                        <option <?php echo $selected ?> value="<?php echo $categoria->id?>">
+                            <?php echo $categoria->nome ?>
+                        </option>
                         <?php } ?>
-
                     </select>
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

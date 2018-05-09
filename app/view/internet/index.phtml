@@ -1,17 +1,15 @@
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">public</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">public</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="run" onclick="location='internet/run'">
                 <i class="material-icons" style="font-size: 18px;">play_arrow</i>
             </button>
@@ -19,49 +17,35 @@
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Ping</th>
-                    <th>Download (Mbit/s)</th>
-                    <th>Upload (Mbit/s)</th>
-                    <th>Execução</th>
-                </tr>
+                    <tr>
+                        <th>Ping</th>
+                        <th>Download (Mbit/s)</th>
+                        <th>Upload (Mbit/s)</th>
+                        <th>Execução</th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->internets as $internet) { ?>
-                        <tr>
-                            <td><?php echo $internet->ping; ?></td>
-                            <td><?php echo $internet->download; ?></td>
-                            <td><?php echo $internet->upload; ?></td>
-                            <td><?php echo date('d/m/Y H:i:s',strtotime($internet->updated_at)); ?></td>
-                        </tr>
-                    <?php } ?>
+                    <tr>
+                        <td><?php echo $internet->ping; ?></td>
+                        <td><?php echo $internet->download; ?></td>
+                        <td><?php echo $internet->upload; ?></td>
+                        <td><?php echo date('d/m/Y H:i:s',strtotime($internet->updated_at)); ?></td>
+                    </tr>
+                <?php } ?>
                 </tbody>
-
             </table>
-
         </div>
     </div>
-
 </div>
 
-
 <?php
-
-if (isset($this->success)){
-    $this->setView('modal/success');
-}
-else if (isset($this->errors)){
-    $this->setView('modal/error');
-}
-
-?>
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

@@ -17,6 +17,7 @@ class UsuarioController extends Controller
     private $usuario;
     private $grupo;
     private $ativo;
+    private $urlIndex = BASE_URL . "/gerenciamento/usuario";
 
     public function __construct()
     {
@@ -55,83 +56,76 @@ class UsuarioController extends Controller
 
         if ($request->post->action=="salvar")
         {
-            $url = "/gerenciamento/usuario/adicionar";
-
-            if (Validator::make($data, $this->usuario->rulesCreate())){
-                return Redirect::route("{$url}");
-            }
+            if (Validator::make($data, $this->usuario->rulesCreate()))
+                    return Redirect::route($this->urlIndex . "/adicionar");
 
             try
             {
                 $this->usuario->create($data);
 
-                return Redirect::route("/gerenciamento/usuario", [
-                    "success" => ["Usuário Criado com Sucesso!"]
-                ]);
+                return Redirect::route($this->urlIndex, ["success" => ["Usuário Criado com Sucesso!"]]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/usuario", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Criar Usuário!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
         elseif ($request->post->action=="editar")
         {
-            $url = "/gerenciament/usuario/editar/{$request->post->id}";
+            $url = $this->urlIndex . "/editar/{$request->post->id}";
 
             if (Validator::make($data, $this->usuario->rulesUpdate($request->post->id))){
-                return Redirect::route("{$url}");
+                return Redirect::route($url);
             }
 
             try
             {
                 $this->usuario->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/usuario", [
-                    "success" => ["Usuário Atualizado com Sucesso!"]
-                ]);
+                return Redirect::route($this->urlIndex, ["success" => ["Usuário Atualizado com Sucesso!"]]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/usuario", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Atulizar Usuário!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
         elseif ($request->post->action=="senha")
         {
-            $url = "/gerenciamento/usuario/alterarsenha/{$request->post->id}";
+            $url = $this->urlIndex . "/alterarsenha/{$request->post->id}";
 
             $this->usuario = $this->usuario->find($request->post->id);
 
 
             if (!password_verify($data['oldpassword'],$this->usuario->password))
             {
-                return Redirect::route("{$url}", [
+                return Redirect::route($url, [
                     "error" =>["oldpassword" => "A senha antiga não combina com a digitada"]
                 ]);
             }
 
             if ($data['password1'] != $data['password2'])
             {
-                return Redirect::route("{$url}", [
+                return Redirect::route($url, [
                     "error" =>["password" => "Senhas não conferem"]
                 ]);
             }
 
             try
             {
-                $this->usuario->password = password_hash($data['password1'],PASSWORD_BCRYPT);;
+                $this->usuario->password = password_hash($data['password1'],PASSWORD_BCRYPT);
                 $this->usuario->save();
 
-                return Redirect::route("/gerenciamento/usuario/perfil/{$this->auth->id()}", [
+                return Redirect::route($this->urlIndex . "/perfil/{$this->auth->id()}", [
                     "success" => ["Senha Alterada com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/usuario/perfil/{$this->auth->id()}", [
+                return Redirect::route($this->urlIndex . "/perfil/{$this->auth->id()}", [
                     "error" => ["Erro ao Atulizar Usuário!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -157,12 +151,10 @@ class UsuarioController extends Controller
         try {
             $this->usuario->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/usuario", [
-                "success" => ["Usuário Apagado!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["Usuário Apagado!"]]);
         } catch (\Exception $exception) {
-            return Redirect::route("/gerenciamento/usuario", [
-                "error" => ["Erro ao Apagar Usuário!", "Verifique se há pendencias antes de deletar!"]
+            return Redirect::route($this->urlIndex,
+                ["error" => ["Erro ao Apagar Usuário!", "Verifique se há pendencias antes de deletar!"]
             ]);
         }
     }
@@ -171,18 +163,15 @@ class UsuarioController extends Controller
     {
         $this->view->action = "senha";
         $this->view->usuario = $this->usuario->find($id);
-
         $this->setPageTitle("Alterar Senha");
-        $this->setView('usuario/mudarSenha', 'layout/index');
+        return $this->setView('usuario/mudarSenha', 'layout/index');
     }
 
     public function perfil($id)
     {
         $this->view->usuario = $this->usuario->find($id);
-
         $this->view->ativos = $this->ativo->where("usuario_id", $id)->get();
-
         $this->setPageTitle($this->view->usuario->name);
-        $this->setView('usuario/perfil', 'layout/index');
+        return $this->setView('usuario/perfil', 'layout/index');
     }
 }

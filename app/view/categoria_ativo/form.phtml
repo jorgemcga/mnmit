@@ -1,25 +1,19 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/categoriaativo/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/categoriaativo/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="categoria_ativo_id" type="hidden" value="<?php echo $this->view->categoria_ativo->categoria_ativo_id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">add_to_queue</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
                         <button type="button" class="btn btn-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
@@ -27,19 +21,13 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome da Categoria</label>
                     <input name="nome" required class="form-control" placeholder=""
                            value="<?php echo $this->view->categoria_ativo->nome ?>">
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

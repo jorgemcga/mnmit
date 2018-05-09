@@ -1,108 +1,74 @@
-<div class="container-fluid mt-1">
-
+<div class="container-fluid mt-3">
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">settings</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">settings</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" title="Voltar" onclick="location='/monitoramento/snmp'">
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" title="Voltar" onclick="history.go(-1)">
                 <i class="material-icons" style="font-size: 18px;">arrow_back</i>
             </button>
         </div>
-
     </div>
-
-    <form class="form-horizontal" action="/monitoramento/snmp/salvar" method="post" accept-charset="utf-8">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/monitoramento/snmp/salvar" method="post" accept-charset="utf-8">
         <input name="id" type="hidden" value="<?php echo $this->view->agendador->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
                     <h3 class="col-md-10">
                         <i class="material-icons" style="font-size: 28px">history</i>
                         Agendamento de Disparos
                     </h3>
-
                     <div class="col-md-2 text-right">
-
                         <?php if ($this->view->agendador->status == 1){ ?>
-                            <button type='button' class='btn btn-outline-success' onclick='location="/monitoramento/snmp/stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
-                                <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
-                            </button>
-
+                        <button type='button' class='btn btn-outline-success' onclick='location="../snmp/stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
+                            <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
+                        </button>
                         <?php } else { ?>
-                            <button type='button' class='btn btn-outline-warning' onclick='location="/monitoramento/snmp/start/<?php echo $this->view->agendador->id; ?>"' title='Habilitar'>
-                                <i class='material-icons' style='font-size: 18px;'>alarm_off</i>
-                            </button>
+                        <button type='button' class='btn btn-outline-warning' onclick='location="../snmp/start/<?php echo $this->view->agendador->id; ?>"' title='Habilitar'>
+                            <i class='material-icons' style='font-size: 18px;'>alarm_off</i>
+                        </button>
                         <?php } ?>
-
                         <button class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Salvar
                         </button>
-
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label>Periodicidade</label>
                         <select  class="form-control" name="periodicidade">
                             <?php
-
-                            $periodos = array("horario" => "Hora em Hora", "diario" => "Diariamente", "semanal" => "Semanalmente", "mensal" => "Mensalmente");
-                            $selected = "";
-
-                            foreach ($periodos as $key => $periodo) {
-
-                                if ($this->view->agendador->periodicidade == $key) $selected = "selected";
-                                else $selected = "";
-                                ?>
-
-                                <option <?php echo $selected ?> value="<?php echo $key?>">
-                                    <?php echo $periodo ?>
-                                </option>
-
+                                $periodos = array("horario" => "Hora em Hora", "diario" => "Diariamente", "semanal" => "Semanalmente", "mensal" => "Mensalmente");
+                                foreach ($periodos as $key => $periodo) {
+                                    $selected = "";
+                                    if ($this->view->agendador->periodicidade == $key) $selected = "selected";
+                            ?>
+                            <option <?php echo $selected ?> value="<?php echo $key?>">
+                                <?php echo $periodo ?>
+                            </option>
                             <?php } ?>
                         </select>
                     </div>
-
                     <div class="col-md-4">
-
                         <label>Ultimo Disparo</label>
                         <input class="form-control" disabled value="<?php echo date("d/m/Y H:i:s", strtotime($this->view->agendador->updated_at)) ?>">
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

@@ -11,6 +11,7 @@ class InterfaceRedeController extends Controller
 {
     private $ativo;
     private $interface;
+    private $urlIndex = BASE_URL . "/gerenciamento/ativo/interface/todas/";
 
     public function __construct()
     {
@@ -46,25 +47,19 @@ class InterfaceRedeController extends Controller
         $request->post->monitorar = isset($request->post->monitorar) ? 1 : 0;
         $data = $this->interface->data($request->post);
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/ativo/interface/adicionar" :  "/gerenciamento/ativo/interface/editar/{$request->post->interface_id}";
-
-       if (Validator::make($data, $this->interface->rules())){
-           return Redirect::route("{$url}");
-       }*/
-
         if ($request->post->action=="salvar")
         {
             try
             {
                 $this->interface->create($data);
 
-                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "success" => ["Interface Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -73,11 +68,11 @@ class InterfaceRedeController extends Controller
             try {
                 $this->interface->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "success" => ["Interface Salva com Sucesso!"]
                 ]);
             } catch (\Exception $exception) {
-                return Redirect::route("/gerenciamento/ativo/interface/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "error" => ["Erro ao salvar Interface!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -105,13 +100,13 @@ class InterfaceRedeController extends Controller
         {
             $this->interface->find($idInterface)->delete();
 
-            return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
+            return Redirect::route($this->urlIndex . $idAtivo, [
                 "success" => ["Interface excluída!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/ativo/interface/todas/{$idAtivo}", [
+            return Redirect::route($this->urlIndex . $idAtivo, [
                 "error" => ["Erro ao deletar Interface!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

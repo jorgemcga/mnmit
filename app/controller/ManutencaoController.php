@@ -11,6 +11,7 @@ class ManutencaoController extends Controller
 {
     private $ativo;
     private $manutencao;
+    private $urlIndex = BASE_URL . "/gerenciamento/ativo/manutencao/todas/";
 
     public function __construct()
     {
@@ -38,38 +39,35 @@ class ManutencaoController extends Controller
 
         $data = $this->manutencao->data($request->post);
 
-        /*$url = $request->post->action=="salvar" ? "/gerenciamento/categoriacomponente/adicionar" :  "/gerenciamento/categoriacomponente/editar/{$request->post->categoria_componente_id}";
-
-        if (Validator::make($data, $this->CategoriaComponente->rules())){
-            return Redirect::route("{$url}");
-        }*/
-
         if ($request->post->action=="salvar")
         {
             try
             {
                 $this->manutencao->create($data);
 
-                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "success" => ["Manutenção Salva com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
         elseif ($request->post->action=="editar") {
-            try {
+            try
+            {
                 $this->manutencao->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "success" => ["Manutenção Salva com Sucesso!"]
                 ]);
-            } catch (\Exception $exception) {
-                return Redirect::route("/gerenciamento/ativo/manutencao/todas/{$request->post->ativo_id}", [
+            }
+            catch (\Exception $exception)
+            {
+                return Redirect::route($this->urlIndex . $request->post->ativo_id, [
                     "error" => ["Erro ao salvar Manutenção!", "Verifique os dados e tente novamente!"]
                 ]);
             }

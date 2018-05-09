@@ -1,61 +1,50 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
-
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/licenca">
+            <a class="nav-link" href="licenca">
                 <i class="material-icons">copyright</i>
                 Licenças
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categorialicenca">
+            <a class="nav-link" href="categorialicenca">
                 <i class="material-icons">class</i>
                 Categorias
             </a>
         </li>
     </ul>
 </div>
-
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-4">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">copyright</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">copyright</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
         <div class="col-md-8 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="Adicionar" onclick="location='licenca/adicionar'">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Nome de Identificação</th>
-                    <th>Serial</th>
-                    <th>Utilizador</th>
-                    <th>Data de Aquisição</th>
-                    <th>Data de Expiração</th>
-                    <th>Categoria</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nome de Identificação</th>
+                        <th>Serial</th>
+                        <th>Utilizador</th>
+                        <th>Data de Aquisição</th>
+                        <th>Data de Expiração</th>
+                        <th>Categoria</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->licencas as $licenca){ ?>
                     <tr>
@@ -72,11 +61,9 @@
                         <td><?php echo date('d/m/Y',strtotime($licenca->datavence)); ?></td>
                         <td><?php echo $licenca->categoria_licenca->nome; ?></td>
                         <td class="text-right">
-
                             <a href="licenca/editar/<?php echo $licenca->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
-
                             <span onclick="global.confirmar('licenca/apagar/<?php echo $licenca->id; ?>', 'Apagar esta Licença?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
@@ -85,21 +72,12 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
-
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

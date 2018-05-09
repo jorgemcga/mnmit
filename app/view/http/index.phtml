@@ -1,15 +1,15 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
 <div class="menu-barra">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/http">
+            <a class="nav-link" href="http">
                 <i class="material-icons">http</i>
                 Monitoramento
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/monitoramento/site">
+            <a class="nav-link" href="site">
                 <i class="material-icons">description</i>
                 Sites
             </a>
@@ -18,19 +18,16 @@
 </div>
 
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">http</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">http</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="run" onclick="location='http/run'">
                 <i class="material-icons" style="font-size: 18px;">play_arrow</i>
             </button>
@@ -38,22 +35,15 @@
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-12 text-center">
             <h2> <i class="material-icons" style="font-size: 32px;">history</i> Execuções mais recentes...</h2>
         </div>
-
     </div>
-
     <div class="row">
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
                 <tr>
                     <th class="text-center">Status</th>
@@ -62,7 +52,6 @@
                     <th></th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->https as $http) {
                     if(!empty($http->created_at)) { ?>
@@ -82,7 +71,6 @@
                             </span>
                         </td>
                     </tr>
-
                     <div class="modal fade" id="<?php echo $http->site_id; ?>" tabindex="-1" role="dialog" aria-labelledby="msgSuccess" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -98,32 +86,21 @@
                             </div>
                         </div>
                     </div>
-
                     <script type="text/javascript">
                         function showModal(id)
                         {
                             jQuery("#"+id).modal('show');
                         }
                     </script>
-
                 <?php }} ?>
                 </tbody>
-
             </table>
-
         </div>
     </div>
-
 </div>
 
-
 <?php
-
-if (isset($this->success)){
-    $this->setView('modal/success');
-}
-else if (isset($this->errors)){
-    $this->setView('modal/error');
-}
-
-?>
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

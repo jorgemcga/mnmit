@@ -1,84 +1,39 @@
-<div class="">
-    <ul class="nav justify-content-center bg-light">
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/ativo">
-                <i class="material-icons">devices</i>
-                Ativos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriaativo">
-                <i class="material-icons">devices_other</i>
-                Categorias
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
-                <i class="material-icons">settings_applications</i>
-                Sistemas Operacionais
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/modelo">
-                <i class="material-icons">cast</i>
-                Modelos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/fabricante">
-                <i class="material-icons">developer_board</i>
-                Fabricantes
-            </a>
-        </li>
-    </ul>
-</div>
-
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 <div class="container-fluid">
-
-    <div class="row">
-
-        <div class="col-md-6">
+    <div class="row mb-2">
+        <div class="col-md-10">
             <p>
-            <h1>
-                <i class="material-icons" style="font-size: 38px">language</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h1>
+                <h1>
+                    <i class="material-icons" style="font-size: 38px">language</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h1>
             </p>
         </div>
-
-        <div class="col-md-6 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'" title="Voltar">
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick="history.go(-1)" title="Voltar">
                 <i class="material-icons" style="font-size: 18px;">arrow_back</i>
             </button>
-
             <button type="button" class="btn btn-outline-primary"  onclick="location='../adicionar/<?php echo $this->view->ativo->id ?>'" title="Criar Nova">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
-
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
-            <table class="table table-striped">
-
+            <table id="table" class="table table-striped">
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Hostname</th>
-                    <th>IP</th>
-                    <th>Mascara</th>
-                    <th>GateWay</th>
-                    <th>DNS 1</th>
-                    <th>DNS 2</th>
-                    <th>Mac Address</th>
-                    <th class="text-center">Monitorada</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>IP</th>
+                        <th>Mascara</th>
+                        <th>GateWay</th>
+                        <th>DNS 1</th>
+                        <th>DNS 2</th>
+                        <th>Mac Address</th>
+                        <th class="text-center">Monitorada</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->interfaces as $interface){ ?>
                     <tr>
@@ -97,11 +52,9 @@
                             ?>
                         </td>
                         <td class="text-right">
-
                             <a href="../editar/<?php echo $interface->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
-
                             <span onclick="global.confirmar('../apagar/<?php echo $this->view->ativo->id?>/<?php echo $interface->id ?>', 'Apagar esta Interface?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
@@ -110,20 +63,13 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
 
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

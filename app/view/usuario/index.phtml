@@ -1,27 +1,23 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
-<div class="">
-    <ul class="nav justify-content-center bg-light">
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/usuario">
-                <i class="material-icons">person</i>
-                Usuários
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/grupo">
-                <i class="material-icons">people</i>
-                Grupos
-            </a>
-        </li>
-    </ul>
-</div>
+<ul class="nav justify-content-center bg-light">
+    <li class="nav-item">
+        <a class="nav-link" href="usuario">
+            <i class="material-icons">person</i>
+            Usuários
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="grupo">
+            <i class="material-icons">people</i>
+            Grupos
+        </a>
+    </li>
+</ul>
 
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-4">
+        <div class="col-md-10">
             <p>
                 <h1>
                     <i class="material-icons" style="font-size: 38px">person</i>
@@ -29,31 +25,24 @@
                 </h1>
             </p>
         </div>
-
-        <div class="col-md-8 text-right mt-3">
+        <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" onclick="location='usuario/adicionar'" title="Adicionar">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
-                <tr>
-                    <th>Nome de Usuário</th>
-                    <th>Email</th>
-                    <th>Grupo</th>
-                    <th>Criado em</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nome de Usuário</th>
+                        <th>Email</th>
+                        <th>Grupo</th>
+                        <th>Criado em</th>
+                        <th></th>
+                    </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->usuarios as $usuario){ ?>
                     <tr>
@@ -73,20 +62,12 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

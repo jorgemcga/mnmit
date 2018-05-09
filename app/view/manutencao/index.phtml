@@ -1,68 +1,25 @@
-<div class="">
-    <ul class="nav justify-content-center bg-light">
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/ativo">
-                <i class="material-icons">devices</i>
-                Ativos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriaativo">
-                <i class="material-icons">devices_other</i>
-                Categorias
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
-                <i class="material-icons">settings_applications</i>
-                Sistemas Operacionais
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/modelo">
-                <i class="material-icons">cast</i>
-                Modelos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/fabricante">
-                <i class="material-icons">developer_board</i>
-                Fabricantes
-            </a>
-        </li>
-    </ul>
-</div>
-
-<div class="container-fluid">
-
+<div class="container-fluid mt-3">
     <div class="row">
-
-        <div class="col-md-6">
+        <div class="col-md-10">
             <p>
-            <h2>
-                <i class="material-icons" style="font-size: 34px">build</i>
-                <?php echo $this->getPageTitle(); ?>
-            </h2>
+                <h2>
+                    <i class="material-icons" style="font-size: 34px">build</i>
+                    <?php echo $this->getPageTitle(); ?>
+                </h2>
             </p>
         </div>
-
-        <div class="col-md-6 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" onclick="location='/gerenciamento/ativo'" title="Voltar">
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick="history.go(-1)" title="Voltar">
                 <i class="material-icons" style="font-size: 18px;">arrow_back</i>
             </button>
-
             <button data-toggle="collapse" data-target="#novaManutencao" class="btn btn-outline-primary" title="Registrar Nova">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
-            <form id="novaManutencao" class="form-horizontal collapse <?php echo $this->view->show ?>" action="/gerenciamento/ativo/manutencao/salvar" method="post" accept-charset="utf-8">
+            <form id="novaManutencao" class="form-horizontal collapse <?php echo $this->view->show ?>" action="<?php echo BASE_URL ?>/gerenciamento/ativo/manutencao/salvar" method="post" accept-charset="utf-8">
                 <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
                 <input name="id" type="hidden" value="<?php echo $this->view->manutencao->id ?>">
                 <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->id ?>">
@@ -75,7 +32,6 @@
                                     else echo date('Y-m-d\TH:i:s');
                                 ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Data Final</label>
                     <input name="datafim" type="datetime-local" class="form-control"
@@ -84,12 +40,10 @@
                            else echo date('Y-m-d\TH:i:s', strtotime("tomorrow"));
                            ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Descrição</label>
                     <textarea name="descricao" class="form-control"><?php echo $this->view->manutencao->descricao ?></textarea>
                 </div>
-
                 <div class="form-group">
                     <label>Status</label>
                     <select name="status" class="form-control">
@@ -100,43 +54,33 @@
                         <option value="4" <?php echo $this->view->manutencao->status == 4 ? "selected" : ""?>>Completa</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <button type="submit" class="btn btn-outline-success">
                         <i class="material-icons" style="font-size: 18px;">check</i>
                         Salvar
                     </button>
-
                     <button class="btn btn-outline-warning" data-toggle="collapse" data-target="#novaManutencao">
                         <i class="material-icons" style="font-size: 18px;">clear</i>
                         Cancelar
                     </button>
-
                 </div>
             </form>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
             <p>
-            <h2>
-                <i class="material-icons" style="font-size: 34px">history</i>
-                Histórico
-            </h2>
+                <h2>
+                    <i class="material-icons" style="font-size: 34px">history</i>
+                    Histórico
+                </h2>
             </p>
         </div>
-
     </div>
-
     <?php foreach($this->view->manutencoes as $manutencao){?>
     <div class="row">
-
         <div class="col-md-12">
             <div class="card">
-
                 <div class="card-header bg-primary text-white clicavel" data-toggle="collapse" href="#manutencao<?php echo $manutencao->id?>">
                     <div class="row">
                         <div class="col-md-10">
@@ -147,18 +91,12 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="manutencao<?php echo $manutencao->id?>" class="card-body collapse">
-
                     <div class="row">
-
                         <div class="col-md-8">
                             <div class="label-default"> Data Inicial: <?php echo date('d/m/Y à\s H:i',strtotime($manutencao->datainicio)) ?></div>
-
                             <div class="label-default"> Data Final: <?php echo date('d/m/Y à\s H:i',strtotime($manutencao->datafim)) ?></div>
-
                             <div class="label-default"> Descrição: <?php echo $manutencao->descricao ?></div>
-
                             <div class="label-default"> Status:
                                 <?php
                                     echo $manutencao->status == 0 ? "Em Manutenção" : "";
@@ -169,33 +107,22 @@
                                 ?>
                             </div>
                         </div>
-
                         <div class="col-md-4 text-right">
-                            <button class="btn btn-outline-info" onclick="location='/gerenciamento/ativo/manutencao/editar/<?php echo $manutencao->id?>'" title="Editar">
+                            <button class="btn btn-outline-info" onclick="location='<?php echo BASE_URL ?>/gerenciamento/ativo/manutencao/editar/<?php echo $manutencao->id?>'" title="Editar">
                                 <i class="material-icons" style ="font-size: 18px;">edit</i>
                             </button>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
     </div>
     <br>
     <?php }?>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

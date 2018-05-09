@@ -13,6 +13,8 @@ class HttpController extends Controller
     protected $site;
     protected $agendador;
     protected $http;
+    private $urlIndex = BASE_URL . "/monitoramento/http";
+    private $urlConf = BASE_URL . "/monitoramento/http/config";
 
     public function __construct()
     {
@@ -51,13 +53,13 @@ class HttpController extends Controller
 
             $this->agendador->find($request->post->id)->update($data);
 
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Agendamento Atualizado!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Configurar Agendador!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -71,13 +73,13 @@ class HttpController extends Controller
 
             $this->agendador->find($id)->update($data);
 
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Disparos Habilitados!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Habilitar Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -91,13 +93,13 @@ class HttpController extends Controller
 
             $this->agendador->find($id)->update($data);
 
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Disparos Desabilitados!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/http/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -109,16 +111,15 @@ class HttpController extends Controller
         {
             $this->http->run();
 
-            return Redirect::route("/monitoramento/http", [
-                //"success" => ["Execução!"]
+            return Redirect::route($this->urlIndex, [
+                "success" => ["Executado com sucesso!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/http", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Houve um erro ao executar o Monitoramento de Sites!", "Verifique as configurações!"]
             ]);
         }
     }
-
 }

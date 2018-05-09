@@ -14,6 +14,7 @@ class OidAtivoController extends Controller
     protected $oidAtivo;
     protected $oid;
     protected $ativo;
+    private $urlIndex = BASE_URL . "/monitoramento/oid-ativo";
 
     public function __construct()
     {
@@ -43,20 +44,18 @@ class OidAtivoController extends Controller
         {
             $this->oidAtivo->create($data);
 
-            return Redirect::route("/monitoramento/oid-ativo", [
-                "success" => ["OID atrelada ao Ativo!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["OID atrelada ao Ativo!"]]);
         }
         catch (\Exception $exception)
         {
             if($exception->getCode() == 23000)
             {
-                return Redirect::route("/monitoramento/oid-ativo", [
-                    "error" => ["Impossível criar relação!", "Este relacionamento já existe!"]
+                return Redirect::route($this->urlIndex,
+                    ["error" => ["Impossível criar relação!", "Este relacionamento já existe!"]
                 ]);
             }
-            return Redirect::route("/monitoramento/oid-ativo", [
-                "error" => ["Não foi possível criar a relação!", "Verifique a conexão com o banco de dados!"]
+            return Redirect::route("/monitoramento/oid-ativo",
+                ["error" => ["Não foi possível criar a relação!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
     }
@@ -66,14 +65,12 @@ class OidAtivoController extends Controller
         try {
             $this->oidAtivo->where([['oid_id', '=', $idOid],['ativo_id', '=', $idAtivo]])->delete();
 
-            return Redirect::route("/monitoramento/oid-ativo", [
-                "success" => ["Relacionamento Desfeito!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["Relacionamento Desfeito!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/oid-ativo", [
-                "error" => ["Erro ao Desfazer Relacionamento!", "Verifique se há pendencias antes de deletar!"]
+            return Redirect::route($this->urlIndex,
+                ["error" => ["Erro ao Desfazer Relacionamento!", "Verifique se há pendencias antes de deletar!"]
             ]);
         }
     }

@@ -9,6 +9,7 @@ use Core\Redirect;
 class CategoriaAtivoController extends Controller
 {
     private $modelCategoriaAtivo;
+    private $urlIndex = BASE_URL . "/gerenciamento/categoriaativo";
 
     public function __construct()
     {
@@ -46,13 +47,13 @@ class CategoriaAtivoController extends Controller
             {
                 $this->modelCategoriaAtivo->create($data);
 
-                return Redirect::route("/gerenciamento/categoriaativo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Categoria Criada com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/categoriaativo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Criar Categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -63,13 +64,13 @@ class CategoriaAtivoController extends Controller
             {
                 $this->modelCategoriaAtivo->find($request->post->categoria_ativo_id)->update($data);
 
-                return Redirect::route("/gerenciamento/categoriaativo", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Categoria Atualizada com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/categoriaativo", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Atulizar Categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -93,13 +94,13 @@ class CategoriaAtivoController extends Controller
         {
             $this->modelCategoriaAtivo->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/categoriaativo", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Categoria Apagada!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/categoriaativo", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao Apagar Categoria!", "Verifique se há pendencias para deletar esse item!"]
             ]);
         }

@@ -1,27 +1,19 @@
 <div class="container-fluid">
-
     <br>
-
     <div class="row">
-
         <div class="col-md-12">
             <h1>
                 <i class="material-icons" style="font-size: 38px">donut_large</i>
                 <?php echo $this->view->nome; ?>
             </h1>
         </div>
-
     </div>
-
     <br>
-
 </div>
 
 <!--<GERENCIAMENTO>-->
 <div class="container-fluid box">
-
     <div class="row">
-
         <div class="col-md-12">
             <h2 class="">
                 <i class="material-icons" style="font-size: 34px">view_quilt</i>
@@ -29,9 +21,7 @@
             </h2>
         </div>
     </div>
-
     <br>
-
     <div class="row">
         <div class="col-md-6">
             <div class="card bg-primary">
@@ -48,9 +38,6 @@
                             <span class="badge badge-pill badge-light text-primary clicavel" title="Ir para Ativos" onclick="location='gerenciamento/ativo'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-primary clicavel" data-toggle="collapse" href="#body-ativo">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
@@ -67,7 +54,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="card bg-info text-white clicavel">
                 <div class="card-header">
@@ -83,9 +69,6 @@
                             <span class="badge badge-pill badge-light text-info clicavel" title="Ir para Componentes" onclick="location='gerenciamento/componente'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-info clicavel" data-toggle="collapse" href="#body-componente">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
@@ -95,7 +78,6 @@
     </div>
     <br>
     <div class="row">
-
         <div class="col-md-6">
             <div class="card bg-success text-white clicavel">
                 <div class="card-header">
@@ -111,16 +93,12 @@
                             <span class="badge badge-pill badge-light text-success clicavel" title="Ir para Equipamentos" onclick="location='gerenciamento/equipamento'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-success clicavel" data-toggle="collapse" href="#body-equipamento">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
                 <div id="body-equipamento" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="card bg-danger text-white clicavel">
                 <div class="card-header">
@@ -132,14 +110,10 @@
                                 <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas ?></span>
                             </h4>
                         </div>
-
                         <div class="col-md-4 text-right">
                             <span class="badge badge-pill badge-light text-danger clicavel" title="Ir para Licenças" onclick="location='gerenciamento/licenca'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-danger clicavel" data-toggle="collapse" href="#body-licenca">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
@@ -153,9 +127,7 @@
 <br>
 <!--<MONITORAMENTO>-->
 <div class="container-fluid box">
-
     <div class="row">
-
         <div class="col-md-12">
             <h2 class="">
                 <i class="material-icons" style="font-size: 34px">slow_motion_video</i>
@@ -163,36 +135,30 @@
             </h2>
         </div>
     </div>
-
     <br>
-
     <div class="row">
         <div class="col-md-6">
             <div class="card bg-primary">
                 <div class="card-header text-white">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <h4>
                                 <i class="material-icons" style="font-size: 28px;">public</i>
                                 Velocidade da Internet
-                                <span class="badge badge-pill badge-light text-primary" title="download"><?php echo $this->view->contador->internet->download ?>Mbit/s</span>
-                                <span class="badge badge-pill badge-light text-primary" title="upload"><?php echo $this->view->contador->internet->upload ?>Mbit/s</span>
                             </h4>
+                            <span class="badge badge-pill badge-light text-primary" title="download"><?php echo $this->view->contador->internet->download ?>Mbit/s</span>
+                                <span class="badge badge-pill badge-light text-primary" title="upload"><?php echo $this->view->contador->internet->upload ?>Mbit/s</span>
                         </div>
-                        <div class="col-md-4 text-right">
+                        <div class="col-md-2 text-right">
                             <span class="badge badge-pill badge-light text-primary clicavel" title="Ir para Ativos" onclick="location='monitoramento/internet'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-primary clicavel" data-toggle="collapse" href="#body-ativo">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
                 <div id="body-ativo" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="card bg-info text-white">
                 <div class="card-header">
@@ -215,9 +181,6 @@
                             <span class="badge badge-pill badge-light text-info clicavel" title="Ir para Componentes" onclick="location='monitoramento/icmp'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-info clicavel" data-toggle="collapse" href="#body-componente">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
@@ -227,7 +190,6 @@
     </div>
     <br>
     <div class="row">
-
         <div class="col-md-6">
             <div class="card bg-success text-white">
                 <div class="card-header">
@@ -250,16 +212,12 @@
                             <span class="badge badge-pill badge-light text-success clicavel" title="Ir para Equipamentos" onclick="location='monitoramento/http'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-success clicavel" data-toggle="collapse" href="#body-equipamento">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>
                 <div id="body-equipamento" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-
         <div class="col-md-6">
             <div class="card bg-danger text-white">
                 <div class="card-header">
@@ -271,14 +229,10 @@
                                 <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas ?></span>
                             </h4>
                         </div>
-
                         <div class="col-md-4 text-right">
                             <span class="badge badge-pill badge-light text-danger clicavel" title="Ir para Licenças" onclick="location='monitoramento/snmp'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
-<!--                            <span class="badge badge-pill badge-light text-danger clicavel" data-toggle="collapse" href="#body-licenca">-->
-<!--                                <i class="material-icons" style="font-size: 14px">keyboard_arrow_down</i>-->
-<!--                            </span>-->
                         </div>
                     </div>
                 </div>

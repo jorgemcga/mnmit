@@ -15,6 +15,8 @@ class SnmpController extends Controller
     protected $snmp;
     protected $ativo;
     protected $oid;
+    private $urlIndex = BASE_URL . "/monitoramento/snmp";
+    private $urlConf = BASE_URL . "/monitoramento/snmp/config";
 
     public function __construct()
     {
@@ -56,13 +58,13 @@ class SnmpController extends Controller
 
             $this->agendador->find($request->post->id)->update($data);
 
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Agendamento Atualizado!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Configurar Agendador!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -76,13 +78,13 @@ class SnmpController extends Controller
 
             $this->agendador->find($id)->update($data);
 
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Disparos Habilitados!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Habilitar Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -96,13 +98,13 @@ class SnmpController extends Controller
 
             $this->agendador->find($id)->update($data);
 
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "success" => ["Disparos Desabilitados!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/snmp/config", [
+            return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -113,15 +115,12 @@ class SnmpController extends Controller
         try
         {
             $this->snmp->run();
-
-            return Redirect::route("/monitoramento/snmp", [
-                //"success" => ["Execução!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["Executado com Sucesso!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/snmp", [
-                "error" => ["Houve um erro ao pegar valores SNMP!", "Verifique as configurações!"]
+            return Redirect::route($this->urlIndex,
+                ["error" => ["Houve um erro ao pegar valores SNMP!", "Verifique as configurações!"]
             ]);
         }
     }

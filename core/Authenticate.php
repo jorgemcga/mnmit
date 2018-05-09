@@ -8,7 +8,7 @@ trait Authenticate
 {
     public function login()
     {
-        $this->setPageTitle("Entrar");
+        $this->setPageTitle("Acesso");
         $this->setView("usuario/login", "layout/basic");
     }
 
@@ -16,36 +16,41 @@ trait Authenticate
     {
         $result = Usuario::where('email', $request->post->email)->first();
 
-        if ($result){
-
-            if (password_verify($request->post->password, $result->password)) {
+        if ($result)
+        {
+            if (password_verify($request->post->password, $result->password))
+            {
                 $user = [
                     "id" => $result->id,
                     "email" => $result->email,
-                    "name" => $result->name
+                    "name" => $result->name,
+                    "grupo_id" => $result->grupo_id
                 ];
 
                 Session::set('user', $user);
 
-                return Redirect::route("/");
+                return Redirect::route(BASE_URL . "/");
             }
-            else {
-                return Redirect::route("/login", [
+            else
+            {
+                return Redirect::route(BASE_URL . "/login", [
                     "error" => ["password" => "Senha Inválida!"],
                     "inputs" => ["email" => $request->post->email]
                 ]);
             }
         }
-        else {
-            return Redirect::route("/login", [
+        else
+        {
+            return Redirect::route(BASE_URL . "/login", [
                 "error" => ["email" => "E-mail Inválido!"],
                 "inputs" => ["email" => $request->post->email]
             ]);
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Session::destroy('user');
-        Redirect::route('/login');
+        return Redirect::route(BASE_URL . '/login');
     }
 }

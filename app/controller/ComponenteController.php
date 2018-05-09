@@ -14,6 +14,7 @@ class ComponenteController extends Controller
     private $componente;
     private $categoria;
     private $ativo;
+    private $urlIndex = BASE_URL . "/gerenciamento/componente";
 
     public function __construct()
     {
@@ -49,7 +50,7 @@ class ComponenteController extends Controller
     {
         $data = $this->componente->data($request->post);
 
-        $url = $request->post->action=="salvar" ? "/gerenciamento/componente/adicionar" :  "/gerenciamento/componente/editar/{$request->post->componente_id}";
+        $url = $request->post->action=="salvar" ? $this->urlIndex . "/adicionar" :  $this->urlIndex . "/editar/{$request->post->componente_id}";
 
         if (Validator::make($data, $this->componente->rules())){
             return Redirect::route("{$url}");
@@ -61,13 +62,13 @@ class ComponenteController extends Controller
             {
                 $this->componente->create($data);
 
-                return Redirect::route("/gerenciamento/componente", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Componente Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/componente", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -77,13 +78,13 @@ class ComponenteController extends Controller
             {
                 $this->componente->find($request->post->id)->update($data);
 
-                return Redirect::route("/gerenciamento/componente", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Componente Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/gerenciamento/componente", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Componente!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -110,13 +111,13 @@ class ComponenteController extends Controller
         {
             $this->componente->find($id)->delete();
 
-            return Redirect::route("/gerenciamento/componente", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Componente excluído!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/gerenciamento/componente", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Componente!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }

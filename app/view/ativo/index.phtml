@@ -1,44 +1,41 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/ativo">
+            <a class="nav-link" href="ativo">
                 <i class="material-icons">devices</i>
                 Ativos
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriaativo">
+            <a class="nav-link" href="categoriaativo">
                 <i class="material-icons">devices_other</i>
                 Categorias
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/sistemaoperacional">
+            <a class="nav-link " href="sistemaoperacional">
                 <i class="material-icons">settings_applications</i>
                 Sistemas Operacionais
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/modelo">
+            <a class="nav-link " href="modelo">
                 <i class="material-icons">cast</i>
                 Modelos
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="/gerenciamento/fabricante">
+            <a class="nav-link " href="fabricante">
                 <i class="material-icons">developer_board</i>
                 Fabricantes
             </a>
         </li>
     </ul>
 </div>
-
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-4">
             <p>
                 <h1>
@@ -47,21 +44,15 @@
                 </h1>
             </p>
         </div>
-
         <div class="col-md-8 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" onclick="location='ativo/adicionar'" title="Novo">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
                     <tr>
                         <th>Nº Patromonio</th>
@@ -75,7 +66,6 @@
                         <th></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <?php foreach ($this->view->ativos as $ativo){ ?>
                         <tr>
@@ -88,50 +78,33 @@
                             <td><?php echo $ativo->categoria_ativo->nome; ?></td>
                             <td><?php echo isset($ativo->usuario->name) ? $ativo->usuario->name : "Nenhum" ?></td>
                             <td class="text-right">
-
 <!--                                <a title="Clique para visualizar" href="ativo/visualizar/--><?php //echo $ativo->id; ?><!--" class="btn btn-outline-info">-->
 <!--                                    <i class="material-icons" style="font-size: 18px;">description</i>-->
 <!--                                    Detalhar-->
 <!--                                </a>-->
-
                                 <a title="CLique para ver Interfaces de Rede" href="ativo/interface/todas/<?php echo $ativo->id; ?>" class="btn btn-outline-secondary">
                                     <i class="material-icons" style="font-size: 18px;">language</i>
-
                                 </a>
-
                                 <a title="Clique para ver Manutenções" href="ativo/manutencao/todas/<?php echo $ativo->id; ?>" class="btn btn-outline-info">
                                     <i class="material-icons" style="font-size: 18px;">build</i>
-
                                 </a>
-
                                 <a href="ativo/editar/<?php echo $ativo->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                     <i class="material-icons" style="font-size: 18px;">edit</i>
-
                                 </a>
-
                                 <span onclick="global.confirmar('ativo/apagar/<?php echo $ativo->id; ?>', 'Apagar este ativo?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                     <i class="material-icons" style="font-size: 18px;">delete</i>
-
                                 </span>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

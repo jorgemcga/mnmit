@@ -1,26 +1,20 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/ativo/interface/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/ativo/interface/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->interface->id ?>">
         <input name="ativo_id" type="hidden" value="<?php echo $this->view->ativo->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">language</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button class="btn btn-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
                         <button type="button" class="btn btn-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
@@ -28,65 +22,50 @@
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Hostname</label>
                     <input name="hostname" class="form-control"
                            value="<?php echo $this->view->interface->hostname ?>">
                 </div>
-
                 <div class="form-group">
                     <label>IP</label>
                     <input name="ip" class="form-control" placeholder=""
                            value="<?php echo $this->view->interface->ip?>">
                 </div>
-
                 <div class="form-group">
                     <label>Máscara de Rede</label>
                     <input name="mascara" class="form-control"
                            value="<?php echo $this->view->interface->mascara ?>">
                 </div>
-
                 <div class="form-group">
                     <label>GateWay</label>
                     <input name="gateway" class="form-control"
                            value="<?php echo $this->view->interface->gateway ?>">
                 </div>
-
                 <div class="form-group">
                     <label>DNS 1</label>
                     <input name="dns1" class="form-control"
                            value="<?php echo $this->view->interface->dns1 ?>">
                 </div>
-
                 <div class="form-group">
                     <label>DNS 2</label>
                     <input name="dns2" class="form-control"
                            value="<?php echo $this->view->interface->dns2 ?>">
                 </div>
-
                 <div class="form-group">
                     <label>Mac Address</label>
                     <input name="macaddress" class="form-control"
                            value="<?php echo $this->view->interface->macaddress ?>">
                 </div>
-
                 <div class="form-group">
-
                     <label class="custom-control custom-checkbox">
                         <input name="monitorar" type="checkbox" class="custom-control-input" <?php echo $this->view->interface->monitorar ?>>
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">Monitorar?</span>
                     </label>
-
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

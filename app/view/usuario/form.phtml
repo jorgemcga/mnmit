@@ -1,35 +1,27 @@
-<div class="container-fluid mt-1">
-
-    <form class="form-horizontal" action="/gerenciamento/usuario/salvar" method="post" accept-charset="utf-8">
+<div class="container-fluid mt-3">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/usuario/salvar" method="post" accept-charset="utf-8">
         <input name="action" type="hidden" value="<?php echo $this->view->action ?>">
         <input name="id" type="hidden" value="<?php echo $this->view->usuario->id ?>">
-
         <div class="card card-inverse">
-
             <div class="card-header">
-
                 <div class="row">
-                    <h3 class="col-md-10">
+                    <h3 class="col-md-6">
                         <i class="material-icons" style="font-size: 28px">person</i>
                         <?php echo $this->getPageTitle(); ?>
                     </h3>
-
-                    <div class="col-md-2 text-right">
+                    <div class="col-md-6 text-right">
                         <button type="submit" class="btn btn-outline-success">
                             <i class="material-icons" style="font-size: 18px;">done</i>
                             Gravar
                         </button>
-
-                        <button type="button" class="btn btn-outline-danger" onclick="location='/gerenciamento/usuario'">
+                        <button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">
                             <i class="material-icons" style="font-size: 18px;">clear</i>
                             Cancelar
                         </button>
                     </div>
                 </div>
             </div>
-
             <div class="card-body">
-
                 <div class="form-group">
                     <label>Nome do Usuário</label>
                     <input name="name" class="form-control" placeholder="Nome Visível" required
@@ -44,25 +36,20 @@
                             <?php echo $this->errors['name'];?>
                         </div>
                     <?php } ?>
-
                 </div>
-
                 <div class="form-group">
                     <label>E-mail</label>
                     <input name="email" class="form-control" placeholder="E-mail utilizado no login" required
-                           value="<?php
-                           echo isset($this->inputs['email']) ? $this->inputs['email'] : $this->view->usuario->email
-                           ?>">
+                        value="<?php echo isset($this->inputs['email']) ? $this->inputs['email'] : $this->view->usuario->email ?>">
                     <?php if (isset($this->errors['email'])) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span>&times;</span>
-                            </button>
-                            <?php echo $this->errors['email'];?>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span>&times;</span>
+                        </button>
+                        <?php echo $this->errors['email'];?>
+                    </div>
                     <?php } ?>
                 </div>
-
                 <div class="form-group">
                     <label>Senha</label>
                     <input name="password" class="form-control" type="password" placeholder="Mínimo 6 dígitos" required
@@ -76,34 +63,22 @@
                         </div>
                     <?php } ?>
                 </div>
-
                 <div class="form-group">
                     <label>Grupo</label>
                     <select name="grupo_id" class="form-control">
                         <?php
-
-                        $selected = "";
-
-                        foreach ($this->view->grupos as $grupo) {
-                            if (isset($this->view->usuario->grupo_id) && ($grupo->id == $this->view->usuario->grupo_id)) {
-                                $selected = "selected";
-                            }
-                            else{
+                            foreach ($this->view->grupos as $grupo) {
                                 $selected = "";
-                            }
-                            ?>
-                            <option <?php echo $selected ?> value="<?php echo $grupo->id?>">
-                                <?php echo $grupo->nome?>
-                            </option>
-
+                                if (isset($this->view->usuario->grupo_id) && ($grupo->id == $this->view->usuario->grupo_id))
+                                    $selected = "selected";
+                        ?>
+                        <option <?php echo $selected ?> value="<?php echo $grupo->id?>">
+                            <?php echo $grupo->nome?>
+                        </option>
                         <?php } ?>
                     </select>
                 </div>
-
             </div>
-
         </div>
-
     </form>
-
 </div>

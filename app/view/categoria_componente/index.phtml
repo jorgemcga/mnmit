@@ -1,38 +1,24 @@
-<script type="text/javascript" src="/js/dataTableAply.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
 <div class="">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/componente">
+            <a class="nav-link" href="componente">
                 <i class="material-icons">memory</i>
                 Componentes
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/gerenciamento/categoriacomponente">
+            <a class="nav-link" href="categoriacomponente">
                 <i class="material-icons">save</i>
                 Categorias
             </a>
         </li>
-        <!--        <li class="nav-item">-->
-        <!--            <a class="nav-link " href="/gerenciamento/modelo">-->
-        <!--                <i class="material-icons">cast</i>-->
-        <!--                Modelos-->
-        <!--            </a>-->
-        <!--        </li>-->
-        <!--        <li class="nav-item">-->
-        <!--            <a class="nav-link " href="/gerenciamento/fabricante">-->
-        <!--                <i class="material-icons">developer_board</i>-->
-        <!--                Fabricantes-->
-        <!--            </a>-->
-        <!--        </li>-->
     </ul>
 </div>
 
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col-md-6">
             <p>
             <h1>
@@ -41,21 +27,15 @@
             </h1>
             </p>
         </div>
-
         <div class="col-md-6 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" onclick="location='categoriacomponente/adicionar'" title="Adicionar">
                 <i class="material-icons" style="font-size: 18px;">add</i>
             </button>
         </div>
-
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
-
             <table id="table" class="table table-striped">
-
                 <thead class="thead-inverse">
                 <tr>
                     <th>Nome de Identificação</th>
@@ -64,7 +44,6 @@
                     <th></th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <?php foreach ($this->view->categorias as $categoria){ ?>
                     <tr>
@@ -72,11 +51,9 @@
                         <td><?php echo $categoria->tipo_valor; ?></td>
                         <td><?php echo $categoria->sigla_valor; ?></td>
                         <td class="text-right">
-
                             <a href="categoriacomponente/editar/<?php echo $categoria->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">
                                 <i class="material-icons" style="font-size: 18px;">edit</i>
                             </a>
-
                             <span onclick="global.confirmar('categoriacomponente/apagar/<?php echo $categoria->id; ?>', 'Apagar esta Categoria?')" class="btn btn-outline-danger" title="Clique para Apagar">
                                 <i class="material-icons" style="font-size: 18px;">delete</i>
                             </span>
@@ -85,20 +62,12 @@
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
 
 <?php
-
-    if (isset($this->success)){
+    if (isset($this->success))
         $this->setView('modal/success');
-    }
-    else if (isset($this->errors)){
+    else if (isset($this->errors))
         $this->setView('modal/error');
-    }
-
-?>

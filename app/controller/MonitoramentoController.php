@@ -24,6 +24,7 @@ class MonitoramentoController extends Controller {
     protected $http;
     protected $snmp;
     protected $internet;
+    private $urlIndex = BASE_URL . "/monitoramento/servidor";
 
     public function __construct()
     {
@@ -144,14 +145,12 @@ class MonitoramentoController extends Controller {
 
             $this->monitor->find($request->post->id)->update($data);
 
-            return Redirect::route("/monitoramento/servidor", [
-                "success" => ["Servidor Atualizado!"]
-            ]);
+            return Redirect::route($this->urlIndex, ["success" => ["Servidor Atualizado!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/servidor", [
-                "error" => ["Erro ao Atualizar Servidor!", "Verifique a conexão com o banco de dados!"]
+            return Redirect::route($this->urlIndex,
+                    ["error" => ["Erro ao Atualizar Servidor!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
     }
@@ -161,17 +160,13 @@ class MonitoramentoController extends Controller {
         try
         {
             $data = ['status' => '1'];
-
             $this->monitor->find($id)->update($data);
-
-            return Redirect::route("/monitoramento/servidor", [
-                "success" => ["Servidor Iniciado!"]
-            ]);
+            return Redirect::route($urlIndex, ["success" => ["Servidor Iniciado!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/servidor", [
-                "error" => ["Erro ao Iniciar Servidor!", "Verifique a conexão com o banco de dados!"]
+            return Redirect::route($urlIndex,
+                    ["error" => ["Erro ao Iniciar Servidor!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
     }
@@ -184,14 +179,12 @@ class MonitoramentoController extends Controller {
 
             $this->monitor->find($id)->update($data);
 
-            return Redirect::route("/monitoramento/servidor", [
-                "success" => ["Servidor Parado!"]
-            ]);
+            return Redirect::route($urlIndex, ["success" => ["Servidor Parado!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/servidor", [
-                "error" => ["Erro ao Parar Servidor!", "Verifique se nenhum processo está executando e tente novamente!"]
+            return Redirect::route($urlIndex,
+                    ["error" => ["Erro ao Parar Servidor!", "Verifique se nenhum processo está executando e tente novamente!"]
             ]);
         }
     }

@@ -9,6 +9,7 @@ use Core\Redirect;
 class SiteController extends Controller
 {
     protected $site;
+    private $urlIndex = BASE_URL . "/monitoramento/site";
 
     public function __construct()
     {
@@ -47,24 +48,19 @@ class SiteController extends Controller
     {
         $data = $this->site->data($request->post);
 
-        //$data['senha'] = password_hash($request->post->senha,PASSWORD_BCRYPT);
-
-        //$url = $request->post->action=="salvar" ? "/monitoramento/site/adicionar" :  "/monitoramento/site/editar/{$request->post->id}";
-        //if (Validator::make($data, $this->site->rules())) return Redirect::route("{$url}");
-
         if ($request->post->action=="salvar")
         {
             try
             {
                 $this->site->create($data);
 
-                return Redirect::route("/monitoramento/site", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Site Salvo com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/monitoramento/site", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao salvar Site!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -74,13 +70,13 @@ class SiteController extends Controller
             {
                 $this->site->find($request->post->id)->update($data);
 
-                return Redirect::route("/monitoramento/site", [
+                return Redirect::route($this->urlIndex, [
                     "success" => ["Site Atualizado com Sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
-                return Redirect::route("/monitoramento/site", [
+                return Redirect::route($this->urlIndex, [
                     "error" => ["Erro ao Atualizar Site!", "Verifique os dados e tente novamente!"]
                 ]);
             }
@@ -93,13 +89,13 @@ class SiteController extends Controller
         {
             $this->site->find($id)->delete();
 
-            return Redirect::route("/monitoramento/site", [
+            return Redirect::route($this->urlIndex, [
                 "success" => ["Site excluído!"]
             ]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route("/monitoramento/site", [
+            return Redirect::route($this->urlIndex, [
                 "error" => ["Erro ao deletar Site!", "Verifique se há pendencias antes de deletar esse item"]
             ]);
         }
