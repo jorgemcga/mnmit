@@ -59,14 +59,19 @@ class Email
         return self;
     }
 
-    public static function send(){
-
+    public static function setHeader()
+    {
         self::$headers .=  "Content-Type:text/html; charset=iso-8859-1 \n";
         self::$headers .= "From: " . self::$sender["name"] .  "<" . self::$sender["email"] . ">\n";
         self::$headers .= "X-Mailer: PHP  v".phpversion()."\n";
         self::$headers .= "Return-Path: " . self::$sender["email"] . "\n";
         self::$headers .= "MIME-Version: 1.0\n";
+        return self;
+    }
 
+    public static function send()
+    {
+        self::setHeader();
         //Send Email
         return mail(self::$recipient, self::$subject, self::$message, self::$headers);
     }
