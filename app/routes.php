@@ -6,6 +6,7 @@
      */
 
     $route[] = ['/', 'HomeController@index', '1'];
+    $route[] = ['/dashboard', 'HomeController@dashboard', '1'];
 
     $route[] = ['/gerenciamento', 'GerenciamentoController@index', '1'];
 
