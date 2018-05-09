@@ -26,13 +26,16 @@
     $route[] = ['/gerenciamento/ativo/manutencao/adicionar/{id}', 'ManutencaoController@adicionar', '1'];
     $route[] = ['/gerenciamento/ativo/manutencao/salvar', 'ManutencaoController@salvar', '1'];
     $route[] = ['/gerenciamento/ativo/manutencao/editar/{id}', 'ManutencaoController@editar', '1'];
-//    $route[] = ['/gerenciamento/ativo/manutencao/apagar/{id}/{id}', 'ManutencaoController@apagar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/apagar/{id}/{id}', 'ManutencaoController@apagar'];
 
     $route[] = ['/gerenciamento/categoriaativo', 'CategoriaAtivoController@index', '1'];
     $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar', '1'];
     $route[] = ['/gerenciamento/categoriaativo/salvar', 'CategoriaAtivoController@salvar', '1'];
     $route[] = ['/gerenciamento/categoriaativo/editar/{id}', 'CategoriaAtivoController@editar', '1'];
     $route[] = ['/gerenciamento/categoriaativo/apagar/{id}', 'CategoriaAtivoController@apagar', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/notificacao/{id}', 'CategoriaAtivoController@notificacao', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/notificar', 'CategoriaAtivoController@notificar', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/naonotificar/{id}/{id}', 'CategoriaAtivoController@naoNotificar', '1'];
 
     $route[] = ['/gerenciamento/sistemaoperacional', 'SistemaOperacionalController@index', '1'];
     $route[] = ['/gerenciamento/sistemaoperacional/adicionar', 'SistemaOperacionalController@adicionar', '1'];

@@ -17,5 +17,4 @@ class CategoriaAtivo extends ModeloEloquent
             'nome' => $request->nome
         ];
     }
-
 }

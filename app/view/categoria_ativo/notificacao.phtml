@@ -1,0 +1,99 @@
+<script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-10">
+            <h2>
+                Categoria: <?php echo $this->view->categoria->nome ?>
+            </h2>
+        </div>
+        <div class="col-md-2 text-right">
+            <a class="btn btn-outline-primary" title="Voltar" href="../../grupo">
+                <i class="material-icons" style="font-size: 18px;">arrow_back</i>
+            </a>
+        </div>
+    </div>
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/gerenciamento/categoriaativo/notificar" method="post" accept-charset="utf-8">
+        <input name="categoria_ativo_id" type="hidden" value="<?php echo $this->view->categoria->id ?>">
+        <div id="add-part" class="card card-inverse mt-3">
+            <div class="card-header">
+                <div class="row">
+                    <h3 class="col-md-6">
+                        <i class="material-icons" style="font-size: 28px">group_add</i>
+                        Adicionar Grupo
+                    </h3>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="material-icons" style="font-size: 18px;">add</i>
+                            Adicionar
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" onclick='jQuery("#add-part").hide()'>
+                            <i class="material-icons" style="font-size: 18px;">clear</i>
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Usuários</label>
+                    <select class="form-control" name="grupo_id">
+                        <?php foreach($this->view->grupos as $grupo) { ?>
+                        <option value="<?php echo $grupo->id ?>">
+                            <?php echo $grupo->nome ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-4">
+        <div class="col-md-10">
+            <h2>
+                <i class="material-icons" style="font-size: 38px">notifications_active</i>
+                Grupos notificados
+            </h2>
+        </div>
+        <div class="col-md-2 text-right mt-3">
+            <button type="button" class="btn btn-outline-primary" onclick='jQuery("#add-part").show()' title="Adicionar">
+                <i class="material-icons" style="font-size: 18px;">add</i>
+            </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <table id="table" class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Grupo</th>
+                        <th>E-mail</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->view->notificados as $notificado){ ?>
+                    <tr>
+                        <td><?php echo $notificado->grupo->nome; ?></td>
+                        <td><?php echo $notificado->grupo->email; ?></td>
+                        <td class="text-right">
+                            <span class="btn btn-outline-danger" title="Clique para Parar de Notificar"
+                                onclick="global.confirmar('../naonotificar/<?php echo $notificado->grupo->id; ?>/<?php echo $this->view->categoria->id; ?>', 'Para de Notificar?')">
+                                <i class="material-icons" style="font-size: 18px;">clear</i>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<?php
+
+    if (isset($this->success))
+        $this->setView('modal/success');
+    else if (isset($this->errors))
+        $this->setView('modal/error');

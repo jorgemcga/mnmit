@@ -3,18 +3,24 @@
 namespace App\Controller;
 
 use App\Model\CategoriaAtivo;
+use App\Model\Grupo;
+use App\Model\GrupoAtivoCategoria;
 use Core\Controller;
 use Core\Redirect;
 
 class CategoriaAtivoController extends Controller
 {
     private $modelCategoriaAtivo;
+    private $grupo;
+    private $grupoCategoriaAtivo;
     private $urlIndex = BASE_URL . "/gerenciamento/categoriaativo";
 
     public function __construct()
     {
         parent::__construct();
         $this->modelCategoriaAtivo = new CategoriaAtivo();
+        $this->grupo = new Grupo();
+        $this->grupoCategoriaAtivo = new GrupoAtivoCategoria();
     }
 
     public function index()
@@ -48,13 +54,13 @@ class CategoriaAtivoController extends Controller
                 $this->modelCategoriaAtivo->create($data);
 
                 return Redirect::route($this->urlIndex, [
-                    "success" => ["Categoria Criada com Sucesso!"]
+                    "success" => ["Categoria criada com sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
                 return Redirect::route($this->urlIndex, [
-                    "error" => ["Erro ao Criar Categoria!", "Verifique os dados e tente novamente!"]
+                    "error" => ["Erro ao criar categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
@@ -65,13 +71,13 @@ class CategoriaAtivoController extends Controller
                 $this->modelCategoriaAtivo->find($request->post->categoria_ativo_id)->update($data);
 
                 return Redirect::route($this->urlIndex, [
-                    "success" => ["Categoria Atualizada com Sucesso!"]
+                    "success" => ["Categoria atualizada com sucesso!"]
                 ]);
             }
             catch (\Exception $exception)
             {
                 return Redirect::route($this->urlIndex, [
-                    "error" => ["Erro ao Atulizar Categoria!", "Verifique os dados e tente novamente!"]
+                    "error" => ["Erro ao atulizar categoria!", "Verifique os dados e tente novamente!"]
                 ]);
             }
         }
@@ -101,7 +107,48 @@ class CategoriaAtivoController extends Controller
         catch (\Exception $exception)
         {
             return Redirect::route($this->urlIndex, [
-                "error" => ["Erro ao Apagar Categoria!", "Verifique se há pendencias para deletar esse item!"]
+                "error" => ["Erro ao apagar categoria!", "Verifique se há pendencias para deletar esse item!"]
+            ]);
+        }
+    }
+
+    public function notificacao($id)
+    {
+        $this->view->categoria = $this->modelCategoriaAtivo->find($id);
+        $this->view->grupos = $this->grupo->all();
+        $this->view->notificados = $this->grupoCategoriaAtivo->where("categoria_ativo_id", $id)->get();
+        return $this->setView('categoria_ativo/notificacao', 'layout/index');
+    }
+
+    public function notificar($request)
+    {
+        $data = $this->grupoCategoriaAtivo->data($request->post);
+        try
+        {
+            $this->grupoCategoriaAtivo->create($data);
+            return Redirect::route($this->urlIndex . "/notificacao/{$data['categoria_ativo_id']}",
+                ["success" => ["Grupo adicionado"]]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route($this->urlIndex . "/notificacao/{$data['categoria_ativo_id']}",
+                ["error" => ["Erro ao adicionar grupo", "Verifique se este grupo ja está sendo notificado!"]
+            ]);
+        }
+    }
+
+    public function naoNotificar($grupoId, $categoriaId)
+    {
+        try {
+            $this->grupoCategoriaAtivo->where([['categoria_ativo_id', '=', $categoriaId],['grupo_id', '=', $grupoId]])->delete();
+
+            return Redirect::route($this->urlIndex . "/notificacao/{$categoriaId}",
+                ["success" => ["Grupo removido"]]);
+        }
+        catch (\Exception $exception)
+        {
+            return Redirect::route($this->urlIndex . "/notificacao/{$categoriaId}",
+                ["error" => ["Erro ao remover grupo", "Verifique se há pendencias antes de remover!"]
             ]);
         }
     }

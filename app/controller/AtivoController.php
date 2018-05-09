@@ -138,5 +138,4 @@ class AtivoController extends Controller
             ]);
         }
     }
-
 }
