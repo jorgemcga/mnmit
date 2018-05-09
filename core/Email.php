@@ -13,17 +13,22 @@ class Email
     private static $subject = "";
     private static $headers = "";
 
+    public function __construct()
+    {
+        return self::$this;
+    }
+
     public static function setSender($name, $email)
     {
         self::$recipient["name"] = $name;
         self::$recipient["email"] = $email;
-        return self;
+        return self::$this;
     }
 
     public static function setRecipient($recipient)
     {
         self::$recipient = $recipient;
-        return self;
+        return self::$this;
     }
 
     public static function addRecipients($recipients)
@@ -32,31 +37,31 @@ class Email
         {
             self::$recipient .= ",{$recipient}";
         }
-        return self;
+        return self::$this;
     }
 
     public static function addCc($email, $name)
     {
         self::$headers .= "Cc: {$name} <{$email}>\n";
-        return self;
+        return self::$this;
     }
 
     public static function setMessage($message)
     {
         self::$message = $message . "<br>";
-        return self;
+        return self::$this;
     }
 
     public static function addMessage($message)
     {
         self::$message .= $message . "<br>";
-        return self;
+        return self::$this;
     }
 
     public static function setSubject($subject)
     {
         self::$subject = $subject;
-        return self;
+        return self::$this;
     }
 
     public static function setHeader()
@@ -66,7 +71,7 @@ class Email
         self::$headers .= "X-Mailer: PHP  v".phpversion()."\n";
         self::$headers .= "Return-Path: " . self::$sender["email"] . "\n";
         self::$headers .= "MIME-Version: 1.0\n";
-        return self;
+        return self::$this;
     }
 
     public static function send()

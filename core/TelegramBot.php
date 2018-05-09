@@ -11,28 +11,33 @@ class TelegramBot
     private static $msg;
     private static $APItoken;
 
+    public function __construct()
+    {
+        return self::$this;
+    }
+
     public static function setGroupId($groupId)
     {
         self::$groupId = $groupId;
-        return self;
+        return self::$this;
     }
 
     public static function setMsg($msg)
     {
         self::$msg = $msg;
-        return self;
+        return self::$this;
     }
 
     public static function addMsg($msg)
     {
         self::$msg .= "\n" . $msg;
-        return self;
+        return self::$this;
     }
 
     public static function setAPItoken($token)
     {
         self::$APItoken = $token;
-        return self;
+        return self::$this;
     }
 
     public static function groupId()
