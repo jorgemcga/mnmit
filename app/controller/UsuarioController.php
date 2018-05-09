@@ -52,7 +52,10 @@ class UsuarioController extends Controller
 
         $data = $this->usuario->data($request->post);
 
-        $data['password'] = password_hash($request->post->password,PASSWORD_BCRYPT);
+        if (empty($data["password"]) && $request->post->action == "editar")
+            unset($data["password"]);
+        else
+            $data['password'] = password_hash($request->post->password,PASSWORD_BCRYPT);
 
         if ($request->post->action=="salvar")
         {
@@ -62,7 +65,6 @@ class UsuarioController extends Controller
             try
             {
                 $this->usuario->create($data);
-
                 return Redirect::route($this->urlIndex, ["success" => ["Usuário Criado com Sucesso!"]]);
             }
             catch (\Exception $exception)

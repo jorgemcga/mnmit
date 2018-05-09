@@ -24,7 +24,7 @@ class InternetController extends Controller
 
     public function index()
     {
-        $this->view->internets = $this->internet->orderBy("updated_at", "desc")->get();
+        $this->view->internets = $this->internet->orderBy("updated_at", "desc")->limit(30)->get();
 
         $this->setPageTitle("Velocidade da Internet");
         $this->setView("internet/index", "layout/index");

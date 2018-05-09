@@ -9,7 +9,7 @@ class Usuario extends ModeloEloquent
 {
     public $table = "usuario";
 
-    public $fillable = ['name', 'email', 'password', 'grupo_id'];
+    public $fillable = ['name', 'email', 'password', 'grupo_id', 'type'];
 
     public function data($request){
         return [
@@ -17,6 +17,7 @@ class Usuario extends ModeloEloquent
             'email' => $request->email,
             'password' => $request->password,
             'grupo_id' => $request->grupo_id,
+            'type' => $request->type,
             'oldpassword' => $request->oldpassword,
             'password1' => $request->password1,
             'password2' => $request->password2,

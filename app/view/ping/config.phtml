@@ -9,7 +9,7 @@
             </p>
         </div>
         <div class="col-md-2 text-right mt-3">
-            <button type="button" class="btn btn-outline-primary" title="Voltar" onclick="history.go(-1)">
+            <button type="button" class="btn btn-outline-primary" title="Voltar" onclick="location='../icmp'">
                 <i class="material-icons" style="font-size: 18px;">arrow_back</i>
             </button>
         </div>
@@ -26,7 +26,7 @@
                     </h3>
                     <div class="col-md-2 text-right">
                         <?php if ($this->view->agendador->status == 1){ ?>
-                            <button type='button' class='btn btn-outline-success' onclick='location="../stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
+                            <button type='button' class='btn btn-outline-success' onclick='location="../icmp/stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
                                 <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
                             </button>
                         <?php } else { ?>

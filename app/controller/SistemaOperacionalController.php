@@ -11,7 +11,7 @@ class SistemaOperacionalController extends Controller
 {
 
     private $so;
-    private $urlIndex = BASE_URL . "/gerenciamento/sistemaopercional";
+    private $urlIndex = BASE_URL . "/gerenciamento/sistemaoperacional";
 
     public function __construct()
     {

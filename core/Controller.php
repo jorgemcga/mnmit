@@ -77,5 +77,4 @@ abstract class Controller
         if ($separator) return $this->pageTitle ." ". $separator . " ";
         else return $this->pageTitle . " " ;
     }
-
 }

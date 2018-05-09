@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-    <a class="navbar-brand" style="color: #007bff" href="/">
+    <a class="navbar-brand" style="color: #007bff" href="<?php echo BASE_URL ?>">
         <i class="material-icons" style="font-size: 24px;">language</i>M&Mit
     </a>
 
@@ -16,6 +16,7 @@
                     Dashboard
                 </a>
             </li>
+            <?php if ($this->auth->type()) { ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">important_devices</i>
@@ -73,6 +74,7 @@
                     </a>
                 </div>
             </li>
+            <?php } ?>
         </ul>
 
         <ul class="navbar-nav text-left">

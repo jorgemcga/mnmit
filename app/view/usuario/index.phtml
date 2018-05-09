@@ -39,6 +39,7 @@
                         <th>Nome de Usuário</th>
                         <th>Email</th>
                         <th>Grupo</th>
+                        <th>Tipo</th>
                         <th>Criado em</th>
                         <th></th>
                     </tr>
@@ -49,6 +50,7 @@
                         <td><?php echo $usuario->name; ?></td>
                         <td><?php echo $usuario->email; ?></td>
                         <td><?php echo $usuario->grupo->nome; ?></td>
+                        <td><?php echo $usuario->type ? "Administrador" : "Usuário Comum"; ?></td>
                         <td><?php echo date('d/m/Y H:i:s', strtotime($usuario->created_at)) ?></td>
                         <td class="text-right">
                             <a href="usuario/editar/<?php echo $usuario->id; ?>" class="btn btn-outline-primary" title="Clique para Editar">

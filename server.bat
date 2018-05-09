@@ -1,1 +1,0 @@
-C:\curl\bin\curl.exe http://localhost:81/monitoramento

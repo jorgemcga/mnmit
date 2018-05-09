@@ -8,20 +8,19 @@ class Auth
     private static $id = null;
     private static $name = null;
     private static $email = null;
+    private static $type = null;
     private static $grupo_id = null;
 
     public function __construct()
     {
-        if (Session::get('user'))
-        {
-            $user = Session::get('user');
+        if (!Session::get('user')) return;
 
-            self::$id = $user['id'];
-            self::$name = $user['name'];
-            self::$email = $user['email'];
-            self::$grupo_id = $user['grupo_id'];
-        }
-
+        $user = Session::get('user');
+        self::$id = $user['id'];
+        self::$name = $user['name'];
+        self::$email = $user['email'];
+        self::$type = $user['type'];
+        self::$grupo_id = $user['grupo_id'];
     }
 
     public static function id()
@@ -42,6 +41,11 @@ class Auth
     public static function grupo_id()
     {
         return self::$grupo_id;
+    }
+
+    public static function type()
+    {
+        return self::$type;
     }
 
     public static function check()

@@ -161,11 +161,11 @@ class MonitoramentoController extends Controller {
         {
             $data = ['status' => '1'];
             $this->monitor->find($id)->update($data);
-            return Redirect::route($urlIndex, ["success" => ["Servidor Iniciado!"]]);
+            return Redirect::route($this->urlIndex, ["success" => ["Servidor Iniciado!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route($urlIndex,
+            return Redirect::route($this->urlIndex,
                     ["error" => ["Erro ao Iniciar Servidor!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
@@ -179,11 +179,11 @@ class MonitoramentoController extends Controller {
 
             $this->monitor->find($id)->update($data);
 
-            return Redirect::route($urlIndex, ["success" => ["Servidor Parado!"]]);
+            return Redirect::route($this->urlIndex, ["success" => ["Servidor Parado!"]]);
         }
         catch (\Exception $exception)
         {
-            return Redirect::route($urlIndex,
+            return Redirect::route($this->urlIndex,
                     ["error" => ["Erro ao Parar Servidor!", "Verifique se nenhum processo está executando e tente novamente!"]
             ]);
         }

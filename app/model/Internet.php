@@ -36,12 +36,10 @@ class Internet extends ModeloEloquent
 
     public function run()
     {
-        if ($this->monitor->first()->plataforma == "Windows"){
+        if ($this->monitor->first()->plataforma == "Windows")
             $speedtest = shell_exec("python C:\speedtest\speedtest --simple");
-        }
-        else {
+        else
             $speedtest = shell_exec("speedtest --simple");
-        }
 
         $speedtest = explode(" ", $speedtest);
 

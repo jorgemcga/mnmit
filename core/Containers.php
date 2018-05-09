@@ -18,7 +18,16 @@ class Containers
 
     public static function pageNotFound()
     {
-        $fileNotFound = __DIR__ . "/../app/view/notfound/index.phtml";
+        $fileNotFound = __DIR__ . "/../app/view/errors/index.phtml";
+
+        if($fileNotFound) return require_once $fileNotFound;
+
+        return "Erro 404 - Pagina não encontrada!";
+    }
+
+    public static function PageInMaintenance()
+    {
+        $fileNotFound = __DIR__ . "/../app/view/errors/maintenance.phtml";
 
         if($fileNotFound) return require_once $fileNotFound;
 

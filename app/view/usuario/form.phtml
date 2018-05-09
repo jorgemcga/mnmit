@@ -52,8 +52,9 @@
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
-                    <input name="password" class="form-control" type="password" placeholder="Mínimo 6 dígitos" required
-                           value="">
+                    <?php $requered = (!$this->view->usuario->password) ? "requered" : ""; ?>
+                    <input name="password" class="form-control" type="password" placeholder="Mínimo 6 dígitos"
+                           <?php echo $requered ?> value="">
                     <?php if (isset($this->errors['password'])) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -76,6 +77,17 @@
                             <?php echo $grupo->nome?>
                         </option>
                         <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Usuário</label>
+                    <select name="type" class="form-control">
+                        <option <?php echo !$this->view->usuario->type ? "selected" : "" ?> value="0">
+                            Usuário Comum
+                        </option>
+                        <option <?php echo $this->view->usuario->type ? "selected" : "" ?> value="1">
+                            Administrador
+                        </option>
                     </select>
                 </div>
             </div>

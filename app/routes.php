@@ -1,158 +1,163 @@
 <?php
+    /*
+     * Todas as rotas do sistema devem ser declaradas aqui para existirem
+     * a rota é um array composto de [0] => url, [1] => 'Controler@action', [2] => 'protect'
+     * sendo o protect 1 = Sim e 0 = Não
+     */
 
-    $route[] = ['/', 'HomeController@index'];
+    $route[] = ['/', 'HomeController@index', '1'];
 
-    $route[] = ['/gerenciamento', 'GerenciamentoController@index'];
+    $route[] = ['/gerenciamento', 'GerenciamentoController@index', '1'];
 
-    $route[] = ['/gerenciamento/ativo', 'AtivoController@index'];
-    $route[] = ['/gerenciamento/ativo/visualizar/{id}', 'AtivoController@visualizar'];
-    $route[] = ['/gerenciamento/ativo/adicionar', 'AtivoController@adicionar'];
-    $route[] = ['/gerenciamento/ativo/salvar', 'AtivoController@salvar'];
-    $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar'];
-    $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar'];
+    $route[] = ['/gerenciamento/ativo', 'AtivoController@index', '1'];
+    $route[] = ['/gerenciamento/ativo/visualizar/{id}', 'AtivoController@visualizar', '1'];
+    $route[] = ['/gerenciamento/ativo/adicionar', 'AtivoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/ativo/salvar', 'AtivoController@salvar', '1'];
+    $route[] = ['/gerenciamento/ativo/editar/{id}', 'AtivoController@editar', '1'];
+    $route[] = ['/gerenciamento/ativo/apagar/{id}', 'AtivoController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/ativo/interface/todas/{id}', 'InterfaceRedeController@index'];
-    $route[] = ['/gerenciamento/ativo/interface/adicionar/{id}', 'InterfaceRedeController@adicionar'];
-    $route[] = ['/gerenciamento/ativo/interface/salvar', 'InterfaceRedeController@salvar'];
-    $route[] = ['/gerenciamento/ativo/interface/editar/{id}', 'InterfaceRedeController@editar'];
-    $route[] = ['/gerenciamento/ativo/interface/apagar/{id}/{id}', 'InterfaceRedeController@apagar'];
+    $route[] = ['/gerenciamento/ativo/interface/todas/{id}', 'InterfaceRedeController@index', '1'];
+    $route[] = ['/gerenciamento/ativo/interface/adicionar/{id}', 'InterfaceRedeController@adicionar', '1'];
+    $route[] = ['/gerenciamento/ativo/interface/salvar', 'InterfaceRedeController@salvar', '1'];
+    $route[] = ['/gerenciamento/ativo/interface/editar/{id}', 'InterfaceRedeController@editar', '1'];
+    $route[] = ['/gerenciamento/ativo/interface/apagar/{id}/{id}', 'InterfaceRedeController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/ativo/manutencao/todas/{id}', 'ManutencaoController@index'];
-    $route[] = ['/gerenciamento/ativo/manutencao/adicionar/{id}', 'ManutencaoController@adicionar'];
-    $route[] = ['/gerenciamento/ativo/manutencao/salvar', 'ManutencaoController@salvar'];
-    $route[] = ['/gerenciamento/ativo/manutencao/editar/{id}', 'ManutencaoController@editar'];
+    $route[] = ['/gerenciamento/ativo/manutencao/todas/{id}', 'ManutencaoController@index', '1'];
+    $route[] = ['/gerenciamento/ativo/manutencao/adicionar/{id}', 'ManutencaoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/ativo/manutencao/salvar', 'ManutencaoController@salvar', '1'];
+    $route[] = ['/gerenciamento/ativo/manutencao/editar/{id}', 'ManutencaoController@editar', '1'];
 //    $route[] = ['/gerenciamento/ativo/manutencao/apagar/{id}/{id}', 'ManutencaoController@apagar'];
 
-    $route[] = ['/gerenciamento/categoriaativo', 'CategoriaAtivoController@index'];
-    $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar'];
-    $route[] = ['/gerenciamento/categoriaativo/salvar', 'CategoriaAtivoController@salvar'];
-    $route[] = ['/gerenciamento/categoriaativo/editar/{id}', 'CategoriaAtivoController@editar'];
-    $route[] = ['/gerenciamento/categoriaativo/apagar/{id}', 'CategoriaAtivoController@apagar'];
+    $route[] = ['/gerenciamento/categoriaativo', 'CategoriaAtivoController@index', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/adicionar', 'CategoriaAtivoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/salvar', 'CategoriaAtivoController@salvar', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/editar/{id}', 'CategoriaAtivoController@editar', '1'];
+    $route[] = ['/gerenciamento/categoriaativo/apagar/{id}', 'CategoriaAtivoController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/sistemaoperacional', 'SistemaOperacionalController@index'];
-    $route[] = ['/gerenciamento/sistemaoperacional/adicionar', 'SistemaOperacionalController@adicionar'];
-    $route[] = ['/gerenciamento/sistemaoperacional/salvar', 'SistemaOperacionalController@salvar'];
-    $route[] = ['/gerenciamento/sistemaoperacional/editar/{id}', 'SistemaOperacionalController@editar'];
-    $route[] = ['/gerenciamento/sistemaoperacional/apagar/{id}', 'SistemaOperacionalController@apagar'];
+    $route[] = ['/gerenciamento/sistemaoperacional', 'SistemaOperacionalController@index', '1'];
+    $route[] = ['/gerenciamento/sistemaoperacional/adicionar', 'SistemaOperacionalController@adicionar', '1'];
+    $route[] = ['/gerenciamento/sistemaoperacional/salvar', 'SistemaOperacionalController@salvar', '1'];
+    $route[] = ['/gerenciamento/sistemaoperacional/editar/{id}', 'SistemaOperacionalController@editar', '1'];
+    $route[] = ['/gerenciamento/sistemaoperacional/apagar/{id}', 'SistemaOperacionalController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/modelo', 'ModeloController@index'];
-    $route[] = ['/gerenciamento/modelo/adicionar', 'ModeloController@adicionar'];
-    $route[] = ['/gerenciamento/modelo/salvar', 'ModeloController@salvar'];
-    $route[] = ['/gerenciamento/modelo/editar/{id}', 'ModeloController@editar'];
-    $route[] = ['/gerenciamento/modelo/apagar/{id}', 'ModeloController@apagar'];
+    $route[] = ['/gerenciamento/modelo', 'ModeloController@index', '1'];
+    $route[] = ['/gerenciamento/modelo/adicionar', 'ModeloController@adicionar', '1'];
+    $route[] = ['/gerenciamento/modelo/salvar', 'ModeloController@salvar', '1'];
+    $route[] = ['/gerenciamento/modelo/editar/{id}', 'ModeloController@editar', '1'];
+    $route[] = ['/gerenciamento/modelo/apagar/{id}', 'ModeloController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/fabricante', 'FabricanteController@index'];
-    $route[] = ['/gerenciamento/fabricante/adicionar', 'FabricanteController@adicionar'];
-    $route[] = ['/gerenciamento/fabricante/salvar', 'FabricanteController@salvar'];
-    $route[] = ['/gerenciamento/fabricante/editar/{id}', 'FabricanteController@editar'];
-    $route[] = ['/gerenciamento/fabricante/apagar/{id}', 'FabricanteController@apagar'];
+    $route[] = ['/gerenciamento/fabricante', 'FabricanteController@index', '1'];
+    $route[] = ['/gerenciamento/fabricante/adicionar', 'FabricanteController@adicionar', '1'];
+    $route[] = ['/gerenciamento/fabricante/salvar', 'FabricanteController@salvar', '1'];
+    $route[] = ['/gerenciamento/fabricante/editar/{id}', 'FabricanteController@editar', '1'];
+    $route[] = ['/gerenciamento/fabricante/apagar/{id}', 'FabricanteController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/componente', 'ComponenteController@index'];
-    $route[] = ['/gerenciamento/componente/adicionar', 'ComponenteController@adicionar'];
-    $route[] = ['/gerenciamento/componente/salvar', 'ComponenteController@salvar'];
-    $route[] = ['/gerenciamento/componente/editar/{id}', 'ComponenteController@editar'];
-    $route[] = ['/gerenciamento/componente/apagar/{id}', 'ComponenteController@apagar'];
+    $route[] = ['/gerenciamento/componente', 'ComponenteController@index', '1'];
+    $route[] = ['/gerenciamento/componente/adicionar', 'ComponenteController@adicionar', '1'];
+    $route[] = ['/gerenciamento/componente/salvar', 'ComponenteController@salvar', '1'];
+    $route[] = ['/gerenciamento/componente/editar/{id}', 'ComponenteController@editar', '1'];
+    $route[] = ['/gerenciamento/componente/apagar/{id}', 'ComponenteController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/categoriacomponente', 'CategoriaComponenteController@index'];
-    $route[] = ['/gerenciamento/categoriacomponente/adicionar', 'CategoriaComponenteController@adicionar'];
-    $route[] = ['/gerenciamento/categoriacomponente/salvar', 'CategoriaComponenteController@salvar'];
-    $route[] = ['/gerenciamento/categoriacomponente/editar/{id}', 'CategoriaComponenteController@editar'];
-    $route[] = ['/gerenciamento/categoriacomponente/apagar/{id}', 'CategoriaComponenteController@apagar'];
+    $route[] = ['/gerenciamento/categoriacomponente', 'CategoriaComponenteController@index', '1'];
+    $route[] = ['/gerenciamento/categoriacomponente/adicionar', 'CategoriaComponenteController@adicionar', '1'];
+    $route[] = ['/gerenciamento/categoriacomponente/salvar', 'CategoriaComponenteController@salvar', '1'];
+    $route[] = ['/gerenciamento/categoriacomponente/editar/{id}', 'CategoriaComponenteController@editar', '1'];
+    $route[] = ['/gerenciamento/categoriacomponente/apagar/{id}', 'CategoriaComponenteController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/equipamento', 'EquipamentoController@index'];
-    $route[] = ['/gerenciamento/equipamento/adicionar', 'EquipamentoController@adicionar'];
-    $route[] = ['/gerenciamento/equipamento/salvar', 'EquipamentoController@salvar'];
-    $route[] = ['/gerenciamento/equipamento/editar/{id}', 'EquipamentoController@editar'];
-    $route[] = ['/gerenciamento/equipamento/apagar/{id}', 'EquipamentoController@apagar'];
+    $route[] = ['/gerenciamento/equipamento', 'EquipamentoController@index', '1'];
+    $route[] = ['/gerenciamento/equipamento/adicionar', 'EquipamentoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/equipamento/salvar', 'EquipamentoController@salvar', '1'];
+    $route[] = ['/gerenciamento/equipamento/editar/{id}', 'EquipamentoController@editar', '1'];
+    $route[] = ['/gerenciamento/equipamento/apagar/{id}', 'EquipamentoController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/categoriaequipamento', 'CategoriaEquipamentoController@index'];
-    $route[] = ['/gerenciamento/categoriaequipamento/adicionar', 'CategoriaEquipamentoController@adicionar'];
-    $route[] = ['/gerenciamento/categoriaequipamento/salvar', 'CategoriaEquipamentoController@salvar'];
-    $route[] = ['/gerenciamento/categoriaequipamento/editar/{id}', 'CategoriaEquipamentoController@editar'];
-    $route[] = ['/gerenciamento/categoriaequipamento/apagar/{id}', 'CategoriaEquipamentoController@apagar'];
+    $route[] = ['/gerenciamento/categoriaequipamento', 'CategoriaEquipamentoController@index', '1'];
+    $route[] = ['/gerenciamento/categoriaequipamento/adicionar', 'CategoriaEquipamentoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/categoriaequipamento/salvar', 'CategoriaEquipamentoController@salvar', '1'];
+    $route[] = ['/gerenciamento/categoriaequipamento/editar/{id}', 'CategoriaEquipamentoController@editar', '1'];
+    $route[] = ['/gerenciamento/categoriaequipamento/apagar/{id}', 'CategoriaEquipamentoController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/licenca', 'LicencaController@index'];
-    $route[] = ['/gerenciamento/licenca/adicionar', 'LicencaController@adicionar'];
-    $route[] = ['/gerenciamento/licenca/salvar', 'LicencaController@salvar'];
-    $route[] = ['/gerenciamento/licenca/editar/{id}', 'LicencaController@editar'];
-    $route[] = ['/gerenciamento/licenca/apagar/{id}', 'LicencaController@apagar'];
+    $route[] = ['/gerenciamento/licenca', 'LicencaController@index', '1'];
+    $route[] = ['/gerenciamento/licenca/adicionar', 'LicencaController@adicionar', '1'];
+    $route[] = ['/gerenciamento/licenca/salvar', 'LicencaController@salvar', '1'];
+    $route[] = ['/gerenciamento/licenca/editar/{id}', 'LicencaController@editar', '1'];
+    $route[] = ['/gerenciamento/licenca/apagar/{id}', 'LicencaController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/categorialicenca', 'CategoriaLicencaController@index'];
-    $route[] = ['/gerenciamento/categorialicenca/adicionar', 'CategoriaLicencaController@adicionar'];
-    $route[] = ['/gerenciamento/categorialicenca/salvar', 'CategoriaLicencaController@salvar'];
-    $route[] = ['/gerenciamento/categorialicenca/editar/{id}', 'CategoriaLicencaController@editar'];
-    $route[] = ['/gerenciamento/categorialicenca/apagar/{id}', 'CategoriaLicencaController@apagar'];
+    $route[] = ['/gerenciamento/categorialicenca', 'CategoriaLicencaController@index', '1'];
+    $route[] = ['/gerenciamento/categorialicenca/adicionar', 'CategoriaLicencaController@adicionar', '1'];
+    $route[] = ['/gerenciamento/categorialicenca/salvar', 'CategoriaLicencaController@salvar', '1'];
+    $route[] = ['/gerenciamento/categorialicenca/editar/{id}', 'CategoriaLicencaController@editar', '1'];
+    $route[] = ['/gerenciamento/categorialicenca/apagar/{id}', 'CategoriaLicencaController@apagar', '1'];
 
-    $route[] = ['/gerenciamento/usuario', 'UsuarioController@index'];
-    $route[] = ['/gerenciamento/usuario/adicionar', 'UsuarioController@adicionar'];
-    $route[] = ['/gerenciamento/usuario/salvar', 'UsuarioController@salvar'];
-    $route[] = ['/gerenciamento/usuario/editar/{id}', 'UsuarioController@editar'];
-    $route[] = ['/gerenciamento/usuario/apagar/{id}', 'UsuarioController@apagar'];
-    $route[] = ['/gerenciamento/usuario/alterarsenha/{id}', 'UsuarioController@changePass'];
-    $route[] = ['/gerenciamento/usuario/perfil/{id}', 'UsuarioController@perfil'];
+    $route[] = ['/gerenciamento/usuario', 'UsuarioController@index', '1'];
+    $route[] = ['/gerenciamento/usuario/adicionar', 'UsuarioController@adicionar', '1'];
+    $route[] = ['/gerenciamento/usuario/salvar', 'UsuarioController@salvar', '1'];
+    $route[] = ['/gerenciamento/usuario/editar/{id}', 'UsuarioController@editar', '1'];
+    $route[] = ['/gerenciamento/usuario/apagar/{id}', 'UsuarioController@apagar', '1'];
+    $route[] = ['/gerenciamento/usuario/alterarsenha/{id}', 'UsuarioController@changePass', '1'];
+    $route[] = ['/gerenciamento/usuario/perfil/{id}', 'UsuarioController@perfil', '1'];
 
-    $route[] = ['/login', 'UsuarioController@login'];
-    $route[] = ['/logout', 'UsuarioController@logout'];
-    $route[] = ['/login/auth', 'UsuarioController@auth'];
+    $route[] = ['/login', 'UsuarioController@login', '0'];
+    $route[] = ['/logout', 'UsuarioController@logout', '0'];
+    $route[] = ['/login/auth', 'UsuarioController@auth', '0'];
 
-    $route[] = ['/gerenciamento/grupo', 'GrupoController@index'];
-    $route[] = ['/gerenciamento/grupo/adicionar', 'GrupoController@adicionar'];
-    $route[] = ['/gerenciamento/grupo/salvar', 'GrupoController@salvar'];
-    $route[] = ['/gerenciamento/grupo/editar/{id}', 'GrupoController@editar'];
-    $route[] = ['/gerenciamento/grupo/apagar/{id}', 'GrupoController@apagar'];
+    $route[] = ['/gerenciamento/grupo', 'GrupoController@index', '1'];
+    $route[] = ['/gerenciamento/grupo/adicionar', 'GrupoController@adicionar', '1'];
+    $route[] = ['/gerenciamento/grupo/salvar', 'GrupoController@salvar', '1'];
+    $route[] = ['/gerenciamento/grupo/editar/{id}', 'GrupoController@editar', '1'];
+    $route[] = ['/gerenciamento/grupo/apagar/{id}', 'GrupoController@apagar', '1'];
 
 
-    $route[] = ['/monitoramento', 'MonitoramentoController@index'];
-    $route[] = ['/monitoramento/servidor', 'MonitoramentoController@servidor'];
-    $route[] = ['/monitoramento/servidor/config/{$id}', 'MonitoramentoController@config'];
-    $route[] = ['/monitoramento/servidor/salvar', 'MonitoramentoController@salvar'];
-    $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo'];
-    $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start'];
-    $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop'];
+    $route[] = ['/monitoramento', 'MonitoramentoController@index', '0'];
+    $route[] = ['/monitoramento/servidor', 'MonitoramentoController@servidor', '1'];
+    $route[] = ['/monitoramento/servidor/config/{$id}', 'MonitoramentoController@config', '1'];
+    $route[] = ['/monitoramento/servidor/salvar', 'MonitoramentoController@salvar', '1'];
+    $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo', '1'];
+    $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start', '1'];
+    $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop', '1'];
 
-    $route[] = ['/monitoramento/internet', 'InternetController@index'];
-    $route[] = ['/monitoramento/internet/config', 'InternetController@config'];
-    $route[] = ['/monitoramento/internet/salvar', 'InternetController@salvar'];
-    $route[] = ['/monitoramento/internet/start/{id}', 'InternetController@start'];
-    $route[] = ['/monitoramento/internet/stop/{id}', 'InternetController@stop'];
-    $route[] = ['/monitoramento/internet/run', 'InternetController@run'];
+    $route[] = ['/monitoramento/internet', 'InternetController@index', '1'];
+    $route[] = ['/monitoramento/internet/config', 'InternetController@config', '1'];
+    $route[] = ['/monitoramento/internet/salvar', 'InternetController@salvar', '1'];
+    $route[] = ['/monitoramento/internet/start/{id}', 'InternetController@start', '1'];
+    $route[] = ['/monitoramento/internet/stop/{id}', 'InternetController@stop', '1'];
+    $route[] = ['/monitoramento/internet/run', 'InternetController@run', '1'];
 
-    $route[] = ['/monitoramento/icmp', 'PingController@index'];
-    $route[] = ['/monitoramento/icmp/config', 'PingController@config'];
-    $route[] = ['/monitoramento/icmp/salvar/{id}', 'PingController@salvar'];
-    $route[] = ['/monitoramento/icmp/start/{id}', 'PingController@start'];
-    $route[] = ['/monitoramento/icmp/stop/{id}', 'PingController@stop'];
-    $route[] = ['/monitoramento/icmp/run', 'PingController@run'];
+    $route[] = ['/monitoramento/icmp', 'PingController@index', '1'];
+    $route[] = ['/monitoramento/icmp/config', 'PingController@config', '1'];
+    $route[] = ['/monitoramento/icmp/salvar/{id}', 'PingController@salvar', '1'];
+    $route[] = ['/monitoramento/icmp/start/{id}', 'PingController@start', '1'];
+    $route[] = ['/monitoramento/icmp/stop/{id}', 'PingController@stop', '1'];
+    $route[] = ['/monitoramento/icmp/run', 'PingController@run', '1'];
 
-    $route[] = ['/monitoramento/http', 'HttpController@index'];
-    $route[] = ['/monitoramento/http/config', 'HttpController@config'];
-    $route[] = ['/monitoramento/http/salvar', 'HttpController@salvar'];
-    $route[] = ['/monitoramento/http/start/{id}', 'HttpController@start'];
-    $route[] = ['/monitoramento/http/stop/{id}', 'HttpController@stop'];
-    $route[] = ['/monitoramento/http/run', 'HttpController@run'];
+    $route[] = ['/monitoramento/http', 'HttpController@index', '1'];
+    $route[] = ['/monitoramento/http/config', 'HttpController@config', '1'];
+    $route[] = ['/monitoramento/http/salvar', 'HttpController@salvar', '1'];
+    $route[] = ['/monitoramento/http/start/{id}', 'HttpController@start', '1'];
+    $route[] = ['/monitoramento/http/stop/{id}', 'HttpController@stop', '1'];
+    $route[] = ['/monitoramento/http/run', 'HttpController@run', '1'];
 
-    $route[] = ['/monitoramento/site', 'SiteController@index'];
-    $route[] = ['/monitoramento/site/adicionar', 'SiteController@adicionar'];
-    $route[] = ['/monitoramento/site/salvar', 'SiteController@salvar'];
-    $route[] = ['/monitoramento/site/editar/{id}', 'SiteController@editar'];
-    $route[] = ['/monitoramento/site/apagar/{id}', 'SiteController@apagar'];
+    $route[] = ['/monitoramento/site', 'SiteController@index', '1'];
+    $route[] = ['/monitoramento/site/adicionar', 'SiteController@adicionar', '1'];
+    $route[] = ['/monitoramento/site/salvar', 'SiteController@salvar', '1'];
+    $route[] = ['/monitoramento/site/editar/{id}', 'SiteController@editar', '1'];
+    $route[] = ['/monitoramento/site/apagar/{id}', 'SiteController@apagar', '1'];
 
-    $route[] = ['/monitoramento/snmp', 'SnmpController@index'];
-    $route[] = ['/monitoramento/snmp/config', 'SnmpController@config'];
-    $route[] = ['/monitoramento/snmp/salvar', 'SnmpController@salvar'];
-    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run'];
-    $route[] = ['/monitoramento/snmp/start/{id}', 'SnmpController@start'];
-    $route[] = ['/monitoramento/snmp/stop/{id}', 'SnmpController@stop'];
-    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run'];
+    $route[] = ['/monitoramento/snmp', 'SnmpController@index', '1'];
+    $route[] = ['/monitoramento/snmp/config', 'SnmpController@config', '1'];
+    $route[] = ['/monitoramento/snmp/salvar', 'SnmpController@salvar', '1'];
+    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run', '1'];
+    $route[] = ['/monitoramento/snmp/start/{id}', 'SnmpController@start', '1'];
+    $route[] = ['/monitoramento/snmp/stop/{id}', 'SnmpController@stop', '1'];
+    $route[] = ['/monitoramento/snmp/run', 'SnmpController@run', '1'];
 
-    $route[] = ['/monitoramento/oid', 'OidController@index'];
-    $route[] = ['/monitoramento/oid/adicionar', 'OidController@adicionar'];
-    $route[] = ['/monitoramento/oid/salvar', 'OidController@salvar'];
-    $route[] = ['/monitoramento/oid/editar/{id}', 'OidController@editar'];
-    $route[] = ['/monitoramento/oid/apagar/{id}', 'OidController@apagar'];
+    $route[] = ['/monitoramento/oid', 'OidController@index', '1'];
+    $route[] = ['/monitoramento/oid/adicionar', 'OidController@adicionar', '1'];
+    $route[] = ['/monitoramento/oid/salvar', 'OidController@salvar', '1'];
+    $route[] = ['/monitoramento/oid/editar/{id}', 'OidController@editar', '1'];
+    $route[] = ['/monitoramento/oid/apagar/{id}', 'OidController@apagar', '1'];
 
-    $route[] = ['/monitoramento/oid-ativo', 'OidAtivoController@index'];
-    $route[] = ['/monitoramento/oid-ativo/salvar', 'OidAtivoController@salvar'];
-    $route[] = ['/monitoramento/oid-ativo/apagar/{id}/{id}', 'OidAtivoController@apagar'];
+    $route[] = ['/monitoramento/oid-ativo', 'OidAtivoController@index', '1'];
+    $route[] = ['/monitoramento/oid-ativo/salvar', 'OidAtivoController@salvar', '1'];
+    $route[] = ['/monitoramento/oid-ativo/apagar/{id}/{id}', 'OidAtivoController@apagar', '1'];
 
     return $route;

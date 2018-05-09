@@ -18,7 +18,7 @@ class Route
 
         foreach ($routes as $route){
             $explode = explode('@', $route[1]);
-            $r = [$route[0], $explode[0], $explode[1]];
+            $r = [$route[0], $explode[0], $explode[1], $route[2]];
             $newRoutes[] = $r;
         }
 
@@ -57,10 +57,11 @@ class Route
 
         foreach ($this->routes as $route)
         {
+            $found = false;
             $routeArray = explode("/", $route[0]);
             $param = array();
 
-            for($i=0; $i<count($routeArray); $i++)
+            for($i=0; $i < count($routeArray); $i++)
             {
                 if ((strpos($routeArray[$i],"{") !== false) && (count($urlArray)==count($routeArray)))
                 {
@@ -73,23 +74,11 @@ class Route
             if ($url == $route[0])
             {
                 $found = true;
-                $controller = $route[1];
-                $action = $route[2];
-
                 $auth = new Auth();
-
-                if ($action != "login" && $action != "auth" && !$auth->check())
-                {
-                    if (!($controller == "MonitoramentoController" && $action=="index"))
-                    {
-                        $controller = "UsuarioController";
-                        $action = "login";
-                    }
-                }
-
+                $controller = ($route[3] == 1 && !$auth->check()) ? "UsuarioController" : $route[1];
+                $action = ($route[3] == 1 && !$auth->check()) ? "login" : $route[2];
                 break;
             }
-            else $found = false;
         }
 
         if (!$found) return Containers::pageNotFound();
