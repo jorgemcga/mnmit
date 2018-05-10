@@ -36,17 +36,15 @@ class PingController extends Controller
         }
 
         $this->setPageTitle("Monitor ICMP (Ping)");
-        $this->setView("ping/index", "layout/index");
+        return $this->setView("ping/index", "layout/index");
     }
 
     public function config()
     {
-        $this->view->agendador = $this->agendador->where("tipo", "icmp")->first();
-
+        $this->view->agendados = $this->agendador->where("tipo", "icmp")->get();
         $this->view->ativos = $this->ativo->all();
-
         $this->setPageTitle("Configurações ICMP (Ping)");
-        $this->setView("ping/config", "layout/index");
+        return $this->setView("ping/config", "layout/index");
     }
 
     public function salvar($type, $request)

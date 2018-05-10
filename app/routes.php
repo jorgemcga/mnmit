@@ -119,8 +119,6 @@
     $route[] = ['/monitoramento/servidor/config/{$id}', 'MonitoramentoController@config', '1'];
     $route[] = ['/monitoramento/servidor/salvar', 'MonitoramentoController@salvar', '1'];
     $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo', '1'];
-    $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start', '1'];
-    $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop', '1'];
 
     $route[] = ['/monitoramento/internet', 'InternetController@index', '1'];
     $route[] = ['/monitoramento/internet/config', 'InternetController@config', '1'];
@@ -166,5 +164,10 @@
     $route[] = ['/monitoramento/oid-ativo', 'OidAtivoController@index', '1'];
     $route[] = ['/monitoramento/oid-ativo/salvar', 'OidAtivoController@salvar', '1'];
     $route[] = ['/monitoramento/oid-ativo/apagar/{id}/{id}', 'OidAtivoController@apagar', '1'];
+
+    $route[] = ['/monitoramento/agendador/adicionar', 'AgendadorController@add', '1'];
+    $route[] = ['/monitoramento/agendador/remover/{id}', 'AgendadorController@delete', '1'];
+    $route[] = ['/monitoramento/agendador/ativar/{id}', 'AgendadorController@enable', '1'];
+    $route[] = ['/monitoramento/agendador/desativar/{id}', 'AgendadorController@disable', '1'];
 
     return $route;

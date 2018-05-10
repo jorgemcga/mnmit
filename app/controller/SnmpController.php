@@ -39,15 +39,14 @@ class SnmpController extends Controller
         }
 
         $this->setPageTitle("Monitoramento SNMP");
-        $this->setView("snmp/index", "layout/index");
+        return $this->setView("snmp/index", "layout/index");
     }
 
     public function config()
     {
-        $this->view->agendador = $this->agendador->where("tipo", "snmp")->first();
-
+        $this->view->agendados = $this->agendador->where("tipo", "snmp")->get();
         $this->setPageTitle("Configurações SNMP");
-        $this->setView("snmp/config", "layout/index");
+        return $this->setView("snmp/config", "layout/index");
     }
 
     public function salvar($request)

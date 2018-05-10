@@ -28,21 +28,18 @@ class HttpController extends Controller
     public function index()
     {
         $sites = $this->site->all();
-
         foreach ($sites as $site) {
             $this->view->https[] = $this->http->where("site_id", "$site->id")->orderBy("updated_at", "desc")->first();
         }
-
         $this->setPageTitle("Monitoramento HTTP/HTTPS");
-        $this->setView("http/index", "layout/index");
+        return $this->setView("http/index", "layout/index");
     }
 
     public function config()
     {
-        $this->view->agendador = $this->agendador->where("tipo", "http")->first();
-
+        $this->view->agendados = $this->agendador->where("tipo", "http")->get();
         $this->setPageTitle("Configurações HTTP/HTTPS");
-        $this->setView("http/config", "layout/index");
+        return $this->setView("http/config", "layout/index");
     }
 
     public function salvar($request)

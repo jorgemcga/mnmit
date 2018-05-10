@@ -32,7 +32,7 @@ class InternetController extends Controller
 
     public function config()
     {
-        $this->view->agendador = $this->agendador->where("tipo", "internet")->first();
+        $this->view->agendados = $this->agendador->where("tipo", "internet")->get();
 
         $this->setPageTitle("Configurações");
         $this->setView("internet/config", "layout/index");
@@ -54,46 +54,6 @@ class InternetController extends Controller
         {
             return Redirect::route($this->urlConf, [
                 "error" => ["Erro ao Configurar Agendador!", "Verifique a conexão com o banco de dados!"]
-            ]);
-        }
-    }
-
-    public function start($id)
-    {
-        try
-        {
-            $data = ['status' => '1'];
-
-            $this->agendador->find($id)->update($data);
-
-            return Redirect::route($this->urlConf, [
-                "success" => ["Disparos Habilitados!"]
-            ]);
-        }
-        catch (\Exception $exception)
-        {
-            return Redirect::route($this->urlConf, [
-                "error" => ["Erro ao Habilitar Disparos!", "Verifique a conexão com o banco de dados!"]
-            ]);
-        }
-    }
-
-    public function stop($id)
-    {
-        try
-        {
-            $data = ['status' => '0'];
-
-            $this->agendador->find($id)->update($data);
-
-            return Redirect::route($this->urlConf, [
-                "success" => ["Disparos Desabilitados!"]
-            ]);
-        }
-        catch (\Exception $exception)
-        {
-            return Redirect::route($this->urlConf, [
-                "error" => ["Erro ao Desabilitados Disparos!", "Verifique a conexão com o banco de dados!"]
             ]);
         }
     }

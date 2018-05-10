@@ -10,21 +10,24 @@ class Agendador extends ModeloEloquent
     protected $table = "agendador";
 
     public $fillable = [
-        'periodicidade',
+        'minute',
+        'hour',
+        'day',
+        'month',
+        'week',
         'tipo',
         'status'
     ];
 
     public function data($request){
         return [
-            'periodicidade' => $request->periodicidade,
-            'status' => $request->status
-        ];
-    }
-
-    public function rules(){
-        return [
-
+            'minute' => $request->minute,
+            'hour' => $request->hour,
+            'day' => $request->day,
+            'month' => $request->month,
+            'week' => $request->week,
+            'tipo' => $request->tipo,
+            'status' => $request->status ? $request->status : 1,
         ];
     }
 

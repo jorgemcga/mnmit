@@ -14,9 +14,8 @@
             </button>
         </div>
     </div>
-
-    <form class="form-horizontal" action="<?php echo BASE_URL ?>/monitoramento/icmp/salvar/1" method="post" accept-charset="utf-8">
-        <input name="id" type="hidden" value="<?php echo $this->view->agendador->id ?>">
+    <form class="form-horizontal" action="<?php echo BASE_URL ?>/monitoramento/agendador/adicionar" method="post" accept-charset="utf-8">
+        <input name="tipo" type="hidden" value="icmp">
         <div class="card card-inverse">
             <div class="card-header">
                 <div class="row">
@@ -24,46 +23,108 @@
                         <i class="material-icons" style="font-size: 28px">history</i>
                         Agendamento de Disparos
                     </h3>
-                    <div class="col-md-2 text-right">
-                        <?php if ($this->view->agendador->status == 1){ ?>
-                            <button type='button' class='btn btn-outline-success' onclick='location="../icmp/stop/<?php echo $this->view->agendador->id; ?>"' title='Desabilitar'>
-                                <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
-                            </button>
-                        <?php } else { ?>
-                            <button type='button' class='btn btn-outline-warning' onclick='location="../icmp/start/<?php echo $this->view->agendador->id; ?>"' title='Habilitar'>
-                                <i class='material-icons' style='font-size: 18px;'>alarm_off</i>
-                            </button>
-                        <?php } ?>
-                        <button class="btn btn-success">
-                            <i class="material-icons" style="font-size: 18px;">done</i>
-                            Salvar
-                        </button>
-
-                    </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="form-group row">
-                    <div class="col-md-4">
-                        <label>Periodicidade</label>
-                        <select  class="form-control" name="periodicidade">
-                            <?php
-                                $periodos = array("horario" => "Hora em Hora", "diario" => "Diariamente", "semanal" => "Semanalmente", "mensal" => "Mensalmente");
-                                foreach ($periodos as $key => $periodo) {
-                                    if ($this->view->agendador->periodicidade == $key) $selected = "selected";
-                                    $selected = "";
-                            ?>
-                            <option <?php echo $selected ?> value="<?php echo $key?>">
-                                <?php echo $periodo ?>
+                    <div class="col-md-2">
+                        <label>Minuto</label>
+                        <select class="form-control" name="minute">
+                            <option value="*">*</option>
+                            <?php for($i = 0; $i <= 60; $i++) { ?>
+                            <option value="<?php echo $i ?>">
+                                <?php echo $i; ?>
                             </option>
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="col-md-4">
-                        <label>Ultimo Disparo</label>
-                        <input class="form-control" disabled value="<?php echo date("d/m/Y H:i:s", strtotime($this->view->agendador->updated_at)) ?>">
+                    <div class="col-md-2">
+                        <label>Hora</label>
+                        <select class="form-control" name="hour">
+                            <option value="*">*</option>
+                            <?php for($i = 0; $i <= 24; $i++) { ?>
+                            <option value="<?php echo $i ?>">
+                                <?php echo $i; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Dia</label>
+                        <select class="form-control" name="day">
+                            <option value="*">*</option>
+                            <?php for($i = 1; $i <= 31; $i++) { ?>
+                            <option value="<?php echo $i ?>">
+                                <?php echo $i; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Dia Semana</label>
+                        <select class="form-control" name="week">
+                            <option value="*">*</option>
+                            <?php for($i = 1; $i <= 7; $i++) { ?>
+                            <option value="<?php echo $i ?>">
+                                <?php echo $i; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Mês</label>
+                        <select class="form-control" name="month">
+                            <option value="*">*</option>
+                            <?php for($i = 1; $i <= 12; $i++) { ?>
+                            <option value="<?php echo $i ?>">
+                                <?php echo $i; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="text-white">T</label>
+                        <button class="btn btn-success form-control">
+                            <i class="material-icons" style="font-size: 18px;">schedule</i>
+                            Agendar
+                        </button>
                     </div>
                 </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Períodicidade</th>
+                            <th>Ultimo Disparo</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->view->agendados as $a) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $a->minute . " " . $a->hour . " " . $a->day . " " . $a->month . " " . $a->week;?>
+                            </td>
+                            <td><?php echo date("d/m/Y H:i:s", strtotime($a->updated_at)) ?></td>
+                            <td><?php echo $a->status ? "Habilitado" : "Desabilitado"; ?></td>
+                            <td class="text-right">
+                                <?php if ($a->status){ ?>
+                                <button type='button' class='btn btn-outline-warning' onclick='location="../agendador/desativar/<?php echo $a->id; ?>"' title='Desabilitar'>
+                                    <i class='material-icons' style='font-size: 18px;'>alarm_off</i>
+                                </button>
+                                <?php } else { ?>
+                                <button type='button' class='btn btn-outline-success' onclick='location="../agendador/ativar/<?php echo $a->id; ?>"' title='Habilitar'>
+                                    <i class='material-icons' style='font-size: 18px;'>alarm_on</i>
+                                </button>
+                                <?php } ?>
+                                <button type='button' class='btn btn-outline-danger' onclick='global.confirmar("../agendador/remover/<?php echo $a->id; ?>","Tem certeza?")' title='Habilitar'>
+                                    <i class='material-icons' style='font-size: 18px;'>close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </form>
