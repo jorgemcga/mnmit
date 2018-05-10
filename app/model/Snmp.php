@@ -46,15 +46,13 @@ class Snmp extends ModeloEloquent
             $result = explode(": ", $results);
             $session->close();
 
-            $data = [
-                'valor' => $result[1],
-                'oid_id' => $oidAtivo->oid_id,
-                'ativo_id' => $oidAtivo->ativo_id
-                ];
-
             try
             {
-                $this->create($data);
+                $this->create([
+                    'valor' => $result[1],
+                    'oid_id' => $oidAtivo->oid_id,
+                    'ativo_id' => $oidAtivo->ativo_id
+                ]);
             }
             catch (\Exception $exception)
             {

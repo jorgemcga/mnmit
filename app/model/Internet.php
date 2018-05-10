@@ -37,21 +37,17 @@ class Internet extends ModeloEloquent
     public function run()
     {
         if ($this->monitor->first()->plataforma == "Windows")
-            $speedtest = shell_exec("python C:\speedtest\speedtest --simple");
+            $speedtest = explode(" ", shell_exec("python C:\speedtest\speedtest --simple"));
         else
-            $speedtest = shell_exec("speedtest --simple");
-
-        $speedtest = explode(" ", $speedtest);
-
-        $data = [
-            'ping' => $speedtest[1],
-            'download' => $speedtest[3],
-            'upload' => $speedtest[5]
-        ];
+            $speedtest = explode(" ", shell_exec("speedtest --simple"));
 
         try
         {
-            $this->create($data);
+            $this->create([
+                'ping' => $speedtest[1],
+                'download' => $speedtest[3],
+                'upload' => $speedtest[5]
+            ]);
             return true;
         }
         catch (\Exception $exception)

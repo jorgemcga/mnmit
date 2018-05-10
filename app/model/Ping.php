@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Core\ModeloEloquent;
+use Core\Alert;
 
 class Ping extends ModeloEloquent
 {
@@ -42,10 +43,13 @@ class Ping extends ModeloEloquent
 
         foreach ($interfaces as $interface)
         {
-            if ($monitor->first()->plataforma == "Windows") $return = $this->pingWin($interface);
-            else $return =  $this->pingLinux($interface);
+            if ($monitor->first()->plataforma == "Windows")
+                $data = $this->pingWin($interface);
+            else
+                $data = $this->pingLinux($interface);
 
-            if(!$return) return false;
+            $this->register($data);
+            if(!$data["status"]) Alert::ping($interface->ativo->id);
         }
         return true;
     }
@@ -56,27 +60,17 @@ class Ping extends ModeloEloquent
 
         $newSaida = "";
 
-        foreach ($saida as $peaces){
+        foreach ($saida as $peaces)
+        {
             str_replace(",", "", $peaces);
             $newSaida .= $peaces . "<br>";
         }
 
-        $data = [
+        return [
             'status' => $retorno,
             'descricao' => $newSaida,
             'interface_rede_id' => $interface->id
         ];
-
-        try
-        {
-            $this->create($data);
-            return true;
-        }
-        catch (\Exception $exception)
-        {
-            echo $exception;
-            return false;
-        }
     }
 
     public function pingLinux($interface)
@@ -89,12 +83,15 @@ class Ping extends ModeloEloquent
             $newSaida .= $peaces . "<br>";
         }
 
-        $data = [
+        return [
             'status' => $retorno,
             'descricao' => $newSaida,
             'interface_rede_id' => $interface->id
         ];
+    }
 
+    public function register($data)
+    {
         try
         {
             $this->create($data);
@@ -105,5 +102,4 @@ class Ping extends ModeloEloquent
             return false;
         }
     }
-
 }

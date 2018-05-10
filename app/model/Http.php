@@ -59,24 +59,28 @@ class Http extends ModeloEloquent
 
             $erro = curl_error($curl);
 
-            if (empty($erro)) {
+            if (empty($erro))
+            {
                 $status = 0;
                 $erro = "Acessível";
             }
-            else $status = 1;
-
-            $data = ['status' => $status,
-                'descricao' => $erro,
-                'site_id' => $site->id
-            ];
+            else
+            {
+                $status = 1;
+                //Alert::http($this->site);
+            }
 
             try
             {
-                $this->create($data);
+                $this->create([
+                    'status' => $status,
+                    'descricao' => $erro,
+                    'site_id' => $site->id]
+                );
             }
             catch (\Exception $exception)
             {
-                echo $exception;
+                //echo $exception;
                 return false;
             }
         }

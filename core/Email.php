@@ -7,77 +7,89 @@ namespace Core;
  */
 class Email
 {
-    private static $sender = ["name" => "", "email" => ""];
-    private static $recipient = "";
-    private static $message = "";
-    private static $subject = "";
-    private static $headers = "";
+    private $sender = ["name" => "", "email" => ""];
+    private $recipient = "";
+    private $message = "";
+    private $subject = "";
+    private $headers = "";
 
-    public function __construct()
+    public function setSender($name, $email)
     {
-        return self::$this;
+        $this->recipient["name"] = $name;
+        $this->recipient["email"] = $email;
+        return $this;
     }
 
-    public static function setSender($name, $email)
+    public function setRecipient($recipient)
     {
-        self::$recipient["name"] = $name;
-        self::$recipient["email"] = $email;
-        return self::$this;
+        $this->recipient = $recipient;
+        return $this;
     }
 
-    public static function setRecipient($recipient)
+    public function addRecipients($recipients)
     {
-        self::$recipient = $recipient;
-        return self::$this;
-    }
-
-    public static function addRecipients($recipients)
-    {
-        foreach($recipients as $recipient)
+        if (is_array($recipients))
         {
-            self::$recipient .= ",{$recipient}";
+            foreach($recipients as $recipient)
+            {
+                $this->recipient .= ",{$recipient}";
+            }
         }
-        return self::$this;
+        else
+        {
+            $this->recipient .= ",{$recipients}";
+        }
+        return $this;
+    }
+    
+    public function addCc($email, $name)
+    {
+        $this->headers .= "Cc: {$name} <{$email}>\n";
+        return $this;
     }
 
-    public static function addCc($email, $name)
+
+    public function addCcs($ccs)
     {
-        self::$headers .= "Cc: {$name} <{$email}>\n";
-        return self::$this;
+        foreach($ccs as $cc)
+        {
+            $this->headers .= "Cc: {$cc['name']} <{$cc['email']}>\n";
+        }
+        return $this;
     }
 
-    public static function setMessage($message)
+    public function setMessage($message)
     {
-        self::$message = $message . "<br>";
-        return self::$this;
+        $this->message = $message . "<br>";
+        return $this;
     }
 
-    public static function addMessage($message)
+    public function addMessage($message)
     {
-        self::$message .= $message . "<br>";
-        return self::$this;
+        $this->message .= $message . "<br>";
+        return $this;
     }
 
-    public static function setSubject($subject)
+    public function setSubject($subject)
     {
-        self::$subject = $subject;
-        return self::$this;
+        $this->subject = $subject;
+        return $this;
     }
 
-    public static function setHeader()
+    public function setHeader()
     {
-        self::$headers .=  "Content-Type:text/html; charset=iso-8859-1 \n";
-        self::$headers .= "From: " . self::$sender["name"] .  "<" . self::$sender["email"] . ">\n";
-        self::$headers .= "X-Mailer: PHP  v".phpversion()."\n";
-        self::$headers .= "Return-Path: " . self::$sender["email"] . "\n";
-        self::$headers .= "MIME-Version: 1.0\n";
-        return self::$this;
+        $this->headers .=  "Content-Type:text/html; charset=iso-8859-1 \n";
+        $this->headers .= "From: " . $this->sender["name"] .  "<" . $this->sender["email"] . ">\n";
+        $this->headers .= "X-Mailer: PHP  v".phpversion()."\n";
+        $this->headers .= "Return-Path: " . $this->sender["email"] . "\n";
+        $this->headers .= "MIME-Version: 1.0\n";
+        return $this;
     }
 
-    public static function send()
+    public function send()
     {
-        self::setHeader();
+        $this->setHeader();
         //Send Email
-        return mail(self::$recipient, self::$subject, self::$message, self::$headers);
+        return mail($this->recipient, $this->subject, $this->message, $this->headers);
     }
 }
