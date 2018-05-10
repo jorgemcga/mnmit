@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10-Maio-2018 às 22:15
+-- Generation Time: 05-Nov-2017 às 19:52
 -- Versão do servidor: 10.1.25-MariaDB
--- PHP Version: 7.0.21
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,29 +30,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `agendador` (
   `id` int(11) NOT NULL,
-  `minute` char(2) NOT NULL DEFAULT '*',
-  `hour` char(2) NOT NULL DEFAULT '*',
-  `day` char(2) NOT NULL DEFAULT '*',
-  `month` char(2) NOT NULL DEFAULT '*',
-  `week` char(2) NOT NULL DEFAULT '*',
+  `periodicidade` varchar(100) NOT NULL,
   `tipo` varchar(45) NOT NULL,
-  `status` char(1) NOT NULL DEFAULT '1',
+  `status` char(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `agendador`
 --
 
-INSERT INTO `agendador` (`id`, `minute`, `hour`, `day`, `month`, `week`, `tipo`, `status`, `created_at`, `updated_at`) VALUES
-(1, '*', '*', '*', '*', '*', 'icmp', '0', '2017-10-21 18:21:00', '2018-05-09 12:00:49'),
-(2, '*', '*', '*', '*', '*', 'http', '1', '2017-11-02 18:04:39', '2018-05-10 14:37:18'),
-(3, '*', '*', '*', '*', '*', 'snmp', '1', '2017-11-05 09:22:18', '2018-05-10 14:38:37'),
-(5, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:40', '2018-05-10 14:22:40'),
-(6, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:50', '2018-05-10 14:22:50'),
-(7, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:54', '2018-05-10 14:22:54'),
-(10, '0', '0', '*', '*', '*', 'internet', '1', '2018-05-10 14:24:33', '2018-05-10 14:24:33');
+INSERT INTO `agendador` (`id`, `periodicidade`, `tipo`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'horario', 'icmp', '1', '2017-10-21 18:21:00', '2017-11-05 12:32:19'),
+(2, 'horario', 'http', '1', '2017-11-02 18:04:39', '2017-11-05 12:32:44'),
+(3, 'horario', 'snmp', '0', '2017-11-05 09:22:18', '2017-11-05 18:25:44'),
+(4, 'horario', 'internet', '1', '2017-11-05 18:20:19', '2017-11-05 18:26:01');
 
 -- --------------------------------------------------------
 
@@ -74,7 +67,7 @@ CREATE TABLE `ativo` (
   `usuario_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `ativo`
@@ -82,6 +75,8 @@ CREATE TABLE `ativo` (
 
 INSERT INTO `ativo` (`id`, `nrpatrimonio`, `nome`, `tag`, `descricao`, `datacompra`, `categoria_ativo_id`, `so_id`, `serial`, `modelo_id`, `usuario_id`, `created_at`, `updated_at`) VALUES
 (1, '1', 'Notebook Acer', 'ES1-572-32LD', '', '2017-08-11', 1, 3, 'Y2F7C-N2PMX-VT48Y-77Y7K-WTYP6', 1, 1, NULL, NULL),
+(2, '2', 'Desktop Familia', 'N/A', '', '2009-01-10', 2, 1, '', 4, 2, NULL, NULL),
+(3, '123', 'testando', '123', '', '1999-07-23', 1, 0, '', 0, 2, '2017-09-23 18:29:47', '2017-09-23 18:57:53'),
 (4, '', 'Impressora Brother', '', '', '0000-00-00', 3, 0, '', 0, 0, '2017-11-05 16:40:28', '2017-11-05 16:40:28');
 
 -- --------------------------------------------------------
@@ -94,15 +89,14 @@ CREATE TABLE `ativo_oid` (
   `oid_id` int(11) NOT NULL,
   `ativo_id` int(11) NOT NULL,
   `ip` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `ativo_oid`
 --
 
 INSERT INTO `ativo_oid` (`oid_id`, `ativo_id`, `ip`) VALUES
-(2, 4, '192.168.2.47'),
-(3, 5, '192.168.2.113');
+(2, 4, '192.168.2.47');
 
 -- --------------------------------------------------------
 
@@ -113,7 +107,7 @@ INSERT INTO `ativo_oid` (`oid_id`, `ativo_id`, `ip`) VALUES
 CREATE TABLE `categoria_ativo` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categoria_ativo`
@@ -124,7 +118,8 @@ INSERT INTO `categoria_ativo` (`id`, `nome`) VALUES
 (2, 'Desktop'),
 (3, 'Impressora'),
 (4, 'Switch'),
-(5, 'Access Point');
+(5, 'Access Point'),
+(6, 'Rádio NanoStation');
 
 -- --------------------------------------------------------
 
@@ -137,14 +132,14 @@ CREATE TABLE `categoria_componente` (
   `nome` varchar(255) NOT NULL,
   `tipo_valor` varchar(45) DEFAULT NULL,
   `sigla_valor` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categoria_componente`
 --
 
 INSERT INTO `categoria_componente` (`id`, `nome`, `tipo_valor`, `sigla_valor`) VALUES
-(1, 'Disco Rígido Físico1', 'GigaBytes', 'GB'),
+(1, 'Disco Rígido Físico', 'GigaBytes', 'GB'),
 (2, 'Memória DDR4', 'GigaBytes', 'GB'),
 (3, 'Processador', 'GigaHertz', 'GHz');
 
@@ -157,7 +152,7 @@ INSERT INTO `categoria_componente` (`id`, `nome`, `tipo_valor`, `sigla_valor`) V
 CREATE TABLE `categoria_equipamento` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categoria_equipamento`
@@ -178,7 +173,7 @@ CREATE TABLE `categoria_licenca` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `sigla` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categoria_licenca`
@@ -202,7 +197,7 @@ CREATE TABLE `componente` (
   `ativo_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `componente`
@@ -227,7 +222,7 @@ CREATE TABLE `equipamento` (
   `usuario_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `update_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `equipamento`
@@ -248,7 +243,7 @@ CREATE TABLE `fabricante` (
   `nome` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `fabricante`
@@ -269,37 +264,17 @@ CREATE TABLE `grupo` (
   `id` int(11) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `telegram_group` varchar(128) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `grupo`
 --
 
-INSERT INTO `grupo` (`id`, `nome`, `created_at`, `updated_at`, `email`, `telegram_group`) VALUES
-(1, 'Monitoramento', '2017-09-17 19:17:59', '2018-05-10 20:13:19', 'monitoramento@vector.com.br', '-231213341'),
-(2, 'Telemetria', '2017-09-17 19:17:59', '2018-05-09 17:21:42', 'telemetria@sisani.com.br', '-231213341');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `grupo_categoria_ativo`
---
-
-CREATE TABLE `grupo_categoria_ativo` (
-  `grupo_id` int(11) NOT NULL,
-  `categoria_ativo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `grupo_categoria_ativo`
---
-
-INSERT INTO `grupo_categoria_ativo` (`grupo_id`, `categoria_ativo_id`) VALUES
-(1, 3),
-(1, 5);
+INSERT INTO `grupo` (`id`, `nome`, `created_at`, `updated_at`) VALUES
+(1, 'Administradores', '2017-09-17 19:17:59', '2017-09-17 19:17:59'),
+(2, 'Usuários', '2017-09-17 19:17:59', '2017-09-17 19:17:59'),
+(3, 'Comercial', '2017-09-17 20:46:00', '2017-09-17 20:46:00');
 
 -- --------------------------------------------------------
 
@@ -313,7 +288,7 @@ CREATE TABLE `http` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `site_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `http`
@@ -334,10 +309,7 @@ INSERT INTO `http` (`status`, `descricao`, `created_at`, `updated_at`, `site_id`
 ('0', 'Acessível', '2017-11-04 15:19:23', '2017-11-04 15:19:23', 3),
 ('0', 'Acessível', '2017-11-05 12:32:45', '2017-11-05 12:32:45', 1),
 ('0', 'Acessível', '2017-11-05 12:32:45', '2017-11-05 12:32:45', 2),
-('0', 'Acessível', '2017-11-05 12:32:46', '2017-11-05 12:32:46', 3),
-('0', 'Acessível', '2018-05-08 18:57:31', '2018-05-08 18:57:31', 1),
-('0', 'Acessível', '2018-05-08 18:57:31', '2018-05-08 18:57:31', 2),
-('0', 'Acessível', '2018-05-08 18:57:32', '2018-05-08 18:57:32', 3);
+('0', 'Acessível', '2017-11-05 12:32:46', '2017-11-05 12:32:46', 3);
 
 -- --------------------------------------------------------
 
@@ -416,11 +388,7 @@ INSERT INTO `icmp` (`status`, `descricao`, `created_at`, `updated_at`, `interfac
 ('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-04 15:19:01', '2017-11-04 15:19:01', 1),
 ('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-04 15:19:20', '2017-11-04 15:19:20', 2),
 ('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-05 12:32:32', '2017-11-05 12:32:32', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-05 12:32:44', '2017-11-05 12:32:44', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2018-05-08 17:55:31', '2018-05-08 17:55:31', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.9: bytes=32 tempo=56ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>Aproximar um n?mero redondo de vezes em milissegundos:<br>    M?nimo = 9ms, M?ximo = 56ms, M?dia = 21ms<br>', '2018-05-08 17:55:34', '2018-05-08 17:55:34', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2018-05-08 18:50:18', '2018-05-08 18:50:18', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.9: bytes=32 tempo=40ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>Aproximar um n?mero redondo de vezes em milissegundos:<br>    M?nimo = 9ms, M?ximo = 40ms, M?dia = 17ms<br>', '2018-05-08 18:50:21', '2018-05-08 18:50:21', 2);
+('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-05 12:32:44', '2017-11-05 12:32:44', 2);
 
 -- --------------------------------------------------------
 
@@ -439,7 +407,7 @@ CREATE TABLE `interface_rede` (
   `macaddress` varchar(17) DEFAULT NULL,
   `monitorar` char(1) NOT NULL,
   `ativo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `interface_rede`
@@ -449,7 +417,7 @@ INSERT INTO `interface_rede` (`id`, `hostname`, `ip`, `mascara`, `gateway`, `dns
 (1, 'NOTE_JMA', '192.168.2.11', '255.255.255.0', '192.196.2.10', '192.168.2.8', '192.168.2.7', '5C-C9-D3-88-2B-BF', '1', 1),
 (2, 'DESK_FAMILIA', '192.168.2.9', '255.255.255.0', '192.196.2.10', '192.168.2.8', '192.168.2.7', '5C-C9-D3-88-2B-BF', '1', 2),
 (3, 'NOTE_JMA', '192.168.0.10', '255.255.255.0', '192.168.0.5', '192.168.0.4', '192.168.0.3', '5C-C9-D3-88-2B-BF', '0', 1),
-(4, 'PRINTER_BROTHER', '192.168.2.47', '255.255.255.0', '192.168.2.10', '', '', '', '1', 4);
+(4, 'PRINTER_BROTHER', '192.168.2.47', '255.255.255.0', '192.168.2.10', '', '', '', '0', 4);
 
 -- --------------------------------------------------------
 
@@ -463,7 +431,7 @@ CREATE TABLE `internet` (
   `upload` double DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `internet`
@@ -471,11 +439,7 @@ CREATE TABLE `internet` (
 
 INSERT INTO `internet` (`ping`, `download`, `upload`, `created_at`, `updated_at`) VALUES
 (54.632, 0.78, 0.45, '2017-11-05 18:45:55', '2017-11-05 18:45:55'),
-(110.906, 0.7, 0.45, '2017-11-05 18:50:00', '2017-11-05 18:50:00'),
-(NULL, NULL, NULL, '2018-05-08 17:19:51', '2018-05-08 17:19:51'),
-(NULL, NULL, NULL, '2018-05-08 17:59:16', '2018-05-08 17:59:16'),
-(NULL, NULL, NULL, '2018-05-08 20:09:53', '2018-05-08 20:09:53'),
-(NULL, NULL, NULL, '2018-05-09 11:59:06', '2018-05-09 11:59:06');
+(110.906, 0.7, 0.45, '2017-11-05 18:50:00', '2017-11-05 18:50:00');
 
 -- --------------------------------------------------------
 
@@ -492,7 +456,7 @@ CREATE TABLE `licenca` (
   `categoria_licenca_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `licenca`
@@ -511,7 +475,7 @@ CREATE TABLE `licenciamento` (
   `ativo_id` int(11) NOT NULL,
   `licenca_id` int(11) NOT NULL,
   `datahora` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -528,7 +492,7 @@ CREATE TABLE `manutencao` (
   `ativo_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `manutencao`
@@ -539,8 +503,7 @@ INSERT INTO `manutencao` (`id`, `descricao`, `datainicio`, `datafim`, `status`, 
 (2, 'teste2', '2018-02-21 21:11:00', '2018-02-21 20:20:00', '4', 1, NULL, NULL),
 (3, 'Ainda em produção', '2017-09-01 10:00:43', '0000-00-00 00:00:00', '0', 2, NULL, NULL),
 (4, 'Teste', '2017-09-16 13:39:04', '2017-09-16 13:39:04', '0', 1, NULL, NULL),
-(5, 'Teste', '2017-09-23 16:50:43', '2017-09-24 00:00:00', '0', 1, NULL, NULL),
-(6, 'teste', '2018-05-08 14:24:26', '2018-05-09 00:00:00', '0', 4, '2018-05-08 17:24:29', '2018-05-08 17:24:29');
+(5, 'Teste', '2017-09-23 16:50:43', '2017-09-24 00:00:00', '0', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -552,7 +515,7 @@ CREATE TABLE `modelo` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `fabricante_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `modelo`
@@ -578,14 +541,14 @@ CREATE TABLE `monitor` (
   `email` varchar(225) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `monitor`
 --
 
 INSERT INTO `monitor` (`id`, `nome`, `status`, `plataforma`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'Servidor de Monitoramento', '0', 'Windows', 'jorge_miguelcga@hotmail.com', '2017-10-21 17:07:53', '2018-05-08 18:51:47');
+(1, 'Servidor de Monitoramento', '1', 'Windows', 'jorge_miguelcga@hotmail.com', '2017-10-21 17:07:53', '2017-11-05 17:29:48');
 
 -- --------------------------------------------------------
 
@@ -601,7 +564,7 @@ CREATE TABLE `oid` (
   `string` varchar(45) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `oid`
@@ -609,8 +572,7 @@ CREATE TABLE `oid` (
 
 INSERT INTO `oid` (`id`, `nome`, `oid`, `versao`, `string`, `created_at`, `updated_at`) VALUES
 (1, 'Total de Impressões', '2385.1.1.19.2.1.3.1.4.60', 'SNMP::VERSION_2C', 'enterprises', '2017-11-04 15:27:36', '2017-11-04 15:27:36'),
-(2, 'Total de Páginas', 'iso.3.6.1.2.1.43.10.2.1.4.1.1', 'SNMP::VERSION_2C', 'public', '2017-11-05 16:42:24', '2017-11-05 16:42:24'),
-(3, 'TesteRadio', '.1.3.6.1.2.1.2.2.1.5', 'SNMP::VERSION_2C', 'public', '2018-05-09 12:36:17', '2018-05-09 12:36:17');
+(2, 'Total de Páginas', 'iso.3.6.1.2.1.43.10.2.1.4.1.1', 'SNMP::VERSION_2C', 'public', '2017-11-05 16:42:24', '2017-11-05 16:42:24');
 
 -- --------------------------------------------------------
 
@@ -624,7 +586,7 @@ CREATE TABLE `site` (
   `nome` varchar(255) NOT NULL,
   `usuario` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `site`
@@ -647,7 +609,7 @@ CREATE TABLE `snmp` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `oid_id` int(11) NOT NULL,
   `ativo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `snmp`
@@ -668,13 +630,15 @@ CREATE TABLE `so` (
   `versao` varchar(45) DEFAULT NULL,
   `arq` varchar(45) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `so`
 --
 
 INSERT INTO `so` (`id`, `nome`, `versao`, `arq`, `path`) VALUES
+(1, 'Windows 10 Home', '1703', NULL, NULL),
+(3, 'Windows 10 Pro', '1703', NULL, NULL),
 (4, 'Windows 10 Pro', '1607', NULL, NULL),
 (5, 'Windows 7 Professional', '', NULL, NULL),
 (6, 'Debian', '8.7', '64 bits', '\\\\backup\\iso');
@@ -690,38 +654,19 @@ CREATE TABLE `usuario` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(60) NOT NULL,
-  `type` char(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `grupo_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `name`, `email`, `password`, `type`, `created_at`, `updated_at`) VALUES
-(1, 'Administrador', 'vector.zabbix@gmail.com', '$2y$10$Z43QAGegqcKu4jH37vGCs.LG2zc2zlG4bjAPfsOoEN0AHgilU8RMu', '1', '2017-09-17 22:55:49', '2018-05-10 20:13:07'),
-(2, 'Jorge M. Abdalla', 'jorge_miguelcga@hotmail.com', '$2y$10$2JwaHvidutczU4fXUNenEunBTVEGdFzS5PWQCq9CC5EpWgRGBDysC', '1', '2017-09-17 22:59:57', '2018-05-09 13:59:09'),
-(3, 'Usuário', 'usuario@user.com', '$2y$10$WILWWkZ6GwxjMiv8Dd01lewsZnfhOwMFFo5x5/SVHgi36jdbHszIy', '0', '2017-09-25 01:56:08', '2018-05-09 14:03:24');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `usuario_grupo`
---
-
-CREATE TABLE `usuario_grupo` (
-  `usuario_id` int(11) NOT NULL,
-  `grupo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `usuario_grupo`
---
-
-INSERT INTO `usuario_grupo` (`usuario_id`, `grupo_id`) VALUES
-(1, 1),
-(2, 1);
+INSERT INTO `usuario` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `grupo_id`) VALUES
+(1, 'Adminsitrador', 'administrador@administrador.com.br', '$2y$10$EjEeYLPasDSVcSDH.soeI.sLbV1oKxeZgwpVGPBj6/gEDdRbRY.1u', '2017-09-17 22:55:49', '2017-09-18 00:36:37', 1),
+(2, 'Jorge M. Abdalla', 'jorge_miguelcga@hotmail.com', '$2y$10$2JwaHvidutczU4fXUNenEunBTVEGdFzS5PWQCq9CC5EpWgRGBDysC', '2017-09-17 22:59:57', '2017-09-30 20:01:40', 1),
+(3, 'Usuário', 'usuario@user.com', '$2y$10$a2d04pdTp996t7Zp2E95yOmGMqNQJio3fcYvrHKofSNhb/lNSENAq', '2017-09-25 01:56:08', '2017-09-25 01:56:56', 2);
 
 --
 -- Indexes for dumped tables
@@ -803,13 +748,6 @@ ALTER TABLE `grupo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `grupo_categoria_ativo`
---
-ALTER TABLE `grupo_categoria_ativo`
-  ADD PRIMARY KEY (`grupo_id`,`categoria_ativo_id`),
-  ADD KEY `categoria_ativo_id` (`categoria_ativo_id`);
-
---
 -- Indexes for table `interface_rede`
 --
 ALTER TABLE `interface_rede`
@@ -879,14 +817,8 @@ ALTER TABLE `so`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email_UNIQUE` (`email`);
-
---
--- Indexes for table `usuario_grupo`
---
-ALTER TABLE `usuario_grupo`
-  ADD PRIMARY KEY (`usuario_id`,`grupo_id`),
-  ADD KEY `group_user` (`grupo_id`);
+  ADD UNIQUE KEY `email_UNIQUE` (`email`),
+  ADD KEY `fk_usuario_grupo1_idx` (`grupo_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -896,17 +828,17 @@ ALTER TABLE `usuario_grupo`
 -- AUTO_INCREMENT for table `agendador`
 --
 ALTER TABLE `agendador`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ativo`
 --
 ALTER TABLE `ativo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `categoria_ativo`
 --
 ALTER TABLE `categoria_ativo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `categoria_componente`
 --
@@ -941,7 +873,7 @@ ALTER TABLE `fabricante`
 -- AUTO_INCREMENT for table `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `interface_rede`
 --
@@ -956,7 +888,7 @@ ALTER TABLE `licenca`
 -- AUTO_INCREMENT for table `manutencao`
 --
 ALTER TABLE `manutencao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `modelo`
 --
@@ -971,7 +903,7 @@ ALTER TABLE `monitor`
 -- AUTO_INCREMENT for table `oid`
 --
 ALTER TABLE `oid`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `site`
 --
@@ -986,25 +918,7 @@ ALTER TABLE `so`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- Constraints for dumped tables
---
-
---
--- Limitadores para a tabela `grupo_categoria_ativo`
---
-ALTER TABLE `grupo_categoria_ativo`
-  ADD CONSTRAINT `grupo_categoria_ativo_ibfk_1` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `grupo_categoria_ativo_ibfk_2` FOREIGN KEY (`categoria_ativo_id`) REFERENCES `categoria_ativo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `usuario_grupo`
---
-ALTER TABLE `usuario_grupo`
-  ADD CONSTRAINT `group_user` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_group` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
