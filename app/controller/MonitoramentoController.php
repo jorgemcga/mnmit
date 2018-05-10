@@ -8,11 +8,12 @@ use App\Model\Http;
 use App\Model\InterfaceRede;
 use App\Model\Internet;
 use App\Model\Monitoramento;
-use App\Model\Oid;
+//use App\Model\Oid;
 use App\Model\Ping;
 use App\Model\Snmp;
 use Core\Controller;
 use Core\Redirect;
+use Core\Cron;
 
 class MonitoramentoController extends Controller {
 
@@ -41,82 +42,50 @@ class MonitoramentoController extends Controller {
 
     public function index()
     {
-        if ($this->monitor->first()->status == 0) return 0;
+        if ($this->monitor->first()->status == 0) return false;
 
-        $agendados = $this->agendador->all();
-
-        foreach ($agendados as $agendado)
+        foreach ($this->agendador->all() as $agendado)
         {
-            if($agendado->status == 1) {
-
-                $periodo = false;
-
-                switch ($agendado->periodicidade) {
-                    case "horario":
-                        if ($agendado->validarHorario()) {
-                            $periodo = true;
-                            $agendado->touch();
-                        }
-                        break;
-                    case "diario":
-                        if ($agendado->validarDiario()) {
-                            $periodo = true;
-                            $agendado->touch();
-                        }
-                        break;
-                    case "semanal":
-                        if ($agendado->validarSemanal()) {
-                            $periodo = true;
-                            $agendado->touch();
-                        }
-                        break;
-                    case "mensal":
-                        if ($agendado->validarMensal()) {
-                            $periodo = true;
-                            $agendado->touch();
-                        }
-                        break;
-                    default:
-                        $periodo = false;
-                        break;
-                }
-
-                if ($periodo) {
-                    switch ($agendado->tipo) {
-                        case "icmp":
-                            $retrun = $this->ping->run();
-                            break;
-                        case "http":
-                            $return = $this->http->run();
-                            break;
-                        case "snmp":
-                            $return = $this->snmp->run();
-                            break;
-                        case "internet":
-                            $return = $this->internet->run();
-                            break;
-                        default:
-                            break;
-                    }
-                }
+            if($agendado->status && Cron::validate($agendado))
+            {
+                $agendado->touch();
+                $this->run($agendado->tipo);
             }
+        }
+    }
+
+    public function run($type)
+    {
+        switch ($type)
+        {
+            case "icmp":
+                $this->ping->run();
+                break;
+            case "http":
+                $this->http->run();
+                break;
+            case "snmp":
+                $this->snmp->run();
+                break;
+            case "internet":
+                $this->internet->run();
+                break;
+            default:
+                break;
         }
     }
 
     public function servidor()
     {
         $this->view->servidor = $this->monitor->first();
-
         $this->setPageTitle("Servidor Monitor");
-        $this->setView("monitoramento/index", "layout/index");
+        return $this->setView("monitoramento/index", "layout/index");
     }
 
     public function novo($request)
     {
         $data = $this->monitoramento->data($request->post);
-
         if (Validator::make($data, $this->monitor->rules())) return false;
-
         try
         {
             $this->monitor->create($data);
@@ -131,10 +100,8 @@ class MonitoramentoController extends Controller {
     public function config($id)
     {
         $this->view->monitor = $this->monitor->find($id);
-
         $this->setPageTitle("Configurações Servidor");
-        $this->setView("monitoramento/config", "layout/index");
-
+        return $this->setView("monitoramento/config", "layout/index");
     }
 
     public function salvar($request)
@@ -142,9 +109,7 @@ class MonitoramentoController extends Controller {
         try
         {
             $data = $this->monitor->data($request->post);
-
             $this->monitor->find($request->post->id)->update($data);
-
             return Redirect::route($this->urlIndex, ["success" => ["Servidor Atualizado!"]]);
         }
         catch (\Exception $exception)
@@ -159,8 +124,7 @@ class MonitoramentoController extends Controller {
     {
         try
         {
-            $data = ['status' => '1'];
-            $this->monitor->find($id)->update($data);
+            $this->monitor->find($id)->update(['status' => '1']);
             return Redirect::route($this->urlIndex, ["success" => ["Servidor Iniciado!"]]);
         }
         catch (\Exception $exception)
@@ -175,10 +139,7 @@ class MonitoramentoController extends Controller {
     {
         try
         {
-            $data = ['status' => '0'];
-
-            $this->monitor->find($id)->update($data);
-
+            $this->monitor->find($id)->update(['status' => '0']);
             return Redirect::route($this->urlIndex, ["success" => ["Servidor Parado!"]]);
         }
         catch (\Exception $exception)
@@ -192,17 +153,12 @@ class MonitoramentoController extends Controller {
     public function pingAll()
     {
         $interfaces = $this->interface->where("monitorar", "like","1")->get();
-
-
         foreach ($interfaces as $interface)
         {
             if ($this->monitor->first()->plataforma == "Windows") $return = $this->ping->pingWin($interface);
             else $return =  $this->ping->pingLinux($interface);
-
             if(!$return) return false;
         }
-
         return true;
-
     }
 }

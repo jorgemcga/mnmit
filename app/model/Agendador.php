@@ -53,10 +53,9 @@ class Agendador extends ModeloEloquent
 
         $diff = $datetime1->diff($datetime2)->format("%D");
 
-        if($diff >= 1){
-            $this->validarHorario()? true : false;
-        }
-        else return false;
+        if($diff >= 1)
+            return $this->validarHorario() ? true : false;
+        return false;
     }
 
     public function validarSemanal()
@@ -66,10 +65,9 @@ class Agendador extends ModeloEloquent
 
         $diff = $datetime1->diff($datetime2)->format("%D");
 
-        if ($diff >= 7){
-            $this->validarHorario()? true : false;
-        }
-        else return false;
+        if ($diff >= 7)
+            return $this->validarHorario() ? true : false;
+        return false;
     }
 
     public function validarMensal()
@@ -79,10 +77,9 @@ class Agendador extends ModeloEloquent
 
         $diff = $datetime1->diff($datetime2)->format("%D");
 
-        if ($diff >= 30){
-            $this->validarHorario()? true : false;
-        }
-        else return false;
+        if ($diff >= 30)
+            return $this->validarHorario()? true : false;
+        return false;
     }
 
 }

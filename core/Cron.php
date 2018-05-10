@@ -14,11 +14,11 @@ class Cron
 
     public static function validate($schedule)
     {
-        if (self::validateMonth($schedule["month"]))
-            if (self::validateWeek($schedule["week"]))
-                if (self::validateDay($schedule["day"]))
-                    if (self::validateHour($schedule["hour"]))
-                        if (self::validateHour($schedule["minute"]))
+        if (self::validateMonth($schedule->month))
+            if (self::validateWeek($schedule->week))
+                if (self::validateDay($schedule->day))
+                    if (self::validateHour($schedule->hour))
+                        if (self::validateHour($schedule->minute))
                             return true;
         return false;
     }
