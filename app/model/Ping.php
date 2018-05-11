@@ -49,7 +49,8 @@ class Ping extends ModeloEloquent
                 $data = $this->pingLinux($interface);
 
             $this->register($data);
-            if(!$data["status"]) Alert::ping($interface->ativo->id);
+            if($data["status"])
+                Alert::ping($interface->ativo);
         }
         return true;
     }

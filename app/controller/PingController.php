@@ -142,7 +142,6 @@ class PingController extends Controller
         try
         {
             $this->ping->run();
-
             return Redirect::route($this->urlIndex, [
                 "success" => ["Executado com sucesso!"]
             ]);

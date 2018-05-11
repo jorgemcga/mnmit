@@ -11,7 +11,7 @@ class TelegramBot
     private $msg;
     private $APItoken;
 
-    public static function setGroupId($groupId)
+    public function setGroupId($groupId)
     {
         $this->groupId = $groupId;
         return $this;
@@ -47,6 +47,6 @@ class TelegramBot
 
     public function send()
     {
-        return shell_exec("curl -X POST 'https://api.telegram.org/bot{$this->APItoken}/sendMessage' -d 'chat_id={$this->groupId}&text={$this->msg}");
+        return shell_exec("curl -X POST 'https://api.telegram.org/bot{$this->APItoken}/sendMessage' -d 'chat_id={$this->groupId}&text={$this->msg}'");
     }
 }

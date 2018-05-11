@@ -7,17 +7,15 @@ namespace Core;
  */
 class Alert
 {
-    private static $email;
-    private static $telegram;
+    //private static $email;
+    //private static $telegram;
 
     public function __construct()
     {
-        self::$email = new Email();
-        self::$telegram = new TelegramBot();
         return self::$this;
     }
 
-    public static function ping(\App\Model\Ativo $ativo)
+    public static function ping($ativo)
     {
         $message = self::getMessage($ativo->nome, "Protocolo ICMP");
         $subject = self::getSubject($ativo->nome, "Protocolo ICMP");
@@ -53,9 +51,9 @@ class Alert
         $usuarioGrupo = new \App\Model\UsuarioGrupo();
         foreach($usuarioGrupo->where("grupo_id", $group_id)->get() as $i => $usuario)
         {
-            $userService = \App\Model\Usuario();
+            $userService = new \App\Model\Usuario();
             $user = $userService->find($usuario->usuario_id);
-            $emails[$i]["name"] = $user->nome;
+            $emails[$i]["name"] = $user->name;
             $emails[$i]["email"] = $user->email;
         }
         return $emails;
@@ -63,7 +61,7 @@ class Alert
 
     private static function getMessage($name, $type)
     {
-        return "Erro ao se comunicar com o {$name} através de {$type} em " . data("d/m/Y h:i:s");
+        return "Erro ao se comunicar com o {$name} através de {$type} em " . date("d/m/Y h:i:s");
     }
 
     private static function getSubject($name, $type)
@@ -73,7 +71,9 @@ class Alert
 
     public static function sendMail($subject, $message, $recipients, $cc = [])
     {
-        return self::$email->setSender(Server::name(), Server::email())
+        $email = new Email();
+        return $email->setSender(Server::name(), Server::email())
+                ->setHeader()
                 ->setSubject($subject)
                 ->setMessage($message)
                 ->setRecipient(Server::email())
@@ -84,7 +84,8 @@ class Alert
 
     public static function sendPush($message, $groupId)
     {
-        return self::$telegram->setAPItoken(TELEGRAM_BOT_API_KEY)
+        $telegram = new TelegramBot();
+        return $telegram->setAPItoken(TELEGRAM_BOT_API_KEY)
                 ->setGroupId($groupId)
                 ->setMsg($message)
                 ->send();

@@ -17,6 +17,7 @@ abstract class Controller
 
     public function __construct()
     {
+        Server::init();
         $this->view = new \stdClass();
         $this->auth = new Auth();
 

@@ -15,8 +15,8 @@ class Email
 
     public function setSender($name, $email)
     {
-        $this->recipient["name"] = $name;
-        $this->recipient["email"] = $email;
+        $this->sender["name"] = $name;
+        $this->sender["email"] = $email;
         return $this;
     }
 
@@ -41,10 +41,10 @@ class Email
         }
         return $this;
     }
-    
+
     public function addCc($email, $name)
     {
-        $this->headers .= "Cc: {$name} <{$email}>\n";
+        $this->headers .= "Cc: {$name} <" . $email .">\n";
         return $this;
     }
 
@@ -53,7 +53,7 @@ class Email
     {
         foreach($ccs as $cc)
         {
-            $this->headers .= "Cc: {$cc['name']} <{$cc['email']}>\n";
+            $this->headers .= "Cc: {$cc['name']} <" . $cc['email'] . "> \n";
         }
         return $this;
     }
@@ -79,16 +79,15 @@ class Email
     public function setHeader()
     {
         $this->headers .=  "Content-Type:text/html; charset=iso-8859-1 \n";
-        $this->headers .= "From: " . $this->sender["name"] .  "<" . $this->sender["email"] . ">\n";
+        $this->headers .= "From: {$this->sender['name']} <". $this->sender['email'] . "> \n";
         $this->headers .= "X-Mailer: PHP  v".phpversion()."\n";
-        $this->headers .= "Return-Path: " . $this->sender["email"] . "\n";
+        $this->headers .= "Return-Path: {$this->sender['email']} \n";
         $this->headers .= "MIME-Version: 1.0\n";
         return $this;
     }
 
     public function send()
     {
-        $this->setHeader();
         //Send Email
         return mail($this->recipient, $this->subject, $this->message, $this->headers);
     }

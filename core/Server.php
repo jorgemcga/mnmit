@@ -14,13 +14,17 @@ class Server
 
     public function __construct()
     {
-        $monitor = \App\Model\Monitoramento();
+        return self::$this;
+    }
+
+    public static function init()
+    {
+        $monitor = new \App\Model\Monitoramento();
         $data = $monitor->first();
         self::$name = $data->nome;
         self::$email = $data->email;
         self::$plataform = $data->plataforma;
         self::$status = $data->status;
-        return self::$this;
     }
 
     public static function name()
