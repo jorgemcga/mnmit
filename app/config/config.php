@@ -6,7 +6,6 @@ ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT);
 /* SYSTEM CONFIG */
 define('BASE_URL', "/mnmit");
 define('TELEGRAM_BOT_API_KEY', "480509858:AAFmwcoi7r30AVuzs73yJd38ExqA9rPeXKU");
-define('EMAIL_MASTER', "jorge_miguelcga@hotmail.com");
 define('SENDGRID_API_KEY', "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");
 
 /* DB CONFIG */

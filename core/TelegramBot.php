@@ -54,14 +54,12 @@ class TelegramBot
         $ch = curl_init("https://api.telegram.org/bot{$this->APItoken}/sendMessage");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-
-        // execute!
-        $response = curl_exec($ch);
-        $error = curl_error($ch);
+        // Execute
+        curl_exec($ch);
+        curl_error($ch);
         curl_close($ch);
 
-        die(var_dump($response) . "<br> <br>" . $error);
-
+        //die(var_dump($response) . "<br> <br>" . $error);
         //shell_exec("curl -X POST 'https://api.telegram.org/bot{$this->APItoken}/sendMessage' -d 'chat_id={$this->groupId}&text={$this->msg}'");
     }
 }

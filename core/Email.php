@@ -1,94 +1,91 @@
 <?php
-namespace Core;
 /**
  * Description of Email
  *
  * @author jorge
  */
+
+namespace Core;
+
+use \SendGrid;
+use \SendGrid\Mail\Mail;
+
 class Email
 {
-    private $sender = ["name" => "", "email" => ""];
-    private $recipient = "";
-    private $message = "";
-    private $subject = "";
-    private $headers = "";
+    private $sendGridMail = null;
+    private $sendgrid = null;
 
-    public function setSender($name, $email)
+    public function __construct()
     {
-        $this->sender["name"] = $name;
-        $this->sender["email"] = $email;
+        $this->sendGridMail = new Mail();
+        $this->sendgrid = new SendGrid(SENDGRID_API_KEY);
         return $this;
     }
 
-    public function setRecipient($recipient)
+    public function setSender($name, $email)
     {
-        $this->recipient = $recipient;
+        $this->sendGridMail->setFrom($email, $name);
         return $this;
     }
 
     public function addRecipients($recipients)
     {
-        if (is_array($recipients))
+        if (!is_array($recipients))
         {
-            foreach($recipients as $recipient)
-            {
-                $this->recipient .= ",{$recipient}";
-            }
+            $this->sendGridMail->addTo($recipients);
+            return $this;
         }
-        else
+
+        foreach($recipients as $recipient)
         {
-            $this->recipient .= ",{$recipients}";
+            $this->sendGridMail->addTo($recipient);
         }
         return $this;
     }
 
     public function addCc($email, $name)
     {
-        $this->headers .= "Cc: {$name} <" . $email .">\n";
+        $this->sendGridMail->addBcc($email);
         return $this;
     }
-
 
     public function addCcs($ccs)
     {
         foreach($ccs as $cc)
         {
-            $this->headers .= "Cc: {$cc['name']} <" . $cc['email'] . "> \n";
+            $this->sendGridMail->addBcc($cc['email']);
         }
-        return $this;
-    }
-
-    public function setMessage($message)
-    {
-        $this->message = $message . "<br>";
         return $this;
     }
 
     public function addMessage($message)
     {
-        $this->message .= $message . "<br>";
+        //"text/plain" <- can use
+        $this->sendGridMail->addContent("text/html", $message);
         return $this;
     }
 
     public function setSubject($subject)
     {
-        $this->subject = $subject;
-        return $this;
-    }
-
-    public function setHeader()
-    {
-        $this->headers .=  "Content-Type:text/html; charset=iso-8859-1 \n";
-        $this->headers .= "From: {$this->sender['name']} <". $this->sender['email'] . "> \n";
-        $this->headers .= "X-Mailer: PHP  v".phpversion()."\n";
-        $this->headers .= "Return-Path: {$this->sender['email']} \n";
-        $this->headers .= "MIME-Version: 1.0\n";
+        $this->sendGridMail->setSubject($subject);
         return $this;
     }
 
     public function send()
     {
+        try
+        {
+            $response = $this->sendgrid->send($this->sendGridMail);
+//            echo $response->statusCode() . "\n";
+//            print_r($response->headers());
+//            echo $response->body() . "\n";
+        }
+        catch (Exception $e)
+        {
+            //echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+        return true;
         //Send Email
-        return mail($this->recipient, $this->subject, $this->message, $this->headers);
+        //return mail($this->recipient, $this->subject, $this->message, $this->headers);
     }
 }

@@ -70,10 +70,9 @@ class Alert
     {
         $email = new Email();
         return $email->setSender(Server::name(), Server::email())
-                ->setHeader()
                 ->setSubject($subject)
-                ->setMessage($message)
-                ->setRecipient(Server::email())
+                ->addMessage($message)
+                ->addRecipients(Server::email())
                 ->addRecipients($recipients)
                 ->addCcs($cc)
                 ->send();
