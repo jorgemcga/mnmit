@@ -1,10 +1,11 @@
 <?php
-namespace App\Controller;
 /**
  * Description of AgendadorController
  *
- * @author jorge
+ * @author jorge m abdalla
  */
+
+namespace App\Controller;
 
 use App\Model\Agendador;
 use Core\Controller;

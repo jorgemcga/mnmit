@@ -1,10 +1,12 @@
 <?php
-namespace Core;
 /**
  * Description of TelegramBot
  *
- * @author jorge
+ * @author jorge m abdalla
  */
+
+namespace Core;
+
 class TelegramBot
 {
     private $groupId;
@@ -35,18 +37,31 @@ class TelegramBot
         return $this;
     }
 
-    public static function groupId()
+    public function groupId()
     {
         return $this->groupId;
     }
 
-    public static function msg()
+    public function msg()
     {
         return $this->msg;
     }
 
     public function send()
     {
-        return shell_exec("curl -X POST 'https://api.telegram.org/bot{$this->APItoken}/sendMessage' -d 'chat_id={$this->groupId}&text={$this->msg}'");
+        $post = [ 'chat_id' => $this->groupId, 'text' => $this->msg ];
+
+        $ch = curl_init("https://api.telegram.org/bot{$this->APItoken}/sendMessage");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+        // execute!
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        die(var_dump($response) . "<br> <br>" . $error);
+
+        //shell_exec("curl -X POST 'https://api.telegram.org/bot{$this->APItoken}/sendMessage' -d 'chat_id={$this->groupId}&text={$this->msg}'");
     }
 }

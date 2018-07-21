@@ -68,7 +68,7 @@ class Builder
      */
     protected $passthru = [
         'insert', 'insertGetId', 'getBindings', 'toSql',
-        'exists', 'count', 'min', 'max', 'avg', 'sum', 'getConnection',
+        'exists', 'doesntExist', 'count', 'min', 'max', 'avg', 'average', 'sum', 'getConnection',
     ];
 
     /**
@@ -211,17 +211,15 @@ class Builder
      * Add a basic where clause to the query.
      *
      * @param  string|array|\Closure  $column
-     * @param  string  $operator
-     * @param  mixed  $value
+     * @param  mixed   $operator
+     * @param  mixed   $value
      * @param  string  $boolean
      * @return $this
      */
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
         if ($column instanceof Closure) {
-            $query = $this->model->newQueryWithoutScopes();
-
-            $column($query);
+            $column($query = $this->model->newModelQuery());
 
             $this->query->addNestedWhereQuery($query->getQuery(), $boolean);
         } else {
@@ -235,12 +233,16 @@ class Builder
      * Add an "or where" clause to the query.
      *
      * @param  \Closure|array|string  $column
-     * @param  string  $operator
+     * @param  mixed  $operator
      * @param  mixed  $value
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
     public function orWhere($column, $operator = null, $value = null)
     {
+        list($value, $operator) = $this->query->prepareValueAndOperator(
+            $value, $operator, func_num_args() === 2
+        );
+
         return $this->where($column, $operator, $value, 'or');
     }
 
@@ -319,7 +321,7 @@ class Builder
         $result = $this->find($id, $columns);
 
         if (is_array($id)) {
-            if (count($result) == count(array_unique($id))) {
+            if (count($result) === count(array_unique($id))) {
                 return $result;
             }
         } elseif (! is_null($result)) {
@@ -620,7 +622,7 @@ class Builder
 
         $alias = is_null($alias) ? $column : $alias;
 
-        $lastId = 0;
+        $lastId = null;
 
         do {
             $clone = clone $this;
@@ -782,7 +784,7 @@ class Builder
      * Increment a column's value by a given amount.
      *
      * @param  string  $column
-     * @param  int  $amount
+     * @param  float|int  $amount
      * @param  array  $extra
      * @return int
      */
@@ -797,7 +799,7 @@ class Builder
      * Decrement a column's value by a given amount.
      *
      * @param  string  $column
-     * @param  int  $amount
+     * @param  float|int  $amount
      * @param  array  $extra
      * @return int
      */
@@ -1223,6 +1225,17 @@ class Builder
     }
 
     /**
+     * Qualify the given column name by the model's table.
+     *
+     * @param  string  $column
+     * @return string
+     */
+    public function qualifyColumn($column)
+    {
+        return $this->model->qualifyColumn($column);
+    }
+
+    /**
      * Get the given macro by name.
      *
      * @param  string  $name
@@ -1254,12 +1267,12 @@ class Builder
             return $this->localMacros[$method](...$parameters);
         }
 
-        if (isset(static::$macros[$method]) and static::$macros[$method] instanceof Closure) {
-            return call_user_func_array(static::$macros[$method]->bindTo($this, static::class), $parameters);
-        }
-
         if (isset(static::$macros[$method])) {
-            return call_user_func_array(static::$macros[$method]->bindTo($this, static::class), $parameters);
+            if (static::$macros[$method] instanceof Closure) {
+                return call_user_func_array(static::$macros[$method]->bindTo($this, static::class), $parameters);
+            }
+
+            return call_user_func_array(static::$macros[$method], $parameters);
         }
 
         if (method_exists($this->model, $scope = 'scope'.ucfirst($method))) {
@@ -1293,7 +1306,9 @@ class Builder
         }
 
         if (! isset(static::$macros[$method])) {
-            throw new BadMethodCallException("Method {$method} does not exist.");
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
         }
 
         if (static::$macros[$method] instanceof Closure) {

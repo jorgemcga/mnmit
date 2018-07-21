@@ -71,7 +71,6 @@ class PluralizationRules
             case 'vi':
             case 'zh':
                 return 0;
-                break;
 
             case 'af':
             case 'bn':
@@ -108,6 +107,7 @@ class PluralizationRules
             case 'nl':
             case 'nn':
             case 'no':
+            case 'oc':
             case 'om':
             case 'or':
             case 'pa':

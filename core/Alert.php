@@ -7,9 +7,6 @@ namespace Core;
  */
 class Alert
 {
-    //private static $email;
-    //private static $telegram;
-
     public function __construct()
     {
         return self::$this;

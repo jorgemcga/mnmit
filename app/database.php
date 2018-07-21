@@ -1,22 +1,19 @@
 <?php
 
 return [
-
     /* Options DataBase: MySQL, SQLite */
 
-    'driver' => 'mysql',
-
+    'driver' => DBDRIVER,
     'sqlite' => [
-        'database' => 'gerenciamento.db',
+        'database' => SQLITE_DB,
     ],
-
     'mysql' => [
-        'host' => 'localhost',
-        'database' => 'gerenciamento',
-        'user' => 'root',
-        'password' => '',
-        'charset' => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'port' => '3306'
+        'host' => MYSQL_HOST,
+        'database' => MYSQL_DB,
+        'user' => MYSQL_USER,
+        'password' => MYSQL_PASSWORD,
+        'charset' => MYSQL_CHARSET,
+        'collation' => MYSQL_COLLATION,
+        'port' => MYSQL_PORT
     ]
 ];

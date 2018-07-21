@@ -390,7 +390,7 @@ if (! function_exists('class_basename')) {
 
 if (! function_exists('class_uses_recursive')) {
     /**
-     * Returns all traits used by a class, its subclasses and trait of their traits.
+     * Returns all traits used by a class, its parent classes and trait of their traits.
      *
      * @param  object|string  $class
      * @return array
@@ -403,7 +403,7 @@ if (! function_exists('class_uses_recursive')) {
 
         $results = [];
 
-        foreach (array_merge([$class => $class], class_parents($class)) as $class) {
+        foreach (array_reverse(class_parents($class)) + [$class => $class] as $class) {
             $results += trait_uses_recursive($class);
         }
 
@@ -548,7 +548,7 @@ if (! function_exists('dd')) {
     /**
      * Dump the passed variables and end the script.
      *
-     * @param  mixed
+     * @param  mixed  $args
      * @return void
      */
     function dd(...$args)
@@ -566,15 +566,16 @@ if (! function_exists('e')) {
      * Escape HTML special characters in a string.
      *
      * @param  \Illuminate\Contracts\Support\Htmlable|string  $value
+     * @param  bool  $doubleEncode
      * @return string
      */
-    function e($value)
+    function e($value, $doubleEncode = true)
     {
         if ($value instanceof Htmlable) {
             return $value->toHtml();
         }
 
-        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', $doubleEncode);
     }
 }
 
@@ -623,7 +624,7 @@ if (! function_exists('env')) {
                 return;
         }
 
-        if (strlen($value) > 1 && Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
+        if (($valueLength = strlen($value)) > 1 && $value[0] === '"' && $value[$valueLength - 1] === '"') {
             return substr($value, 1, -1);
         }
 
@@ -715,11 +716,16 @@ if (! function_exists('optional')) {
      * Provide access to optional objects.
      *
      * @param  mixed  $value
+     * @param  callable|null  $callback
      * @return mixed
      */
-    function optional($value)
+    function optional($value = null, callable $callback = null)
     {
-        return new Optional($value);
+        if (is_null($callback)) {
+            return new Optional($value);
+        } elseif (! is_null($value)) {
+            return $callback($value);
+        }
     }
 }
 
@@ -864,7 +870,7 @@ if (! function_exists('str_is')) {
     /**
      * Determine if a given string matches a given pattern.
      *
-     * @param  string  $pattern
+     * @param  string|array  $pattern
      * @param  string  $value
      * @return bool
      */
@@ -1040,35 +1046,41 @@ if (! function_exists('tap')) {
 
 if (! function_exists('throw_if')) {
     /**
-     * Throw the given exception if the given boolean is true.
+     * Throw the given exception if the given condition is true.
      *
-     * @param  bool  $boolean
+     * @param  mixed  $condition
      * @param  \Throwable|string  $exception
      * @param  array  ...$parameters
-     * @return void
+     * @return mixed
+     * @throws \Throwable
      */
-    function throw_if($boolean, $exception, ...$parameters)
+    function throw_if($condition, $exception, ...$parameters)
     {
-        if ($boolean) {
+        if ($condition) {
             throw (is_string($exception) ? new $exception(...$parameters) : $exception);
         }
+
+        return $condition;
     }
 }
 
 if (! function_exists('throw_unless')) {
     /**
-     * Throw the given exception unless the given boolean is true.
+     * Throw the given exception unless the given condition is true.
      *
-     * @param  bool  $boolean
+     * @param  mixed  $condition
      * @param  \Throwable|string  $exception
      * @param  array  ...$parameters
-     * @return void
+     * @return mixed
+     * @throws \Throwable
      */
-    function throw_unless($boolean, $exception, ...$parameters)
+    function throw_unless($condition, $exception, ...$parameters)
     {
-        if (! $boolean) {
+        if (! $condition) {
             throw (is_string($exception) ? new $exception(...$parameters) : $exception);
         }
+
+        return $condition;
     }
 }
 

@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbcba9bf-0302-4ae6-a4b9-663e5c5ec922" name="Default" comment="" />
+    <list default="true" id="ab3930df-2087-458c-9914-3fd4bf04f039" name="Default" comment="" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <created>1502642788061</created>
+      <created>1532182167177</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1502642788061</updated>
+      <updated>1532182167177</updated>
     </task>
     <servers />
   </component>

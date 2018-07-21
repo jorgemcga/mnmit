@@ -9,6 +9,7 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '3f8bdd3b35094c73a26f0106e3c0f8b2' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/SendGrid.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -16,12 +17,15 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Translation\\' => 30,
+            'SendGrid\\Stats\\' => 15,
+            'SendGrid\\Mail\\' => 14,
+            'SendGrid\\Contacts\\' => 18,
+            'SendGrid\\' => 9,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
-            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'I' => 
         array (
@@ -37,7 +41,6 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         'C' => 
         array (
             'Core\\' => 5,
-            'Carbon\\' => 7,
         ),
         'A' => 
         array (
@@ -54,6 +57,23 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
+        'SendGrid\\Stats\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/stats',
+        ),
+        'SendGrid\\Mail\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/mail',
+        ),
+        'SendGrid\\Contacts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/contacts',
+        ),
+        'SendGrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
+            1 => __DIR__ . '/..' . '/sendgrid/sendgrid/lib',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
@@ -61,10 +81,6 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -90,14 +106,14 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         array (
             0 => __DIR__ . '/../..' . '/core',
         ),
-        'Carbon\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -105,6 +121,7 @@ class ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit7d571bbfb3c4255fcca87639c161e68b::$fallbackDirsPsr4;
 
         }, null, ClassLoader::class);
     }

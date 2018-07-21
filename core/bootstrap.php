@@ -5,8 +5,9 @@
 
     setlocale(LC_MONETARY, 'pt_BR.UTF-8');
 
-    //Obtendo a config
-    require_once __DIR__ . '/../app/config.php';
+    //Obtendo a configs
+    require_once __DIR__ . '/../app/config/config.php';
+    require_once __DIR__ . '/../app/config/config_monitor.php';
     
     //Obtendo Rotas
     $routes = require_once __DIR__ . '/../app/routes.php';
