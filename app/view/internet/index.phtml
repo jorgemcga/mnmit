@@ -9,6 +9,7 @@
                 </h1>
             </p>
         </div>
+        <?php if ($this->auth->type()) { ?>
         <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="run" onclick="location='internet/run'">
                 <i class="material-icons" style="font-size: 18px;">play_arrow</i>
@@ -17,6 +18,7 @@
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
+        <?php } ?>
     </div>
     <div class="row">
         <div class="col-md-12">

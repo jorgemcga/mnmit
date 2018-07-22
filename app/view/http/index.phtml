@@ -1,5 +1,6 @@
 <script type="text/javascript" src="<?php echo BASE_URL ?>/public/js/dataTableAply.js"></script>
 
+<?php if ($this->auth->type()) { ?>
 <div class="menu-barra">
     <ul class="nav justify-content-center bg-light">
         <li class="nav-item">
@@ -16,6 +17,7 @@
         </li>
     </ul>
 </div>
+<?php } ?>
 
 <div class="container-fluid">
     <div class="row">
@@ -27,6 +29,7 @@
                 </h1>
             </p>
         </div>
+        <?php if ($this->auth->type()) { ?>
         <div class="col-md-2 text-right mt-3">
             <button type="button" class="btn btn-outline-primary" title="run" onclick="location='http/run'">
                 <i class="material-icons" style="font-size: 18px;">play_arrow</i>
@@ -35,6 +38,7 @@
                 <i class="material-icons" style="font-size: 18px;">settings</i>
             </button>
         </div>
+        <?php } ?>
     </div>
     <div class="row">
         <div class="col-12 text-center">

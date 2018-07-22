@@ -115,13 +115,10 @@ $route[] = ['/gerenciamento/grupo/participante/adicionar', 'GrupoController@adic
 $route[] = ['/gerenciamento/grupo/participante/remover/{id}/{id}', 'GrupoController@removerParticipante', '1'];
 
 
-//$route[] = ['/monitoramento', 'MonitoramentoController@index', '0'];
 $route[] = ['/monitoramento/servidor', 'MonitoramentoController@servidor', '1'];
 $route[] = ['/monitoramento/servidor/config/{$id}', 'MonitoramentoController@config', '1'];
 $route[] = ['/monitoramento/servidor/salvar', 'MonitoramentoController@salvar', '1'];
 $route[] = ['/monitoramento/novo', 'MonitoramentoController@novo', '1'];
-
-//Cesar 21/06/2018
 $route[] = ['/monitoramento/start/{id}', 'MonitoramentoController@start', '1'];
 $route[] = ['/monitoramento/stop/{id}', 'MonitoramentoController@stop', '1'];
 $route[] = ['/monitoramento/run', 'MonitoramentoController@index', '0'];

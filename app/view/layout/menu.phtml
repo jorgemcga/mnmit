@@ -16,6 +16,7 @@
                     Dashboard
                 </a>
             </li>
+            <?php if ($this->auth->id()) { ?>
             <?php if ($this->auth->type()) { ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="gerenciamento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,6 +46,7 @@
                     </a>
                 </div>
             </li>
+            <?php } ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="monitoramento" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="material-icons">track_changes</i>
@@ -67,11 +69,13 @@
                         <i class="material-icons">share</i>
                         SNMP
                     </a>
+                    <?php if ($this->auth->type()) { ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php echo BASE_URL ?>/monitoramento/servidor">
                         <i class="material-icons">language</i>
                         Servidor Monitor
                     </a>
+                    <?php } ?>
                 </div>
             </li>
             <?php } ?>
