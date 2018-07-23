@@ -41,19 +41,6 @@ CREATE TABLE `agendador` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `agendador`
---
-
-INSERT INTO `agendador` (`id`, `minute`, `hour`, `day`, `month`, `week`, `tipo`, `status`, `created_at`, `updated_at`) VALUES
-(1, '*', '*', '*', '*', '*', 'icmp', '0', '2017-10-21 18:21:00', '2018-05-09 12:00:49'),
-(2, '*', '*', '*', '*', '*', 'http', '1', '2017-11-02 18:04:39', '2018-05-10 14:37:18'),
-(3, '*', '*', '*', '*', '*', 'snmp', '1', '2017-11-05 09:22:18', '2018-05-10 14:38:37'),
-(5, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:40', '2018-05-10 14:22:40'),
-(6, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:50', '2018-05-10 14:22:50'),
-(7, '*', '*', '*', '*', '*', '', '1', '2018-05-10 14:22:54', '2018-05-10 14:22:54'),
-(10, '0', '0', '*', '*', '*', 'internet', '1', '2018-05-10 14:24:33', '2018-05-10 14:24:33');
-
 -- --------------------------------------------------------
 
 --
@@ -76,14 +63,6 @@ CREATE TABLE `ativo` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `ativo`
---
-
-INSERT INTO `ativo` (`id`, `nrpatrimonio`, `nome`, `tag`, `descricao`, `datacompra`, `categoria_ativo_id`, `so_id`, `serial`, `modelo_id`, `usuario_id`, `created_at`, `updated_at`) VALUES
-(1, '1', 'Notebook Acer', 'ES1-572-32LD', '', '2017-08-11', 1, 3, 'Y2F7C-N2PMX-VT48Y-77Y7K-WTYP6', 1, 1, NULL, NULL),
-(4, '', 'Impressora Brother', '', '', '0000-00-00', 3, 0, '', 0, 0, '2017-11-05 16:40:28', '2017-11-05 16:40:28');
-
 -- --------------------------------------------------------
 
 --
@@ -96,14 +75,6 @@ CREATE TABLE `ativo_oid` (
   `ip` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `ativo_oid`
---
-
-INSERT INTO `ativo_oid` (`oid_id`, `ativo_id`, `ip`) VALUES
-(2, 4, '192.168.2.47'),
-(3, 5, '192.168.2.113');
-
 -- --------------------------------------------------------
 
 --
@@ -114,17 +85,6 @@ CREATE TABLE `categoria_ativo` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `categoria_ativo`
---
-
-INSERT INTO `categoria_ativo` (`id`, `nome`) VALUES
-(1, 'Notebook'),
-(2, 'Desktop'),
-(3, 'Impressora'),
-(4, 'Switch'),
-(5, 'Access Point');
 
 -- --------------------------------------------------------
 
@@ -139,15 +99,6 @@ CREATE TABLE `categoria_componente` (
   `sigla_valor` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `categoria_componente`
---
-
-INSERT INTO `categoria_componente` (`id`, `nome`, `tipo_valor`, `sigla_valor`) VALUES
-(1, 'Disco Rígido Físico1', 'GigaBytes', 'GB'),
-(2, 'Memória DDR4', 'GigaBytes', 'GB'),
-(3, 'Processador', 'GigaHertz', 'GHz');
-
 -- --------------------------------------------------------
 
 --
@@ -158,15 +109,6 @@ CREATE TABLE `categoria_equipamento` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `categoria_equipamento`
---
-
-INSERT INTO `categoria_equipamento` (`id`, `nome`) VALUES
-(1, 'Teclado'),
-(3, 'Mouse'),
-(4, 'Fones de Ouvido');
 
 -- --------------------------------------------------------
 
@@ -179,14 +121,6 @@ CREATE TABLE `categoria_licenca` (
   `nome` varchar(255) NOT NULL,
   `sigla` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `categoria_licenca`
---
-
-INSERT INTO `categoria_licenca` (`id`, `nome`, `sigla`) VALUES
-(1, 'GNU General Public License', 'GPL'),
-(2, 'GNU Lesser General Public License', 'LGPL');
 
 -- --------------------------------------------------------
 
@@ -203,14 +137,6 @@ CREATE TABLE `componente` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `componente`
---
-
-INSERT INTO `componente` (`id`, `nome`, `valor`, `categoria_componente_id`, `ativo_id`, `created_at`, `updated_at`) VALUES
-(1, 'Disco Rídigo', '970', 1, 0, NULL, NULL),
-(2, 'Memória 2', '2', 2, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -229,14 +155,6 @@ CREATE TABLE `equipamento` (
   `update_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `equipamento`
---
-
-INSERT INTO `equipamento` (`id`, `nrpatrimonio`, `nome`, `datacompra`, `categoria_equipamento_id`, `usuario_id`, `created_at`, `update_at`) VALUES
-(1, '1', 'Teclado Reserva', '2017-08-31', 1, 2, NULL, NULL),
-(2, '', 'Mouse sem Fio', '2017-01-01', 3, 2, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -249,15 +167,6 @@ CREATE TABLE `fabricante` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `fabricante`
---
-
-INSERT INTO `fabricante` (`id`, `nome`, `created_at`, `updated_at`) VALUES
-(1, 'Acer', NULL, NULL),
-(3, 'Asus', NULL, NULL),
-(4, 'Dell', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -274,14 +183,6 @@ CREATE TABLE `grupo` (
   `telegram_group` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `grupo`
---
-
-INSERT INTO `grupo` (`id`, `nome`, `created_at`, `updated_at`, `email`, `telegram_group`) VALUES
-(1, 'Monitoramento', '2017-09-17 19:17:59', '2018-05-10 20:13:19', 'monitoramento@vector.com.br', '-231213341'),
-(2, 'Telemetria', '2017-09-17 19:17:59', '2018-05-09 17:21:42', 'telemetria@sisani.com.br', '-231213341');
-
 -- --------------------------------------------------------
 
 --
@@ -292,14 +193,6 @@ CREATE TABLE `grupo_categoria_ativo` (
   `grupo_id` int(11) NOT NULL,
   `categoria_ativo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `grupo_categoria_ativo`
---
-
-INSERT INTO `grupo_categoria_ativo` (`grupo_id`, `categoria_ativo_id`) VALUES
-(1, 3),
-(1, 5);
 
 -- --------------------------------------------------------
 
@@ -315,30 +208,6 @@ CREATE TABLE `http` (
   `site_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `http`
---
-
-INSERT INTO `http` (`status`, `descricao`, `created_at`, `updated_at`, `site_id`) VALUES
-('1', 'Acessivel', '2017-11-02 18:16:06', '2017-11-02 18:16:06', 1),
-('0', 'Acessível', '2017-11-03 13:11:40', '2017-11-03 13:11:40', 2),
-('0', 'Acessível', '2017-11-03 13:11:40', '2017-11-03 13:11:40', 1),
-('0', 'Acessível', '2017-11-03 18:15:42', '2017-11-03 18:15:42', 1),
-('0', 'Acessível', '2017-11-03 18:15:48', '2017-11-03 18:15:48', 2),
-('0', 'Acessível', '2017-11-03 18:15:50', '2017-11-03 18:15:50', 3),
-('0', 'Acessível', '2017-11-04 14:16:14', '2017-11-04 14:16:14', 1),
-('0', 'Acessível', '2017-11-04 14:16:15', '2017-11-04 14:16:15', 2),
-('0', 'Acessível', '2017-11-04 14:16:16', '2017-11-04 14:16:16', 3),
-('0', 'Acessível', '2017-11-04 15:19:22', '2017-11-04 15:19:22', 1),
-('0', 'Acessível', '2017-11-04 15:19:22', '2017-11-04 15:19:22', 2),
-('0', 'Acessível', '2017-11-04 15:19:23', '2017-11-04 15:19:23', 3),
-('0', 'Acessível', '2017-11-05 12:32:45', '2017-11-05 12:32:45', 1),
-('0', 'Acessível', '2017-11-05 12:32:45', '2017-11-05 12:32:45', 2),
-('0', 'Acessível', '2017-11-05 12:32:46', '2017-11-05 12:32:46', 3),
-('0', 'Acessível', '2018-05-08 18:57:31', '2018-05-08 18:57:31', 1),
-('0', 'Acessível', '2018-05-08 18:57:31', '2018-05-08 18:57:31', 2),
-('0', 'Acessível', '2018-05-08 18:57:32', '2018-05-08 18:57:32', 3);
-
 -- --------------------------------------------------------
 
 --
@@ -352,75 +221,6 @@ CREATE TABLE `icmp` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `interface_rede_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `icmp`
---
-
-INSERT INTO `icmp` (`status`, `descricao`, `created_at`, `updated_at`, `interface_rede_id`) VALUES
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 02:46:50', '2017-10-24 02:46:50', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 02:47:09', '2017-10-24 02:47:09', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 02:48:20', '2017-10-24 02:48:20', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 02:50:44', '2017-10-24 02:50:44', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 12:23:57', '2017-10-24 12:23:57', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-24 13:24:33', '2017-10-24 13:24:33', 1),
-('0', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nResposta de 192.168.101.89: Host de destino inacess?vel.\nResposta de 192.168.101.89: Host de destino inacess?vel.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 2, Perdidos = 2 (50% de\n             perda),\n\'', '2017-10-24 14:50:02', '2017-10-24 14:50:02', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-25 13:39:34', '2017-10-25 13:39:34', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-25 14:44:33', '2017-10-25 14:44:33', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-27 02:10:09', '2017-10-27 02:10:09', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-27 22:37:56', '2017-10-27 22:37:56', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-27 23:39:33', '2017-10-27 23:39:33', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-28 00:39:34', '2017-10-28 00:39:34', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-28 14:15:42', '2017-10-28 14:15:42', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-28 17:14:57', '2017-10-28 17:14:57', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-28 18:15:20', '2017-10-28 18:15:20', 1),
-('1', '\'\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n\'', '2017-10-28 19:15:19', '2017-10-28 19:15:19', 1),
-('1', '\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n', '2017-10-28 20:15:20', '2017-10-28 20:15:20', 1),
-('1', '\nDisparando 192.168.2.11 com 32 bytes de dados:\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\nEsgotado o tempo limite do pedido.\n\nEstat?sticas do Ping para 192.168.2.11:\n    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de\n             perda),\n', '2017-10-28 20:40:19', '2017-10-28 20:40:19', 1),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 20:52:34', '2017-10-28 20:52:34', 1),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 21:37:40', '2017-10-28 21:37:40', 1),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 21:41:22', '2017-10-28 21:41:22', 1),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 21:43:40', '2017-10-28 21:43:40', 1),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 21:47:06', '2017-10-28 21:47:06', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 21:47:25', '2017-10-28 21:47:25', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 22:55:36', '2017-10-28 22:55:36', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-28 22:55:55', '2017-10-28 22:55:55', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 14:56:13', '2017-10-29 14:56:13', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 14:56:32', '2017-10-29 14:56:32', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 16:00:23', '2017-10-29 16:00:23', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 16:00:42', '2017-10-29 16:00:42', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 17:15:20', '2017-10-29 17:15:20', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-29 17:15:39', '2017-10-29 17:15:39', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 12:41:13', '2017-10-31 12:41:13', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 12:41:32', '2017-10-31 12:41:32', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 14:35:22', '2017-10-31 14:35:22', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 14:35:41', '2017-10-31 14:35:41', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 15:36:14', '2017-10-31 15:36:14', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-10-31 15:36:33', '2017-10-31 15:36:33', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-01 01:35:30', '2017-11-01 01:35:30', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-01 01:35:50', '2017-11-01 01:35:50', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-01 02:40:20', '2017-11-01 02:40:20', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-01 02:40:40', '2017-11-01 02:40:40', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-02 18:26:39', '2017-11-02 18:26:39', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br>Resposta de 192.168.0.3: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-02 18:26:52', '2017-11-02 18:26:52', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:07:18', '2017-11-03 13:07:18', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:07:37', '2017-11-03 13:07:37', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:08:25', '2017-11-03 13:08:25', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:08:45', '2017-11-03 13:08:45', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:11:20', '2017-11-03 13:11:20', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 13:11:39', '2017-11-03 13:11:39', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 18:15:20', '2017-11-03 18:15:20', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-03 18:15:39', '2017-11-03 18:15:39', 2),
-('1', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-04 14:15:51', '2017-11-04 14:15:51', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-04 14:16:10', '2017-11-04 14:16:10', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-04 15:19:01', '2017-11-04 15:19:01', 1),
-('1', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br>Esgotado o tempo limite do pedido.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 0, Perdidos = 4 (100% de<br>             perda),<br>', '2017-11-04 15:19:20', '2017-11-04 15:19:20', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-05 12:32:32', '2017-11-05 12:32:32', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br>Resposta de 192.168.2.99: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2017-11-05 12:32:44', '2017-11-05 12:32:44', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2018-05-08 17:55:31', '2018-05-08 17:55:31', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.9: bytes=32 tempo=56ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>Aproximar um n?mero redondo de vezes em milissegundos:<br>    M?nimo = 9ms, M?ximo = 56ms, M?dia = 21ms<br>', '2018-05-08 17:55:34', '2018-05-08 17:55:34', 2),
-('0', '<br>Disparando 192.168.2.11 com 32 bytes de dados:<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br>Resposta de 192.168.2.232: Host de destino inacess?vel.<br><br>Estat?sticas do Ping para 192.168.2.11:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>', '2018-05-08 18:50:18', '2018-05-08 18:50:18', 1),
-('0', '<br>Disparando 192.168.2.9 com 32 bytes de dados:<br>Resposta de 192.168.2.9: bytes=32 tempo=40ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=11ms TTL=255<br>Resposta de 192.168.2.9: bytes=32 tempo=9ms TTL=255<br><br>Estat?sticas do Ping para 192.168.2.9:<br>    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de<br>             perda),<br>Aproximar um n?mero redondo de vezes em milissegundos:<br>    M?nimo = 9ms, M?ximo = 40ms, M?dia = 17ms<br>', '2018-05-08 18:50:21', '2018-05-08 18:50:21', 2);
 
 -- --------------------------------------------------------
 
@@ -441,16 +241,6 @@ CREATE TABLE `interface_rede` (
   `ativo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `interface_rede`
---
-
-INSERT INTO `interface_rede` (`id`, `hostname`, `ip`, `mascara`, `gateway`, `dns1`, `dns2`, `macaddress`, `monitorar`, `ativo_id`) VALUES
-(1, 'NOTE_JMA', '192.168.2.11', '255.255.255.0', '192.196.2.10', '192.168.2.8', '192.168.2.7', '5C-C9-D3-88-2B-BF', '1', 1),
-(2, 'DESK_FAMILIA', '192.168.2.9', '255.255.255.0', '192.196.2.10', '192.168.2.8', '192.168.2.7', '5C-C9-D3-88-2B-BF', '1', 2),
-(3, 'NOTE_JMA', '192.168.0.10', '255.255.255.0', '192.168.0.5', '192.168.0.4', '192.168.0.3', '5C-C9-D3-88-2B-BF', '0', 1),
-(4, 'PRINTER_BROTHER', '192.168.2.47', '255.255.255.0', '192.168.2.10', '', '', '', '1', 4);
-
 -- --------------------------------------------------------
 
 --
@@ -464,19 +254,6 @@ CREATE TABLE `internet` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `internet`
---
-
-INSERT INTO `internet` (`ping`, `download`, `upload`, `created_at`, `updated_at`) VALUES
-(54.632, 0.78, 0.45, '2017-11-05 18:45:55', '2017-11-05 18:45:55'),
-(110.906, 0.7, 0.45, '2017-11-05 18:50:00', '2017-11-05 18:50:00'),
-(NULL, NULL, NULL, '2018-05-08 17:19:51', '2018-05-08 17:19:51'),
-(NULL, NULL, NULL, '2018-05-08 17:59:16', '2018-05-08 17:59:16'),
-(NULL, NULL, NULL, '2018-05-08 20:09:53', '2018-05-08 20:09:53'),
-(NULL, NULL, NULL, '2018-05-09 11:59:06', '2018-05-09 11:59:06');
-
 -- --------------------------------------------------------
 
 --
@@ -493,13 +270,6 @@ CREATE TABLE `licenca` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `licenca`
---
-
-INSERT INTO `licenca` (`id`, `nome`, `serial`, `datacompra`, `datavence`, `categoria_licenca_id`, `created_at`, `updated_at`) VALUES
-(1, 'Xen1 Licença', 'N/A', '2017-09-09', '2018-09-09', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -530,18 +300,6 @@ CREATE TABLE `manutencao` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `manutencao`
---
-
-INSERT INTO `manutencao` (`id`, `descricao`, `datainicio`, `datafim`, `status`, `ativo_id`, `created_at`, `updated_at`) VALUES
-(1, 'teste', '2017-08-31 23:00:00', '2017-09-02 23:00:00', '3', 1, NULL, '2017-09-23 22:55:19'),
-(2, 'teste2', '2018-02-21 21:11:00', '2018-02-21 20:20:00', '4', 1, NULL, NULL),
-(3, 'Ainda em produção', '2017-09-01 10:00:43', '0000-00-00 00:00:00', '0', 2, NULL, NULL),
-(4, 'Teste', '2017-09-16 13:39:04', '2017-09-16 13:39:04', '0', 1, NULL, NULL),
-(5, 'Teste', '2017-09-23 16:50:43', '2017-09-24 00:00:00', '0', 1, NULL, NULL),
-(6, 'teste', '2018-05-08 14:24:26', '2018-05-09 00:00:00', '0', 4, '2018-05-08 17:24:29', '2018-05-08 17:24:29');
-
 -- --------------------------------------------------------
 
 --
@@ -553,16 +311,6 @@ CREATE TABLE `modelo` (
   `nome` varchar(255) NOT NULL,
   `fabricante_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `modelo`
---
-
-INSERT INTO `modelo` (`id`, `nome`, `fabricante_id`) VALUES
-(1, 'Aspire ES 15', 1),
-(2, 'Inspirion 15 1550', 4),
-(4, 'P5L-MX', 3),
-(5, 'Latitude E5530', 4);
 
 -- --------------------------------------------------------
 
@@ -580,13 +328,6 @@ CREATE TABLE `monitor` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `monitor`
---
-
-INSERT INTO `monitor` (`id`, `nome`, `status`, `plataforma`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'Servidor de Monitoramento', '0', 'Windows', 'jorge_miguelcga@hotmail.com', '2017-10-21 17:07:53', '2018-05-08 18:51:47');
-
 -- --------------------------------------------------------
 
 --
@@ -603,15 +344,6 @@ CREATE TABLE `oid` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `oid`
---
-
-INSERT INTO `oid` (`id`, `nome`, `oid`, `versao`, `string`, `created_at`, `updated_at`) VALUES
-(1, 'Total de Impressões', '2385.1.1.19.2.1.3.1.4.60', 'SNMP::VERSION_2C', 'enterprises', '2017-11-04 15:27:36', '2017-11-04 15:27:36'),
-(2, 'Total de Páginas', 'iso.3.6.1.2.1.43.10.2.1.4.1.1', 'SNMP::VERSION_2C', 'public', '2017-11-05 16:42:24', '2017-11-05 16:42:24'),
-(3, 'TesteRadio', '.1.3.6.1.2.1.2.2.1.5', 'SNMP::VERSION_2C', 'public', '2018-05-09 12:36:17', '2018-05-09 12:36:17');
-
 -- --------------------------------------------------------
 
 --
@@ -625,15 +357,6 @@ CREATE TABLE `site` (
   `usuario` varchar(255) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `site`
---
-
-INSERT INTO `site` (`id`, `url`, `nome`, `usuario`, `senha`) VALUES
-(1, 'https://pt-br.facebook.com/', 'Facebook', NULL, NULL),
-(2, 'https://www.google.com.br', 'Google', NULL, NULL),
-(3, 'https://vectoreng.ddns.net:10443/cgi-bin/dnat.cgi', 'Firewall Vector', 'admin', '34wbi8v&1d6fm4m');
 
 -- --------------------------------------------------------
 
@@ -649,13 +372,6 @@ CREATE TABLE `snmp` (
   `ativo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `snmp`
---
-
-INSERT INTO `snmp` (`valor`, `created_at`, `updated_at`, `oid_id`, `ativo_id`) VALUES
-('26804', '2017-11-05 17:13:40', '2017-11-05 17:13:40', 2, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -669,15 +385,6 @@ CREATE TABLE `so` (
   `arq` varchar(45) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `so`
---
-
-INSERT INTO `so` (`id`, `nome`, `versao`, `arq`, `path`) VALUES
-(4, 'Windows 10 Pro', '1607', NULL, NULL),
-(5, 'Windows 7 Professional', '', NULL, NULL),
-(6, 'Debian', '8.7', '64 bits', '\\\\backup\\iso');
 
 -- --------------------------------------------------------
 
@@ -695,15 +402,6 @@ CREATE TABLE `usuario` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`id`, `name`, `email`, `password`, `type`, `created_at`, `updated_at`) VALUES
-(1, 'Administrador', 'vector.zabbix@gmail.com', '$2y$10$Z43QAGegqcKu4jH37vGCs.LG2zc2zlG4bjAPfsOoEN0AHgilU8RMu', '1', '2017-09-17 22:55:49', '2018-05-10 20:13:07'),
-(2, 'Jorge M. Abdalla', 'jorge_miguelcga@hotmail.com', '$2y$10$2JwaHvidutczU4fXUNenEunBTVEGdFzS5PWQCq9CC5EpWgRGBDysC', '1', '2017-09-17 22:59:57', '2018-05-09 13:59:09'),
-(3, 'Usuário', 'usuario@user.com', '$2y$10$WILWWkZ6GwxjMiv8Dd01lewsZnfhOwMFFo5x5/SVHgi36jdbHszIy', '0', '2017-09-25 01:56:08', '2018-05-09 14:03:24');
-
 -- --------------------------------------------------------
 
 --
@@ -714,14 +412,6 @@ CREATE TABLE `usuario_grupo` (
   `usuario_id` int(11) NOT NULL,
   `grupo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `usuario_grupo`
---
-
-INSERT INTO `usuario_grupo` (`usuario_id`, `grupo_id`) VALUES
-(1, 1),
-(2, 1);
 
 --
 -- Indexes for dumped tables
