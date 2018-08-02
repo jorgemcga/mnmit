@@ -12,7 +12,7 @@
     <!--<GERENCIAMENTO>-->
     <div class="row mt-5 box">
         <div class="col-md-3">
-            <div class="card bg-primary text-white">
+            <div class="card bg-primary text-white clicavel" onclick="location='gerenciamento/ativo'">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-4">
@@ -29,17 +29,12 @@
                                 </span>
                             </span>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-primary clicavel" title="Ver lista" onclick="location='gerenciamento/ativo'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-info text-white">
+            <div class="card bg-info text-white clicavel" onclick="location='gerenciamento/componente'">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-3">
@@ -57,7 +52,7 @@
                             </span>
                         </div>
                         <div class="col-md-1 text-right">
-                            <span class="badge badge-pill badge-light text-info clicavel" title="Ver lista" onclick="location='gerenciamento/componente'">
+                            <span class="badge badge-pill badge-light text-info clicavel" title="Ver lista">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
@@ -66,7 +61,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-success text-white">
+            <div class="card bg-success text-white clicavel" onclick="location='gerenciamento/equipamento'">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-3">
@@ -83,17 +78,12 @@
                                 </span>
                             </span>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='gerenciamento/equipamento'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-danger text-white">
+            <div class="card bg-danger text-white clicavel" onclick="location='gerenciamento/licenca'">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-4">
@@ -110,11 +100,6 @@
                                 </span>
                             </span>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-danger clicavel" title="Ver lista" onclick="location='gerenciamento/licenca'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -125,19 +110,14 @@
     <!--<MONITORAMENTO>-->
     <div class="row mt-5 box">
         <div class="col-md-4">
-            <div class="card bg-primary">
+            <div class="card bg-primary clicavel" onclick="location='monitoramento/internet'">
                 <div class="card-header text-white">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <h4>
                                 <i class="material-icons" style="font-size: 28px;">public</i>
                                 Velocidade da Internet
                             </h4>
-                        </div>
-                        <div class="col-md-2  text-right">
-                            <span class="badge badge-pill text-primary badge-light clicavel" title="Ver lista" onclick="location='monitoramento/internet'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
                         </div>
                     </div>
                     <br>
@@ -158,19 +138,14 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-success text-white">
+            <div class="card bg-success text-white clicavel" onclick="location='monitoramento/http'">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <h4>
                                 <i class="material-icons" style="font-size: 28px;">http</i>
                                 HTTP/HTTPS
                             </h4>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='monitoramento/http'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
                         </div>
                     </div>
                     <br>
@@ -192,19 +167,14 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card bg-info text-white">
+            <div class="card bg-info text-white clicavel" onclick="location='monitoramento/icmp'">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             <h4>
                                 <i class="material-icons" style="font-size: 28px;">drafts</i>
                                 IMCP (Ping)
                             </h4>
-                        </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='monitoramento/icmp'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
                         </div>
                     </div>
                     <br>
