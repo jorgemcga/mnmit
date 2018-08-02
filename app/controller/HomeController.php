@@ -43,10 +43,8 @@ class HomeController extends Controller {
 
     }
 
-    public function index(){
-
-        $this->view->nome = "Dashboard";
-
+    public function index()
+    {
         @$this->view->contador->ativos = $this->ativo->count();
         @$this->view->contador->ativos->monitorados = $this->ativo->where("id",1)->count();
         @$this->view->contador->ativos->naoMonitorados = $this->ativo->where("id", 0)->count();
@@ -56,20 +54,16 @@ class HomeController extends Controller {
 
         $this->view->contador->internet = $this->internet->first();
 
-        //PING
-        $access = 0;
-        $inacess = 0;
-
         $interfaces = $this->interface->where("monitorar", 1)->get();
 
-        foreach ($interfaces as $interface) {
-            $ping = $this->ping->where("interface_rede_id", "$interface->id")->orderBy("updated_at", "desc")->first();
-            $ping->status == 0 ? $access++ : $inacess++;
-        }
+        $this->view->ativosOff = null;
+        $this->view->ativosO = null;
 
-        @$this->view->contador->ping->acessiveis = $access ;
-        @$this->view->contador->ping->inacessiveis = $inacess;
-        //PING
+        foreach ($interfaces as $interface)
+        {
+            $ping = $this->ping->where("interface_rede_id", "$interface->id")->orderBy("updated_at", "desc")->first();
+            $ping->status ? $this->view->ativosOff[] = $ping : $this->view->ativosOn[] = $ping;
+        }
 
         //HTTP
         $access = 0;
@@ -88,7 +82,7 @@ class HomeController extends Controller {
         //HTTP
 
         $this->setPageTitle("Dashboard");
-        $this->setView("home/index", "layout/index");
+        $this->setView("home/dashboard", "layout/index");
     }
 
     public function dashboard(){

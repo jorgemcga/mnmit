@@ -1,138 +1,130 @@
-<div class="container-fluid">
-    <br>
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-12">
             <h1>
                 <i class="material-icons" style="font-size: 38px">donut_large</i>
-                <?php echo $this->view->nome; ?>
+                Dashboard
             </h1>
         </div>
     </div>
-    <br>
-</div>
 
-<!--<GERENCIAMENTO>-->
-<div class="container-fluid box">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="">
-                <i class="material-icons" style="font-size: 34px">view_quilt</i>
-                Gerenciamento
-            </h2>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12 mt-3">
-            <div class="card bg-primary">
-                <div class="card-header text-white">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h4>
-                                <i class="material-icons" style="font-size: 28px;">devices</i>
-                                Ativos
-                                <span class="badge badge-pill badge-light text-primary"><?php echo $this->view->contador->ativos ?></span>
-                            </h4>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-primary clicavel" title="Ir para Ativos" onclick="location='gerenciamento/ativo'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div id="body-ativo" class="card-body collapse  bg-white">
-                        <h5>
-                            Monitorados:
-                            <?php echo $this->view->contador->ativos->monitorados; ?>
-                        </h5>
-                        <h5>
-                            Não Monitorados:
-                            <?php echo $this->view->contador->ativos->naoMonitorados; ?>
-                        </h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 mt-3">
-            <div class="card bg-info text-white clicavel">
+    <?php if ($this->auth->type()) { ?>
+    <!--<GERENCIAMENTO>-->
+    <div class="row mt-5 box">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h4>
-                                <i class="material-icons" style="font-size: 28px;">memory</i>
-                                Componentes
-                                <span class="badge badge-pill badge-light text-info"><?php echo $this->view->contador->componentes ?></span>
-                            </h4>
+                        <div class="col-md-4">
+                            <i class="material-icons" style="font-size: 78px;">devices</i>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-info clicavel" title="Ir para Componentes" onclick="location='gerenciamento/componente'">
+                        <div class="col-md-6 text-center">
+                            <h4>
+                                <span style="font-size: 28px"> Ativos </span>
+                            </h4>
+                            <br>
+                            <span class="badge badge-pill badge-light text-primary" style="font-size: 20px">
+                                <span class="badge badge-pill badge-light text-primary">
+                                    <?php echo $this->view->contador->ativos ?>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <span class="badge badge-pill badge-light text-primary clicavel" title="Ver lista" onclick="location='gerenciamento/ativo'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div id="body-componente" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-        <div class="col-md-12 mt-3">
-            <div class="card bg-success text-white clicavel">
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h4>
-                                <i class="material-icons" style="font-size: 28px;">keyboard</i>
-                                Equipamentos
-                                <span class="badge badge-pill badge-light text-success"><?php echo $this->view->contador->equipamentos ?></span>
-                            </h4>
+                        <div class="col-md-3">
+                            <i class="material-icons" style="font-size: 78px;">memory</i>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-success clicavel" title="Ir para Equipamentos" onclick="location='gerenciamento/equipamento'">
+                        <div class="col-md-7 text-center">
+                            <h4>
+                                <span style="font-size: 24px"> Componentes </span>
+                            </h4>
+                            <br>
+                            <span class="badge badge-pill badge-light text-info" style="font-size: 20px">
+                                <span class="badge badge-pill badge-light text-info">
+                                    <?php echo $this->view->contador->componentes ?>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <span class="badge badge-pill badge-light text-info clicavel" title="Ver lista" onclick="location='gerenciamento/componente'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div id="body-equipamento" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-        <div class="col-md-12 mt-3">
-            <div class="card bg-danger text-white clicavel">
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h4>
-                                <i class="material-icons" style="font-size: 28px;">copyright</i>
-                                Licenças
-                                <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas ?></span>
-                            </h4>
+                        <div class="col-md-3">
+                            <i class="material-icons" style="font-size: 78px">keyboard</i>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-danger clicavel" title="Ir para Licenças" onclick="location='gerenciamento/licenca'">
+                        <div class="col-md-7 text-center">
+                            <h4>
+                                <span style="font-size: 24px"> Equipamentos </span>
+                            </h4>
+                            <br>
+                            <span class="badge badge-pill badge-light text-success" style="font-size: 20px">
+                                <span class="badge badge-pill badge-light text-success">
+                                    <?php echo $this->view->contador->equipamentos ?>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='gerenciamento/equipamento'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div id="body-licenca" class="card-body collapse  bg-white"></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="material-icons" style="font-size: 78px">copyright</i>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h4>
+                                <span style="font-size: 28px"> Licenças </span>
+                            </h4>
+                            <br>
+                            <span class="badge badge-pill badge-light text-danger" style="font-size: 20px">
+                                <span class="badge badge-pill badge-light text-danger">
+                                    <?php echo $this->view->contador->licencas ?>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <span class="badge badge-pill badge-light text-danger clicavel" title="Ver lista" onclick="location='gerenciamento/licenca'">
+                                <i class="material-icons" style="font-size: 14px">call_made</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <br>
-</div>
-<!--</GERENCIAMENTO>-->
-<!--<MONITORAMENTO>-->
-<div class="container-fluid box mt-3">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="">
-                <i class="material-icons" style="font-size: 34px">slow_motion_video</i>
-                Monitoramento
-            </h2>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12 mt-3">
+    <?php } ?>
+
+    <!--<MONITORAMENTO>-->
+    <div class="row mt-5 box">
+        <div class="col-md-4">
             <div class="card bg-primary">
                 <div class="card-header text-white">
                     <div class="row">
@@ -141,12 +133,23 @@
                                 <i class="material-icons" style="font-size: 28px;">public</i>
                                 Velocidade da Internet
                             </h4>
-                            <span class="badge badge-pill badge-light text-primary" title="download"><?php echo $this->view->contador->internet->download ?>Mbit/s</span>
-                                <span class="badge badge-pill badge-light text-primary" title="upload"><?php echo $this->view->contador->internet->upload ?>Mbit/s</span>
                         </div>
-                        <div class="col-md-2 text-right">
-                            <span class="badge badge-pill badge-light text-primary clicavel" title="Ir para Ativos" onclick="location='monitoramento/internet'">
+                        <div class="col-md-2  text-right">
+                            <span class="badge badge-pill text-primary badge-light clicavel" title="Ver lista" onclick="location='monitoramento/internet'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row text-left">
+                        <div class="col-md-6">
+                            <span class="badge badge-pill badge-light text-primary" style="font-size: 16px" title="download">
+                                Download: <?php echo $this->view->contador->internet->download ?>Mbit/s
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="badge badge-pill badge-light text-primary" style="font-size: 16px" title="upload">
+                                Upload: <?php echo $this->view->contador->internet->upload ?>Mbit/s
                             </span>
                         </div>
                     </div>
@@ -154,84 +157,124 @@
                 <div id="body-ativo" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-        <div class="col-md-12 mt-3">
-            <div class="card bg-info text-white">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h4>
-                                <i class="material-icons" style="font-size: 28px;">drafts</i>
-                                IMCP (Ping)
-                                <span class="badge badge-pill badge-light text-info">
-                                    <i class="material-icons text-success" title="Acessíveis">check</i>
-                                    <?php echo $this->view->contador->ping->acessiveis ?>
-                                </span>
-                                <span class="badge badge-pill badge-light text-info">
-                                    <i class="material-icons text-danger" title="Inacessíveis">clear</i>
-                                    <?php echo $this->view->contador->ping->inacessiveis ?>
-                                </span>
-                            </h4>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-info clicavel" title="Ir para Componentes" onclick="location='monitoramento/icmp'">
-                                <i class="material-icons" style="font-size: 14px">call_made</i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div id="body-componente" class="card-body collapse  bg-white"></div>
-            </div>
-        </div>
-        <div class="col-md-12 mt-3">
+        <div class="col-md-4">
             <div class="card bg-success text-white">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <h4>
                                 <i class="material-icons" style="font-size: 28px;">http</i>
                                 HTTP/HTTPS
-                                <span class="badge badge-pill badge-light text-info">
-                                    <i class="material-icons text-success" title="Acessíveis">check</i>
-                                    <?php echo $this->view->contador->http->acessiveis ?>
-                                </span>
-                                <span class="badge badge-pill badge-light text-info">
-                                    <i class="material-icons text-danger" title="Inacessíveis">clear</i>
-                                    <?php echo $this->view->contador->http->inacessiveis ?>
-                                </span>
                             </h4>
                         </div>
-                        <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-success clicavel" title="Ir para Equipamentos" onclick="location='monitoramento/http'">
+                        <div class="col-md-2 text-right">
+                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='monitoramento/http'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="badge badge-pill badge-light text-info" style="font-size: 16px">
+                                <i class="material-icons text-success" style="font-size: 19px" title="Acessíveis">check</i>
+                                Acessíveis: <?php echo $this->view->contador->http->acessiveis ?>
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="badge badge-pill badge-light text-info" style="font-size: 16px">
+                                <i class="material-icons text-danger" style="font-size: 19px" title="Inacessíveis">clear</i>
+                                Inacessíveis: <?php echo $this->view->contador->http->inacessiveis ?>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div id="body-equipamento" class="card-body collapse  bg-white"></div>
             </div>
         </div>
-        <div class="col-md-12 mt-3">
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h4>
+                                <i class="material-icons" style="font-size: 28px;">drafts</i>
+                                IMCP (Ping)
+                            </h4>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <span class="badge badge-pill badge-light text-success clicavel" title="Ver lista" onclick="location='monitoramento/icmp'">
+                                <i class="material-icons" style="font-size: 14px">call_made</i>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="badge badge-pill badge-light text-info" style="font-size: 16px">
+                                <i class="material-icons text-success" style="font-size: 19px" title="Acessíveis">check</i>
+                                Acessíveis: <?php echo count($this->view->ativosOn) ?>
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                             <span class="badge badge-pill badge-light text-info" style="font-size: 16px">
+                                 <i class="material-icons text-danger" style="font-size: 19px" title="Inacessíveis">clear</i>
+                                 Inacessíveis: <?php echo count($this->view->ativosOff) ?>
+                             </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
             <div class="card bg-danger text-white">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
                             <h4>
-                                <i class="material-icons" style="font-size: 28px;">share</i>
-                                SNMP
-                                <span class="badge badge-pill badge-light text-danger"><?php echo $this->view->contador->licencas ?></span>
+                                <i class="material-icons" style="font-size: 28px;">clear</i>
+                                Ativos inacessíveis
+                                <span class="badge badge-pill badge-light text-danger">
+                                    <?php echo count($this->view->ativosOff)?>
+                                </span>
                             </h4>
                         </div>
                         <div class="col-md-4 text-right">
-                            <span class="badge badge-pill badge-light text-danger clicavel" title="Ir para Licenças" onclick="location='monitoramento/snmp'">
+                            <span class="badge badge-pill badge-light text-danger clicavel" title="Ver lista" onclick="location='monitoramento/icmp'">
                                 <i class="material-icons" style="font-size: 14px">call_made</i>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div id="body-licenca" class="card-body collapse  bg-white"></div>
+                <div id="body-componente" class="card-body bg-white">
+                    <table class="table table-striped">
+                        <thead class="thead text-dark">
+                        <tr>
+                            <th class="text-center"></th>
+                            <th>Nome do Ativo</th>
+                            <th>IP - Interface de Rede</th>
+                            <th>Execução</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-dark">
+                        <?php foreach ($this->view->ativosOff as $ativoOff) { ?>
+                            <tr>
+                                <td class="text-center">
+                                    <i class='material-icons text-danger' title='Inacessível'>clear</i>
+                                </td>
+                                <td><?php echo $ativoOff->interface_rede->ativo->nome; ?></td>
+                                <td><?php echo $ativoOff->interface_rede->ip; ?></td>
+                                <td><?php echo date('d/m/Y H:i:s',strtotime($ativoOff->updated_at)); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     <br>
+    <br>
 </div>
-<!--</MONITORAMENTO>-->
