@@ -9,4 +9,4 @@ To make the monitoring put in a crontab the follow line
 <br> 0 * * * * root curl http://server.monitor/monitoramento/run
 
 <br><br> Configure the system constants in app/config.php
-<br> The available configurations are SendGrid API , Default System URL, and Boot Telegram API, DB Constants
+<br> The available configurations are SendGrid API , Default System URL, Boot Telegram API and DB Constants
